@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'https://www.frontdeskbd.com/';
-$config['base_url'] = 'http://localhost/fdbbk/';
+$config['base_url'] = 'http://localhost/jobboard/';
 
 //$root = "http://".$_SERVER['HTTP_HOST'];
 //$root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);

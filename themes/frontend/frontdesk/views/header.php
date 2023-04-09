@@ -123,35 +123,36 @@
                          <!-- <li class="nav-item" id="training">
                              <a class="nav-link" href="<?= base_url('auth/applicant_login'); ?>">Login</span></a>
                          </li> -->
-                         <li class="nav-item" id="jobs">
+                         <!-- <li class="nav-item" id="jobs">
                              <a class="nav-link" href="<?= base_url('career'); ?>">Career</span></a>
-                         </li>
+                         </li> -->
                          <!--  <li class="nav-item" id="jobs">
                              <a class="nav-link" href="<?= base_url('jobs'); ?>">Current Job</span></a>
                          </li> -->
 
-                         <!-- <?php
-                                if (isset($_SESSION['member_id'])) {
-                                    // show logout button
-                                    echo '<li class="nav-item has_sub_menu" id="news">
-                                            <a class="nav-link" href="#">User Acoount <i class="fas fa-angle-down"></i></span></a>
+                         <?php
+                            if (isset($_SESSION['member_id'])) {
+                                // show logout button
+                                echo '<li class="nav-item has_sub_menu" id="news">
+                                            <a class="nav-link" href="' . base_url('career') . '">Career <i class="fas fa-angle-down"></i></span></a>
                                             <ul class="list-inline sub_menu">
-                                                <li><a href="' . base_url('personal_information/insert_personal_info') . '">Update Profile</a></li>
+                                                <li><a href="' . base_url('personal_information/insert_personal_info') . '">Update Your Profile Information</a></li>
+                                                <li><a href="' . base_url('jobs') . '">Apply for a Position</a></li>
                                                 <li><a href="' . base_url('jobs/applicant_applied_jobs') . '">My Applied Jobs</a></li>
                                                 <li><a href="' . base_url('personal_information/user_all_data') . '">View My Resume</a></li>
                                                 <li><a href="' . base_url('auth/logout') . '">Logout</a></li>
                                             </ul>
                                       </li>';
-                                } else {
-                                    // show login button
-                                    echo '<li class="nav-item" id="training">
+                            } else {
+                                // show login button
+                                echo '<li class="nav-item" id="training">
                                             <a class="nav-link" href="' . base_url('auth/applicant_login') . '">Login</span></a>
                                       </li>';
-                                    echo '<li class="nav-item" id="training">
+                                echo '<li class="nav-item" id="training">
                                             <a class="nav-link" href="' . base_url('auth/applicant_register') . '">Registration</span></a>
                                       </li>';
-                                }
-                                ?> -->
+                            }
+                            ?>
 
                          <!-- <li class="nav-item has_sub_menu" id="news">
                                 <a class="nav-link" href="#">News & Media <i class="fas fa-angle-down"></i></span></a>

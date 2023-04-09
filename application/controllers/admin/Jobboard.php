@@ -32,18 +32,29 @@ class Jobboard extends MY_Controller
 			$this->db->dbprefix('job_board') . ".positions,DATE_FORMAT( " .
 			$this->db->dbprefix('job_board') . ". last_date,  '%d-%m-%Y' ) as date," .
 			$this->db->dbprefix('job_board') . ".vacancy," .
-			$this->db->dbprefix('company') . ".phone," .
-			// $this->db->dbprefix('apply_job') . ".job_board_id) as applicant_apply_list," .
+			$this->db->dbprefix('company') . ".phone,count(" .
+			$this->db->dbprefix('apply_job') . ".job_board_id) as applicant_apply_list," .
 			$this->db->dbprefix('job_board') . ".home_page," .
 			$this->db->dbprefix('job_board') . ". created_at, ");
 		$this->datatables->from('job_board');
 		$this->datatables->join('company', 'company.id=job_board.companey_id');
-		$this->datatables->join('apply_job', 'apply_job.job_board_id=job_board.id','left');
+		$this->datatables->join('apply_job', 'apply_job.job_board_id=job_board.id', 'left');
+		$this->datatables->group_by('job_board.id,
+		company.name,
+		job_board.positions, 
+		job_board.vacancy, 
+		company.phone, 
+		job_board.home_page, 
+		job_board.created_at, 
+		job_board.companey_id, 
+		job_board.last_date, 
+		');
+		// $this->datatables->group_by('apply_job.');
 		$this->fild = '';
 		if ($this->UserType == 'admin') {
 			$popUp = '"' . site_url('admin/jobboard/details/$1') . '"';
 
-			$this->fild .= "<a href='" . site_url('admin/jobboard/applyjob/$1') . "' title='Apply List' class='tip btn btn-warning btn-xs'><i class='fa fa-tasks'></i></a>";
+			$this->fild .= "<a href='" . site_url('admin/jobboard/applyjob/$1') . "' title='Apply List($2)' class='tip btn btn-warning btn-xs'><i class='fa fa-tasks'></i></a>";
 
 			$this->fild .= "<a class='tip btn btn-primary btn-xs' onclick='popUp(" . $popUp . ")' href='javascript:;' title='View Details'><i class='fa fa-list'></i></a> ";
 
@@ -53,9 +64,10 @@ class Jobboard extends MY_Controller
 		}
 		$this->datatables->add_column("Actions", "<div class='text-center'><div class='btn-group'>
         " . $this->fild . "
-        </div></div>", "id");//, applicant_apply_list");
-		// $this->datatables->unset_column('applicant_apply_list');
+        </div></div>", "id , applicant_apply_list"); //, applicant_apply_list");
+		$this->datatables->unset_column('applicant_apply_list');
 		echo $this->datatables->generate();
+		// $this->db->last_query();
 	}
 	function add()
 	{
@@ -255,16 +267,18 @@ class Jobboard extends MY_Controller
 		$this->load->library('datatables');
 		$this->datatables->select($this->db->dbprefix('apply_job') . ".id as id ," .
 			$this->db->dbprefix('apply_job') . ".user_id as user_id," .
-			$this->db->dbprefix('apply_job') . ".name," .
+			$this->db->dbprefix('personal_info') . ".full_name," .
 			$this->db->dbprefix('apply_job') . ".email," .
-			$this->db->dbprefix('apply_job') . ".phone," .
+			$this->db->dbprefix('personal_info') . ".cell_phone_1," .
 			$this->db->dbprefix('job_board') . ".positions," .
-			$this->db->dbprefix('remember_profile') . ".profile_code," .
-			$this->db->dbprefix('apply_job') . ".attachment," .
+			$this->db->dbprefix('users') . ".applicant_id," .
+			$this->db->dbprefix('resume_uploads') . ".upload_file," .
 			$this->db->dbprefix('apply_job') . ".created_at ");
 		$this->datatables->from('apply_job');
 		//$this->datatables->join('users', 'users.id=apply_job.client_id');
-		$this->datatables->join('remember_profile', 'remember_profile.id=apply_job.profile_id', 'left');
+		$this->datatables->join('personal_info', 'personal_info.user_id=apply_job.user_id', 'left');
+		$this->datatables->join('users', 'users.id=apply_job.user_id', 'left');
+		$this->datatables->join('resume_uploads', 'resume_uploads.user_id=apply_job.user_id', 'left');
 		$this->datatables->join('job_board', 'job_board.id=apply_job.job_board_id', 'left');
 		$this->fild = '';
 		if ($this->UserType == 'admin') {
@@ -287,12 +301,27 @@ class Jobboard extends MY_Controller
 		$this->datatables->unset_column('user_id');
 		//$this->datatables->unset_column('id');
 		echo $this->datatables->generate();
+		$this->db->last_query();
 	}
 	function apply_details($id)
 	{
-		$this->db->select('apply_job.*, remember_profile.profile_code, job_board.positions');
+		$this->db->select('apply_job.*,
+		personal_info.full_name,
+		personal_info.dob, 
+		personal_info.cell_phone_1, 
+		resume_uploads.upload_file, 
+		employment_history.organization_name, 
+		employment_history.designation, 
+		additional_info.present_salary, 
+		additional_info.expected_salary, 
+		users.applicant_id,
+		job_board.positions');
 		$this->db->where('apply_job.id', $id);
-		$this->db->join('remember_profile', 'remember_profile.id=apply_job.profile_id', 'left');
+		$this->db->join('users', 'users.id=apply_job.user_id', 'left');
+		$this->db->join('personal_info', 'personal_info.user_id=apply_job.user_id', 'left');
+		$this->db->join('resume_uploads', 'resume_uploads.user_id=apply_job.user_id', 'left');
+		$this->db->join('employment_history', 'employment_history.user_id=apply_job.user_id', 'left');
+		$this->db->join('additional_info', 'additional_info.user_id=apply_job.user_id', 'left');
 		$this->db->join('job_board', 'job_board.id=apply_job.job_board_id', 'left');
 		$q = $this->db->get('apply_job');
 		if ($q->num_rows() > 0) {

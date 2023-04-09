@@ -162,6 +162,7 @@ $(document).ready(function () {
                 <option value="Sylhet">Sylhet</option>
                 <option value="Chittagong">Chittagong</option>
                 <option value="Dinajpur">Dinajpur</option>
+                <option value="Other">Other</option>
             </select>
             <div class="invalid-feedback">
                 Please select Board .
@@ -193,7 +194,7 @@ $(document).ready(function () {
     </td>
     <td>
         <div class="table_input_area">
-            <input required type="number" class="form-control" name="result[]" placeholder="Result" />
+            <input required type="text" class="form-control" name="result[]" placeholder="Result" />
             <div class="invalid-feedback">
                 Please Enter result.
             </div>
@@ -476,33 +477,33 @@ $(document).ready(function () {
     });
 
     //Skill tab add remove functionality
-    const skillHtml = `<tr class="vertical-center">
-  <td>
-      <div class="table_input_area">
-          <input type="text" name="key_skill[]" class="form-control" placeholder="Skill 1" />
-      </div>
-  </td>
-  <td>
-      <div class="table_input_area">
-          <input type="text" name="key_skill[]" class="form-control" placeholder="Skill 2" />
-      </div>
-  </td>
-  <td>
-      <div class="table_input_area">
-          <input type="text" name="key_skill[]" class="form-control" placeholder="Skill 3" />
-      </div>
-  </td>
-  <td>
-      <div class="table_input_area">
-          <input type="text" name="key_skill[]" class="form-control" placeholder="Skill 4" />
-      </div>
-  </td>
+    const skillHtml = ` <tr class="vertical-center">
+    <td>
+        <div class="table_input_area">
+            <input type="text" name="key_skill1[]" class="form-control" placeholder="Skill 1" />
+        </div>
+    </td>
+    <td>
+        <div class="table_input_area">
+            <input type="text" name="key_skill2[]" class="form-control" placeholder="Skill 2" />
+        </div>
+    </td>
+    <td>
+        <div class="table_input_area">
+            <input type="text" name="key_skill3[]" class="form-control" placeholder="Skill 3" />
+        </div>
+    </td>
+    <td>
+        <div class="table_input_area">
+            <input type="text" name="key_skill4[]" class="form-control" placeholder="Skill 4" />
+        </div>
+    </td>
 
-  <td>
-      <button type="button" class="delete_icon" id="skillRemove">
-          <i class="fa-regular fa-trash-can"></i>
-      </button>
-  </td>
+    <td>
+        <button type="button" class="delete_icon" id="skillRemove">
+            <i class="fa-regular fa-trash-can"></i>
+        </button>
+    </td>
 </tr>`;
     $("#skillAdd").click(function () {
         addNewRow("#skillTable tbody", skillHtml);
@@ -513,33 +514,33 @@ $(document).ready(function () {
     });
 
     //Computer tab add remove functionality
-    const computerHtml = `tr class="vertical-center">
-  <td>
-      <div class="table_input_area">
-          <input type="text" name="computer_skill[]" class="form-control" placeholder="Skill 1" />
-      </div>
-  </td>
-  <td>
-      <div class="table_input_area">
-          <input type="text" name="computer_skill[]" class="form-control" placeholder="Skill 2" />
-      </div>
-  </td>
-  <td>
-      <div class="table_input_area">
-          <input type="text" name="computer_skill[]" class="form-control" placeholder="Skill 3" />
-      </div>
-  </td>
-  <td>
-      <div class="table_input_area">
-          <input type="text" name="computer_skill[]" class="form-control" placeholder="Skill 4" />
-      </div>
-  </td>
+    const computerHtml = ` <tr class="vertical-center">
+    <td>
+        <div class="table_input_area">
+            <input type="text" name="computer_skill1[]" class="form-control" placeholder="Skill 1" />
+        </div>
+    </td>
+    <td>
+        <div class="table_input_area">
+            <input type="text" name="computer_skill2[]" class="form-control" placeholder="Skill 2" />
+        </div>
+    </td>
+    <td>
+        <div class="table_input_area">
+            <input type="text" name="computer_skill3[]" class="form-control" placeholder="Skill 3" />
+        </div>
+    </td>
+    <td>
+        <div class="table_input_area">
+            <input type="text" name="computer_skill4[]" class="form-control" placeholder="Skill 4" />
+        </div>
+    </td>
 
-  <td>
-      <button type="button" class="delete_icon" id="computerRemove">
-          <i class="fa-regular fa-trash-can"></i>
-      </button>
-  </td>
+    <td>
+        <button type="button" class="delete_icon" id="computerRemove">
+            <i class="fa-regular fa-trash-can"></i>
+        </button>
+    </td>
 </tr>`;
     $("#computerAdd").click(function () {
         addNewRow("#computerTable tbody", computerHtml);

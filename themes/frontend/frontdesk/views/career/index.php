@@ -66,22 +66,37 @@
         </div>
     </section>
 
-    <h1 class="text-center" style="color:aquamarine">Welcome to Bitopi Group</h1>
-    <h2 class="text-center pt-3">Build your dream career with us!</h2>
+    <h1 class="text-center" style="color:aquamarine">Hello! <span><?= $this->session->userdata('username'); ?></span>, Welcome to Bitopi Group</h1>
+    <h2 class="text-center pt-3 pb-3">Build your dream career with us!</h2>
 
-    <ul class="a">
+    <ul class="a container">
         <?php if ($error) { ?>
-            <div class="col-md-6 alert alert-danger alert-dismissable">
+            <div class="alert alert-danger alert-dismissable">
                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <!-- <h4><i class="icon fas fa-ban"></i>
+                    <?= lang('error'); ?>
+                </h4> -->
                 <?= $error; ?>
             </div>
         <?php }
-        if ($message) { ?>
-            <div class="col-md-6 alert alert-success alert-dismissable">
+        if ($warning) { ?>
+            <div class="alert alert-warning alert-dismissable">
                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <!-- <h4><i class="icon fas fa-warning"></i>
+                    <?= lang('warning'); ?>
+                </h4> -->
+                <?= $warning; ?>
+            </div>
+        <?php }
+        if ($message) { ?>
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <h4> <i class="icon fas fa-check"></i>
+                    <?= lang('Success'); ?>
+                </h4>
                 <?= $message; ?>
             </div>
-        <?php } ?>
+        <?php }  ?>
 
         <?php
         if (isset($_SESSION['member_id'])) { ?>
@@ -100,20 +115,20 @@
                         $personal_info->permanent_address != null
                     ) { ?>
                         <button class=" btn btn-dark nav-item m-3">
-                            <a class="nav-link" href="<?= base_url('personal_information/insert_personal_info'); ?>">Update your profile information</span></a>
+                            <a class="nav-link" href="<?= base_url('personal_information/insert_personal_info'); ?>">Update Your Profile Information</span></a>
                         </button>
                         <button class=" btn btn-dark nav-item m-3">
                             <a class="nav-link" href="<?= base_url('jobs'); ?>">Apply for a Position</span></a>
                         </button>
                     <?php } else { ?>
                         <button class=" btn btn-dark nav-item m-3">
-                            <a class="nav-link" href="<?= base_url('personal_information/insert_personal_info'); ?>">Add your profile information</span></a>
+                            <a class="nav-link" href="<?= base_url('personal_information/insert_personal_info'); ?>">Add Your Profile Information</span></a>
 
                         </button>
                     <?php } ?>
                 <?php } else { ?>
                     <button class=" btn btn-dark nav-item m-3">
-                        <a class="nav-link" href="<?= base_url('personal_information/insert_personal_info'); ?>">Add your profile information</span></a>
+                        <a class="nav-link" href="<?= base_url('personal_information/insert_personal_info'); ?>">Add Your Profile Information</span></a>
 
                     </button>
                 <?php } ?>

@@ -12,8 +12,7 @@
     <link href="<?= $assets ?>plugins/iCheck/square/green.css" rel="stylesheet" type="text/css" />
     <link href="<?= $assets ?>plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= $assets ?>plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="<?= $assets ?>plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
-        type="text/css" />
+    <link href="<?= $assets ?>plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= $assets ?>plugins/redactor/redactor.css" rel="stylesheet" type="text/css" />
     <link href="<?= $assets ?>dist/css/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link href="<?= $assets ?>dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
@@ -49,22 +48,18 @@
                         <li class="hidden-xs"><a href="<?= site_url('admin'); ?>"><i class="fa fa-dashboard"></i></a>
                         </li>
                         <?php if ($UserType == 'admin') { ?>
-                        <li class="hidden-xs"><a href="<?= site_url('admin/settings'); ?>"><i
-                                    class="fa fa-cogs"></i></a>
-                        </li>
+                            <li class="hidden-xs"><a href="<?= site_url('admin/settings'); ?>"><i class="fa fa-cogs"></i></a>
+                            </li>
                         <?php } ?>
                         <li><a href="#"><i class="fa fa-bell" aria-hidden="true"></i></a></li>
                         <li class="dropdown user user-menu" style="padding-right:5px;">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?= base_url('uploads/avatars/thumbs/' . ($this->session->userdata('avatar') ? $this->session->userdata('avatar') : $this->session->userdata('gender') . '.png')) ?>"
-                                    class="user-image" alt="Avatar" />
-                                <span
-                                    class="hidden-xs"><?= $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name'); ?></span>
+                                <img src="<?= base_url('uploads/avatars/thumbs/' . ($this->session->userdata('avatar') ? $this->session->userdata('avatar') : $this->session->userdata('gender') . '.png')) ?>" class="user-image" alt="Avatar" />
+                                <span class="hidden-xs"><?= $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name'); ?></span>
                             </a>
                             <ul class="dropdown-menu" style="padding-right:3px;">
                                 <li class="user-header">
-                                    <img src="<?= base_url('uploads/avatars/' . ($this->session->userdata('avatar') ? $this->session->userdata('avatar') : $this->session->userdata('gender') . '.png')) ?>"
-                                        class="img-circle" alt="Avatar" />
+                                    <img src="<?= base_url('uploads/avatars/' . ($this->session->userdata('avatar') ? $this->session->userdata('avatar') : $this->session->userdata('gender') . '.png')) ?>" class="img-circle" alt="Avatar" />
                                     <p>
                                         <?= $this->session->userdata('email'); ?>
                                         <small><?= lang('member_since') . ' ' . $this->session->userdata('created_on'); ?></small>
@@ -72,8 +67,7 @@
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="<?= site_url('users/profile/' . $this->session->userdata('user_id')); ?>"
-                                            class="btn btn-default btn-flat">Profile</a>
+                                        <a href="<?= site_url('users/profile/' . $this->session->userdata('user_id')); ?>" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="<?= site_url('logout'); ?>" class="btn btn-default btn-flat">Sign
@@ -102,8 +96,7 @@
                             <li id="auth_users"><a href="<?= site_url('users'); ?>"><i class="fa fa-circle-o"></i>
                                     <?= lang('Admin_Users'); ?>
                                 </a></li>
-                            <li id="auth_create_user"><a href="<?= site_url('users/add'); ?>"><i
-                                        class="fa fa-circle-o"></i>
+                            <li id="auth_create_user"><a href="<?= site_url('users/add'); ?>"><i class="fa fa-circle-o"></i>
                                     <?= lang('Add_Admin_User'); ?>
                                 </a></li>
                             <!-- <li id="auth_company"><a href="<?= site_url('company'); ?>"><i class="fa fa-circle-o"></i> <?= lang('Company List'); ?> </a></li>
@@ -167,23 +160,34 @@
                             <span> <?= lang('Jobboard'); ?></span>
                             <i class="fa fa-angle-left pull-right"></i> </a>
                         <ul class="treeview-menu">
-                            <li id="jobboard_index"><a href="<?= site_url('admin/jobboard'); ?>"><i
-                                        class="fa fa-circle-o"></i>
+                            <li id="jobboard_index"><a href="<?= site_url('admin/jobboard'); ?>"><i class="fa fa-circle-o"></i>
                                     <?= lang('Jobs list'); ?>
                                 </a></li>
-                            <li id="jobboard_add"><a href="<?= site_url('admin/jobboard/add'); ?>"><i
-                                        class="fa fa-circle-o"></i><?= lang('Add New Job'); ?>
+                            <li id="jobboard_add"><a href="<?= site_url('admin/jobboard/add'); ?>"><i class="fa fa-circle-o"></i><?= lang('Add New Job'); ?>
                                 </a></li>
-                            <li id="jobboard_category"><a href="<?= site_url('admin/jobboard/category'); ?>"><i
-                                        class="fa fa-circle-o"></i><?= lang('Category'); ?>
-                            <li id="jobboard_job_type"><a href="<?= site_url('admin/jobboard/job_type'); ?>"><i
-                                        class="fa fa-circle-o"></i><?= lang('Job Type'); ?>
-                            <li id="jobboard_minimum_requirement"><a
-                                    href="<?= site_url('admin/jobboard/minimum_requirement'); ?>"><i
-                                        class="fa fa-circle-o"></i><?= lang('Minimum requirement'); ?>
+                            <li id="jobboard_category"><a href="<?= site_url('admin/jobboard/category'); ?>"><i class="fa fa-circle-o"></i><?= lang('Category'); ?>
+                            <li id="jobboard_job_type"><a href="<?= site_url('admin/jobboard/job_type'); ?>"><i class="fa fa-circle-o"></i><?= lang('Job Type'); ?>
+                            <li id="jobboard_minimum_requirement"><a href="<?= site_url('admin/jobboard/minimum_requirement'); ?>"><i class="fa fa-circle-o"></i><?= lang('Minimum requirement'); ?>
                                 </a></li>
                         </ul>
                     </li>
+                    <li class="treeview mm_slider">
+                        <a href="#"><i class="fa fa-sliders" aria-hidden="true"></i>
+                            <span>
+                                <?= lang('Slider'); ?>
+                            </span>
+                            <i class="fa fa-angle-left pull-right"></i> </a>
+
+                        <ul class="treeview-menu">
+                            <li id="slider_index"><a href="<?= site_url('admin/slider/'); ?>"><i class="fa fa-circle-o"></i>
+                                    <?= lang('Slider_List'); ?>
+                                </a></li>
+                            <li id="slider_add"><a href="<?= site_url('admin/slider/add'); ?>"><i class="fa fa-circle-o"></i>
+                                    <?= lang('Add_Slider'); ?>
+                                </a></li>
+                        </ul>
+                    </li>
+
                     <!-- <li class="treeview mm_trainingprogram">
                         <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>
 
@@ -338,8 +342,7 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li id="settings_index"><a href="<?= site_url('admin/settings'); ?>"><i
-                                        class="fa fa-circle-o"></i>
+                            <li id="settings_index"><a href="<?= site_url('admin/settings'); ?>"><i class="fa fa-circle-o"></i>
                                     Settings </a></li>
                         </ul>
                     </li>
@@ -374,24 +377,24 @@
                     </div>
                 </div>
                 <?php if ($error) { ?>
-                <div class="alert alert-danger alert-dismissable">
-                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    <h4><i class="icon fa fa-ban"></i> <?= lang('error'); ?></h4>
-                    <?= $error; ?>
-                </div>
+                    <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> <?= lang('error'); ?></h4>
+                        <?= $error; ?>
+                    </div>
                 <?php }
                 if ($warning) { ?>
-                <div class="alert alert-warning alert-dismissable">
-                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    <h4><i class="icon fa fa-warning"></i> <?= lang('warning'); ?></h4>
-                    <?= $warning; ?>
-                </div>
+                    <div class="alert alert-warning alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-warning"></i> <?= lang('warning'); ?></h4>
+                        <?= $warning; ?>
+                    </div>
                 <?php }
                 if ($message) { ?>
-                <div class="alert alert-success alert-dismissable">
-                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    <h4> <i class="icon fa fa-check"></i> <?= lang('Success'); ?></h4>
-                    <?= $message; ?>
-                </div>
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4> <i class="icon fa fa-check"></i> <?= lang('Success'); ?></h4>
+                        <?= $message; ?>
+                    </div>
                 <?php } ?>
             </div>

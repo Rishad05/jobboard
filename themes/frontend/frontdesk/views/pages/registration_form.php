@@ -70,7 +70,7 @@
         <section class="sign_up_wrapper d-flex align-items-center justify-content-center flex-column">
             <div class="text-center mb-4">
                 <h1 class="text-center" style="color:aquamarine">Applicant Registration</h1>
-                <h3 class="text-center pt-3">Please compleate the bellow form to create an applicant account</h3>
+                <h3 class="text-center pt-3">Please complete the below form to create an applicant account</h3>
                 <!-- <a href="<?= base_url(); ?>"><?= $Settings->site_name == 'SimplePOS' ? 'Simple<b>POS</b>' : '<img src="' . base_url('uploads/' . $Settings->logo) . '" alt="' . $Settings->site_name . '" width="350" />'; ?></a> -->
             </div>
             <?php if ($error) { ?>
@@ -120,7 +120,7 @@
             <div class="have_account_area mt-3">
                 <h4>
                     If you have an account.
-                    <a href="<?= base_url('auth/applicant_login') ?>">Click Here </a>
+                    <a href="<?= base_url('auth/applicant_login') ?>">Click Here </a> to Login
                 </h4>
             </div>
             <?php echo form_close(); ?>

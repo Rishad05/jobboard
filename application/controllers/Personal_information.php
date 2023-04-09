@@ -2,12 +2,14 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
 class Personal_information extends MY_Controller
 {
     function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
+        // $this->load->library('pdf');
         $this->load->helper('form');
         $this->load->helper('inflector');
         $this->load->helper('array');
@@ -23,7 +25,7 @@ class Personal_information extends MY_Controller
     public function insert_personal_info()
     {
 
-        $this->form_validation->set_rules('full_name', 'Full Name', 'required');
+        // $this->form_validation->set_rules('full_name', 'Full Name', 'required');
         $this->form_validation->set_rules('dob', 'Date Of Birth', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('blood_group', 'Blood Group ', 'required');
@@ -36,6 +38,8 @@ class Personal_information extends MY_Controller
         $this->form_validation->set_rules('present_address', 'Present Address', 'required');
         $this->form_validation->set_rules('permanent_address', 'Permanent Address', 'required');
         $this->form_validation->set_rules('marital_status', 'Marital Status', 'required');
+        $user_name = $this->session->userdata('username');
+
         $user_id = $this->session->userdata('member_id');
         $email = $this->session->userdata('email');
         // echo "<pre>";
@@ -51,7 +55,7 @@ class Personal_information extends MY_Controller
         if ($this->form_validation->run() == true) {
             $data = array(
 
-                'full_name' => $this->input->post('full_name'),
+                'full_name' => $user_name,
                 'dob'         => $this->input->post('dob'),
                 'gender'         => $this->input->post('gender'),
                 'blood_group'     => $this->input->post('blood_group'),
@@ -135,6 +139,8 @@ class Personal_information extends MY_Controller
             foreach ($acadamic as $item) {
                 $this->db->insert('acadamic_info', $item);
             }
+
+
             //employment history
             $i = isset($_POST['organization_name']) ? sizeof($_POST['organization_name']) : 0;
             for ($r = 0; $r < $i; $r++) {
@@ -236,18 +242,24 @@ class Personal_information extends MY_Controller
 
 
             //key skills
-            $i = isset($_POST['key_skill']) ? sizeof($_POST['key_skill']) : 0;
+            $i = isset($_POST['key_skill1']) ? sizeof($_POST['key_skill1']) : 0;
             for ($r = 0; $r < $i; $r++) {
-                $key_skill = $_POST['key_skill'][$r];
+                $key_skill1 = $_POST['key_skill1'][$r];
+                $key_skill2 = $_POST['key_skill2'][$r];
+                $key_skill3 = $_POST['key_skill3'][$r];
+                $key_skill4 = $_POST['key_skill4'][$r];
                 $user_id = $this->session->userdata('member_id');
 
-                // if (isset($key_skill) && $user_id > 0) {
+
                 $key_skills[] = array(
                     'user_id' => $user_id,
-                    'key_skill' => $key_skill,
+                    'key_skill1' => $key_skill1,
+                    'key_skill2' => $key_skill2,
+                    'key_skill3' => $key_skill3,
+                    'key_skill4' => $key_skill4
                 );
-                // }
             }
+
             if (count($key_skills) > 0) {
                 $this->db->where('user_id', $user_id)->delete("key_skills");
             }
@@ -256,17 +268,22 @@ class Personal_information extends MY_Controller
             }
 
             //computer skills
-            $i = isset($_POST['computer_skill']) ? sizeof($_POST['computer_skill']) : 0;
+            $i = isset($_POST['computer_skill1']) ? sizeof($_POST['computer_skill1']) : 0;
             for ($r = 0; $r < $i; $r++) {
-                $computer_skill = $_POST['computer_skill'][$r];
+                $computer_skill1 = $_POST['computer_skill1'][$r];
+                $computer_skill2 = $_POST['computer_skill2'][$r];
+                $computer_skill3 = $_POST['computer_skill3'][$r];
+                $computer_skill4 = $_POST['computer_skill4'][$r];
                 $user_id = $this->session->userdata('member_id');
 
-                // if (isset($computer_skill) && $user_id > 0) {
+
                 $computer_skills[] = array(
                     'user_id' => $user_id,
-                    'computer_skill' => $computer_skill,
+                    'computer_skill1' => $computer_skill1,
+                    'computer_skill2' => $computer_skill2,
+                    'computer_skill3' => $computer_skill3,
+                    'computer_skill4' => $computer_skill4
                 );
-                // }
             }
             if (count($computer_skills) > 0) {
                 $this->db->where('user_id', $user_id)->delete("computer_skills");
@@ -314,6 +331,13 @@ class Personal_information extends MY_Controller
                 $ref_email = $_POST['ref_email'][$r];
                 $ref_phone = $_POST['ref_phone'][$r];
                 $ref_relation = $_POST['ref_relation'][$r];
+                $ref_name2 = $_POST['ref_name2'][$r];
+                $ref_degignation2 = $_POST['ref_degignation2'][$r];
+                $ref_organization2 = $_POST['ref_organization2'][$r];
+                $mailing_address2 = $_POST['mailing_address2'][$r];
+                $ref_email2 = $_POST['ref_email2'][$r];
+                $ref_phone2 = $_POST['ref_phone2'][$r];
+                $ref_relation2 = $_POST['ref_relation2'][$r];
                 $user_id = $this->session->userdata('member_id');
 
                 // if (isset($ref_name) && isset($ref_degignation) && isset($ref_organization) && isset($ref_email) && isset($ref_phone) && isset($ref_relation) && isset($user_id) > 0) {
@@ -326,6 +350,13 @@ class Personal_information extends MY_Controller
                     'ref_email' => $ref_email,
                     'ref_phone' => $ref_phone,
                     'ref_relation' => $ref_relation,
+                    'ref_name2' => $ref_name2,
+                    'ref_degignation2' => $ref_degignation2,
+                    'ref_organization2' => $ref_organization2,
+                    'mailing_address2' => $mailing_address2,
+                    'ref_email2' => $ref_email2,
+                    'ref_phone2' => $ref_phone2,
+                    'ref_relation2' => $ref_relation2,
                 );
                 // }
             }
@@ -337,6 +368,12 @@ class Personal_information extends MY_Controller
             }
 
             //additional info
+
+            $this->data['additional_info'] = $this->db->select('*')->from('additional_info')->where('user_id', $user_id)->get()->row();
+
+            if (!$this->data['additional_info']) {
+                $createNewRowForThisUser = $this->db->insert('additional_info', ["user_id" => $user_id]);
+            }
             $additional_data = array(
                 'job_location_preference' => $this->input->post('job_location_preference'),
                 'location_name'         => $this->input->post('location_name'),
@@ -347,10 +384,11 @@ class Personal_information extends MY_Controller
                 'any_relatives'         => $this->input->post('any_relatives'),
                 'any_relatives'         => $this->input->post('any_relatives'),
                 'perviously_interview'         => $this->input->post('perviously_interview'),
-                'user_id' => $user_id,
+                // 'user_id' => $user_id,
             );
-            
-            $this->db->insert('additional_info', $additional_data);
+
+            // $this->db->insert('additional_info', $additional_data);
+            $updatePersonalInfo = $this->db->where('user_id', $user_id)->update("additional_info", $additional_data);
 
             //relatives
             $i = isset($_POST['name_relative']) ? sizeof($_POST['name_relative']) : 0;
@@ -439,10 +477,20 @@ class Personal_information extends MY_Controller
             // $this->db->insert('resume_uploads', $upload_resume);
 
 
-            $this->session->set_flashdata('message', 'Updated Applicant Info');
-            redirect("jobs");
+            $this->session->set_flashdata('message', 'Your Profile Information is Updated');
+            redirect("career");
         } else {
             $this->data['resume_upload'] = $this->db->select('*')->from('resume_uploads')->where('user_id', $user_id)->get()->row();
+            $this->data['acadamic_info'] =  $this->db->select('*')->from('acadamic_info')->where('user_id', $user_id)->get()->result();
+            $this->data['employment_history'] =  $this->db->select('*')->from('employment_history')->where('user_id', $user_id)->get()->result();
+            $this->data['training_info'] =  $this->db->select('*')->from('training_info')->where('user_id', $user_id)->get()->result();
+            $this->data['professional_qualification'] =  $this->db->select('*')->from('professional_qualification')->where('user_id', $user_id)->get()->result();
+            $this->data['key_skills'] =  $this->db->select('*')->from('key_skills')->where('user_id', $user_id)->get()->result();
+            $this->data['computer_skills'] =  $this->db->select('*')->from('computer_skills')->where('user_id', $user_id)->get()->result();
+            $this->data['language_proficincy'] =  $this->db->select('*')->from('language_proficincy')->where('user_id', $user_id)->get()->result();
+            $this->data['references'] =  $this->db->select('*')->from('references')->where('user_id', $user_id)->get()->result();
+            $this->data['additional_info'] =  $this->db->select('*')->from('additional_info')->where('user_id', $user_id)->get()->result();
+
             $this->data['page_title'] = 'Applicant Personal Info';
 
             $bc = array(
@@ -658,7 +706,7 @@ class Personal_information extends MY_Controller
             'bc' => $bc,
         );
         // $this->data['frontend_asset'] 
-        $html =  $this->load->view($this->frontend_theme .'applicant_resume/resume_pdf', $this->data, true);
+        $html =  $this->load->view($this->frontend_theme . 'applicant_resume/resume_pdf', $this->data, true);
         // $html =  $this->frontend_construct('applicant_resume/resume', $this->data);
         // echo $html;
         // die;

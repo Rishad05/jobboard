@@ -20,9 +20,14 @@
 </head>
 
 <body>
+
+
     <?php
-    $start_year = 1980;
-    $range = range($start_year, date("Y"));
+    // echo "<pre>";
+    // print_r($acadamic_info);
+    // die;
+    $start_year = date("Y");
+    $range = range($start_year, 1980);
 
     ?>
     <section class="sub_header_sec">
@@ -160,8 +165,12 @@
                                                     <div class="change_icon">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </div>
-                                                    <?php if ($personal_info->applicant_photo ?? '') { ?>
+
+                                                    <?php
+                                                    if ($personal_info->applicant_photo && $personal_info->applicant_photo != null) { ?>
                                                         <img id="previewImage" src="<?= base_url('uploads/') . $personal_info->applicant_photo ?? ''; ?>" width="160">
+                                                    <?php } else { ?>
+                                                        <img id="previewImage" src="<?= $frontend_assets; ?>images/default-user-image.png" width="160">
                                                     <?php } ?>
                                                 </div>
                                             </label>
@@ -179,7 +188,7 @@
                                                         <!-- <span class="label_helper">(Block Letter)</span> -->
                                                         <span class="star">*</span>
                                                     </label>
-                                                    <input type="text" name="full_name" class=" form-control" id="fullName" required placeholder="Enter full Name" value="<?= $personal_info->full_name ?? '' ?>" />
+                                                    <input type="text" name="full_name" class=" form-control" id="fullName" readonly required placeholder="Enter full Name" value="<?= $this->session->userdata('username') ?>" />
                                                     <span class="error-massage"><?= form_error('full_name'); ?></span>
                                                     <div class="invalid-feedback">
                                                         Please enter full name
@@ -241,7 +250,7 @@
 
                                                                 <span class="star">*</span>
                                                             </label>
-                                                            <?= form_input('email', $this->session->userdata('email'), 'class="form-control tip" id="email" '); ?>
+                                                            <?= form_input('email', $this->session->userdata('email'), 'class="form-control tip" id="email" readonly="true"'); ?>
                                                             <div class="invalid-feedback">
                                                                 Please Enter email
                                                             </div>
@@ -407,6 +416,7 @@
                                                     <label for="FatherProfession">Father's Profession
                                                     </label>
                                                     <input type="text" name="father_profession" value="<?= $personal_info->father_profession ?? '' ?>" class=" form-control" id="FatherProfession" placeholder="Enter Father's Profession " />
+                                                    <span class="error-massage"><?= form_error('father_profession'); ?></span>
                                                     <div class="invalid-feedback">
                                                         Please Enter Father's Profession
                                                     </div>
@@ -505,137 +515,291 @@
                                                             </th>
                                                         </tr>
                                                     </thead>
+                                                    <?php
+                                                    $education_lavels = array("ssc" => "SSC", "hsc" => "HSC", "under graduate" => "Under Graduate", "graduate" => "Graduate");
+                                                    ?>
                                                     <tbody>
-                                                        <tr class="vertical-center">
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select required class="custom-select" name="education_lavel[]" id="genderSelect">
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <option value="ssc">SSC</option>
-                                                                        <option value="hsc">HSC</option>
-                                                                        <option value="under graduate">Under Graduate</option>
-                                                                        <option value="graduate">Graduate</option>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Education Level.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select required class="custom-select" name="degree[]" id="genderSelect">
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <option value="Secondary School Certificate">
-                                                                            Secondary School Certificate</option>
-                                                                        <option value=" Higher Secondary School Certificate">
-                                                                            Higher Secondary School Certificate</option>
-                                                                        <option value="Bechelor">
-                                                                            Bechelor</option>
-                                                                        <option value="Masters ">
-                                                                            Masters</option>
+                                                        <?php if ($acadamic_info > 0 && $acadamic_info != null) {
+                                                            foreach ($acadamic_info as $key => $info) { ?>
 
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Degree.
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+
+                                                                            <select required class="custom-select" name="education_lavel[]" id="MaritialStatus">
+                                                                                <option disabled>
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($education_lavels as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $info->education_lavel ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Education Level.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $education_degrees = array("Secondary School Certificate" => "Secondary School Certificate", "Higher Secondary School Certificate" => "Higher Secondary School Certificate", "Bechelor" => "Bechelor", "Masters" => "Masters");
+                                                                            ?>
+                                                                            <select required class="custom-select" name="degree[]" id="MaritialStatus">
+                                                                                <option disabled>
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($education_degrees as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $info->degree ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Degree.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <select required class="custom-select" name="passing_year[]" id="genderSelect">
+                                                                                <option selected disabled value="">Choose...</option>
+                                                                                <?php foreach ($range as $key => $value) { ?>
+                                                                                    <option value="<?php echo $value; ?>" <?= $value == $info->passing_year ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Board .
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $education_boards = array(
+                                                                                "Barisal" => "Barisal",
+                                                                                "Cumilla" => "Cumilla",
+                                                                                "Dhaka" => "Dhaka",
+                                                                                "Jessore" => "Jessore",
+                                                                                "Mymensingh" => "Mymensingh",
+                                                                                "Rajshahi" => "Rajshahi",
+                                                                                "Sylhet" => "Sylhet",
+                                                                                "Chittagong" => "Chittagong",
+                                                                                "Dinajpur" => "Dinajpur",
+                                                                                "Other" => "Other",
+                                                                            );
+                                                                            ?>
+                                                                            <select required class="custom-select" name="board[]" id="MaritialStatus">
+                                                                                <option selected disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($education_boards as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $info->board ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Board .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input required type="text" class="form-control" value="<?= $info->name_of_institution ?>" name="name_of_institution[]" placeholder="institution name" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Institution name.
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $education_majors = array(
+                                                                                "Science" => "Science",
+                                                                                "Commerce" => "Commerce",
+                                                                                "Arts" => "Arts",
+                                                                            );
+                                                                            ?>
+                                                                            <select required class="custom-select" name="major[]" id="MaritialStatus">
+                                                                                <option selected disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($education_majors as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $info->major ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Concentration.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input required type="text" class="form-control" value="<?= $info->result ?>" name="result[]" placeholder="Result" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter result.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input required type="number" class="form-control" value="<?= $info->result_out_of ?>" name="result_out_of[]" placeholder="Result" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter result.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="academicRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+
+
+
+                                                            <tr class="vertical-center">
+                                                                <td>
+                                                                    <div class="table_input_area">
+
+                                                                        <select required class="custom-select" name="education_lavel[]" id="MaritialStatus">
+                                                                            <option disabled>
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($education_lavels as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Education Level.
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select required class="custom-select" name="passing_year[]" id="genderSelect">
-                                                                        <option selected disabled value="">Choose...</option>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $education_degrees = array("Secondary School Certificate" => "Secondary School Certificate", "Higher Secondary School Certificate" => "Higher Secondary School Certificate", "Bechelor" => "Bechelor", "Masters" => "Masters");
+                                                                        ?>
+                                                                        <select required class="custom-select" name="degree[]" id="MaritialStatus">
+                                                                            <option disabled>
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($education_degrees as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Degree.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <select required class="custom-select" name="passing_year[]" id="genderSelect">
+                                                                            <option selected disabled value="">Choose...</option>
                                                                             <?php foreach ($range as $key => $value) { ?>
                                                                                 <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Board .
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Board .
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select class="custom-select" name="board[]" id="genderSelect">
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <option value="Barisal">Barisal</option>
-                                                                        <option value="Cumilla">Cumilla</option>
-                                                                        <option value="Dhaka">Dhaka</option>
-                                                                        <option value="Jessore">Jessore</option>
-                                                                        <option value="Mymensingh">Mymensingh</option>
-                                                                        <option value="Rajshahi">Rajshahi</option>
-                                                                        <option value="Sylhet">Sylhet</option>
-                                                                        <option value="Chittagong">Chittagong</option>
-                                                                        <option value="Dinajpur">Dinajpur</option>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Board .
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $education_boards = array(
+                                                                            "Barisal" => "Barisal",
+                                                                            "Cumilla" => "Cumilla",
+                                                                            "Dhaka" => "Dhaka",
+                                                                            "Jessore" => "Jessore",
+                                                                            "Mymensingh" => "Mymensingh",
+                                                                            "Rajshahi" => "Rajshahi",
+                                                                            "Sylhet" => "Sylhet",
+                                                                            "Chittagong" => "Chittagong",
+                                                                            "Dinajpur" => "Dinajpur",
+                                                                            "Other" => "Other",
+                                                                        );
+                                                                        ?>
+                                                                        <select required class="custom-select" name="board[]" id="MaritialStatus">
+                                                                            <option selected disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($education_boards as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Board .
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input required type="text" class="form-control" name="name_of_institution[]" placeholder="institution name" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Institution name.
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input required type="text" class="form-control" name="name_of_institution[]" placeholder="institution name" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Institution name.
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <!-- <div class="table_input_area">
-                                                                    <select required class="custom-select" name="name_of_institution[]" id="genderSelect">
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <option value="BRAC University">BRAC University</option>
-                                                                        <option value="North South University">North South University</option>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Institution .
+
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $education_majors = array(
+                                                                            "Science" => "Science",
+                                                                            "Commerce" => "Commerce",
+                                                                            "Arts" => "Arts",
+                                                                        );
+                                                                        ?>
+                                                                        <select required class="custom-select" name="major[]" id="MaritialStatus">
+                                                                            <option selected disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($education_majors as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Concentration.
+                                                                        </div>
                                                                     </div>
-                                                                </div> -->
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select required class="custom-select" name="major[]" id="genderSelect">
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <option value="Science">Science</option>
-                                                                        <option value="Commerce">Commerce</option>
-                                                                        <option value="Arts">Arts</option>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Concentration.
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input required type="text" class="form-control" name="result[]" placeholder="Result" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter result.
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input required type="number" class="form-control" name="result[]" placeholder="Result" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter result.
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input required type="number" class="form-control" name="result_out_of[]" placeholder="Result" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter result.
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input required type="number" class="form-control" name="result_out_of[]" placeholder="Result" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter result.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="delete_icon" id="academicRemove">
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="delete_icon" id="academicRemove">
+                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+
+
+
+
+                                                        <?php } ?>
 
                                                     </tbody>
                                                 </table>
@@ -687,108 +851,252 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="vertical-center">
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="organization_name[]" placeholder="Organization's Name" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Organization's Name.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="address[]" placeholder="Address" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Address.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                        <?php if ($employment_history > 0 && $employment_history != null) {
+                                                            foreach ($employment_history as $key => $history) { ?>
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" value="<?= $history->organization_name ?>" name="organization_name[]" placeholder="Organization's Name" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Organization's Name.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" value="<?= $history->address ?>" name="address[]" placeholder="Address" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Address.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
 
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select class="custom-select" name="industry_type[]" id="genderSelect">
-                                                                        <option>
-                                                                            Choose...
-                                                                        </option>
-                                                                        <option value="IT">IT</option>
-                                                                        <option value="Group of company">Group of company</option>
-                                                                        <option value="Garments">Garments</option>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Industry Type.
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $industry_types = array(
+                                                                                "IT" => "IT",
+                                                                                "Group of company" => "Group of company",
+                                                                                "Garments" => "Garments",
+                                                                                "Other" => "Other",
+                                                                            );
+                                                                            ?>
+                                                                            <select required class="custom-select" name="industry_type[]" id="MaritialStatus">
+                                                                                <option disabled>
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($industry_types as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $history->industry_type ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Industry Type.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $departments = array(
+                                                                                "Department 1" => "Department 1",
+                                                                                "Department 2" => "Department 2",
+                                                                                "Department 3" => "Department 3",
+                                                                            );
+                                                                            ?>
+                                                                            <select required class="custom-select" name="department[]" id="MaritialStatus">
+                                                                                <option disabled>
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($departments as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $history->department ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Department.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" name="designation[]" placeholder="Designation " />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Designation .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" name="key_responsibility[]" placeholder="Key Responsibilities" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Key Responsibilities .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <select class="custom-select" name="start_from[]" id="genderSelect">
+                                                                                <option disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($range as $key => $value) { ?>
+                                                                                    <option value="<?php echo $value; ?>" <?= $value == $history->start_from ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select From .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <select class="custom-select" name="end_to[]" id="genderSelect">
+                                                                                <option disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($range as $key => $value) { ?>
+                                                                                    <option value="<?php echo $value; ?>" <?= $value == $history->end_to ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select To .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="employmentRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <tr class="vertical-center">
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="organization_name[]" placeholder="Organization's Name" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Organization's Name.
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select class="custom-select" name="department[]" id="genderSelect">
-                                                                        <option>
-                                                                            Choose...
-                                                                        </option>
-                                                                        <option value="Department 1">Department 1</option>
-                                                                        <option value="Department 2">Department 2</option>
-                                                                        <option value="Department 3">Department 3</option>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Department.
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="address[]" placeholder="Address" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Address.
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="designation[]" placeholder="Designation " />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Designation .
+                                                                </td>
+
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $industry_types = array(
+                                                                            "IT" => "IT",
+                                                                            "Group of company" => "Group of company",
+                                                                            "Garments" => "Garments",
+                                                                            "Other" => "Other",
+                                                                        );
+                                                                        ?>
+                                                                        <select required class="custom-select" name="industry_type[]" id="MaritialStatus">
+                                                                            <option disabled>
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($industry_types as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Industry Type.
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="key_responsibility[]" placeholder="Key Responsibilities" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Key Responsibilities .
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $departments = array(
+                                                                            "Department 1" => "Department 1",
+                                                                            "Department 2" => "Department 2",
+                                                                            "Department 3" => "Department 3",
+                                                                        );
+                                                                        ?>
+                                                                        <select required class="custom-select" name="department[]" id="MaritialStatus">
+                                                                            <option disabled>
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($departments as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Department.
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select class="custom-select" name="start_from[]" id="genderSelect">
-                                                                        <option>
-                                                                            Choose...
-                                                                        </option>
-                                                                        <?php foreach ($range as $key => $value) { ?>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="designation[]" placeholder="Designation " />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Designation .
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="key_responsibility[]" placeholder="Key Responsibilities" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Key Responsibilities .
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <select class="custom-select" name="start_from[]" id="genderSelect">
+                                                                            <option disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($range as $key => $value) { ?>
                                                                                 <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
 
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select From .
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select From .
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select class="custom-select" name="end_to[]" id="genderSelect">
-                                                                        <option>
-                                                                            Choose...
-                                                                        </option>
-                                                                        <?php foreach ($range as $key => $value) { ?>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <select class="custom-select" name="end_to[]" id="genderSelect">
+                                                                            <option disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($range as $key => $value) { ?>
                                                                                 <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select To .
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select To .
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
+                                                                </td>
 
-                                                            <td>
-                                                                <button type="button" class="delete_icon" id="employmentRemove">
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                                <td>
+                                                                    <button type="button" class="delete_icon" id="employmentRemove">
+                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+
+                                                        <?php } ?>
+
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -830,64 +1138,128 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="vertical-center">
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="title[]" placeholder="Training title" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Training Information.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="institution_name[]" placeholder="Institution name" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter institution name
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="address[]" placeholder="Address" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Address.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="duration[]" placeholder="Duration" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Duration.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="date" name="start_date[]" class="form-control" />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="date" name="end_date[]" class="form-control" />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" class="form-control" name="skills[]" placeholder="Skill" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Skill/ Acquired.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                        <?php if ($training_info > 0 && $training_info != null) {
+                                                            foreach ($training_info as $key => $training) { ?>
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" value="<?= $training->title ?>" name="title[]" placeholder="Training title" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Training Information.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" value="<?= $training->institution_name ?>" name="institution_name[]" placeholder="Institution name" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter institution name
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" value="<?= $training->address ?>" name="address[]" placeholder="Address" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Address.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" value="<?= $training->duration ?>" name="duration[]" placeholder="Duration" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Duration.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="date" name="start_date[]" value="<?= $training->start_date ?>" class="form-control" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="date" name="end_date[]" value="<?= $training->end_date ?>" class="form-control" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" class="form-control" value="<?= $training->skills ?>" name="skills[]" placeholder="Skill" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Skill/ Acquired.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
 
-                                                            <td>
-                                                                <button type="button" class="delete_icon" id="trainingRemove">
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="trainingRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <tr class="vertical-center">
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="title[]" placeholder="Training title" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Training Information.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="institution_name[]" placeholder="Institution name" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter institution name
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="address[]" placeholder="Address" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Address.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="duration[]" placeholder="Duration" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Duration.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="date" name="start_date[]" class="form-control" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="date" name="end_date[]" class="form-control" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" class="form-control" name="skills[]" placeholder="Skill" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Skill/ Acquired.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    <button type="button" class="delete_icon" id="trainingRemove">
+                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -933,79 +1305,158 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="vertical-center">
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="certificate[]" class="form-control" placeholder="Certification" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Certification.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Awarding Body.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="address[]" class="form-control" placeholder="Address" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Address.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="registration_number[]" class="form-control" placeholder="Reg No" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Registration No.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                        <?php if ($professional_qualification > 0 && $professional_qualification != null) {
+                                                            foreach ($professional_qualification as $key => $qualification) { ?>
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" value="<?= $qualification->certificate ?>" name="certificate[]" class="form-control" placeholder="Certification" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Certification.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" value="<?= $qualification->awarding_body ?>" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Awarding Body.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" value="<?= $qualification->address ?>" name="address[]" class="form-control" placeholder="Address" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Address.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" value="<?= $qualification->registration_number ?>" name="registration_number[]" class="form-control" placeholder="Reg No" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Registration No.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
 
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <select class="custom-select" name="passing_year[]" id="genderSelect">
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <?php foreach ($range as $key => $value) { ?>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <select class="custom-select" name="passing_year[]" id="genderSelect">
+                                                                                <option selected disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($range as $key => $value) { ?>
+                                                                                    <option value="<?php echo $value; ?>" <?= $key == $qualification->passing_year ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Passing Year .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" value="<?= $qualification->result ?>" name="result[]" class="form-control" placeholder="Result" />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Result (If any).
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" value="<?= $qualification->remarks ?>" name="remarks[]" class="form-control" placeholder="Remarks " />
+                                                                            <div class="invalid-feedback">
+                                                                                Please Enter Remarks (If any).
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="professionalRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <tr class="vertical-center">
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="certificate[]" class="form-control" placeholder="Certification" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Certification.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Awarding Body.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="address[]" class="form-control" placeholder="Address" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Address.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="registration_number[]" class="form-control" placeholder="Reg No" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Registration No.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <select class="custom-select" name="passing_year[]" id="genderSelect">
+                                                                            <option selected disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($range as $key => $value) { ?>
                                                                                 <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
 
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Passing Year .
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Passing Year .
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="result[]" class="form-control" placeholder="Result" />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Result (If any).
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="result[]" class="form-control" placeholder="Result" />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Result (If any).
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="remarks[]" class="form-control" placeholder="Remarks " />
-                                                                    <div class="invalid-feedback">
-                                                                        Please Enter Remarks (If any).
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="remarks[]" class="form-control" placeholder="Remarks " />
+                                                                        <div class="invalid-feedback">
+                                                                            Please Enter Remarks (If any).
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
+                                                                </td>
 
-                                                            <td>
-                                                                <button type="button" class="delete_icon" id="professionalRemove">
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                                <td>
+                                                                    <button type="button" class="delete_icon" id="professionalRemove">
+                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1034,34 +1485,73 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="vertical-center">
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="key_skill[]" class="form-control" placeholder="Skill 1" />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="key_skill[]" class="form-control" placeholder="Skill 2" />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="key_skill[]" class="form-control" placeholder="Skill 3" />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="key_skill[]" class="form-control" placeholder="Skill 4" />
-                                                                </div>
-                                                            </td>
 
-                                                            <td>
-                                                                <button type="button" class="delete_icon" id="skillRemove">
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+
+                                                        <?php if ($key_skills > 0 && $key_skills != null) {
+                                                            foreach ($key_skills as $key => $key_skill) { ?>
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="key_skill1[]" value="<?= $key_skill->key_skill1 ?>" class="form-control" placeholder="Skill 1" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="key_skill2[]" value="<?= $key_skill->key_skill2 ?>" class="form-control" placeholder="Skill 2" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="key_skill3[]" value="<?= $key_skill->key_skill2 ?>" class="form-control" placeholder="Skill 3" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="key_skill4[]" value="<?= $key_skill->key_skill2 ?>" class="form-control" placeholder="Skill 4" />
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="skillRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <tr class="vertical-center">
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="key_skill1[]" class="form-control" placeholder="Skill 1" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="key_skill2[]" class="form-control" placeholder="Skill 2" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="key_skill3[]" class="form-control" placeholder="Skill 3" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="key_skill4[]" class="form-control" placeholder="Skill 4" />
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    <button type="button" class="delete_icon" id="skillRemove">
+                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+
+
+
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1090,34 +1580,70 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="vertical-center">
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="computer_skill[]" class="form-control" placeholder="Skill 1" />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="computer_skill[]" class="form-control" placeholder="Skill 2" />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="computer_skill[]" class="form-control" placeholder="Skill 3" />
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <input type="text" name="computer_skill[]" class="form-control" placeholder="Skill 4" />
-                                                                </div>
-                                                            </td>
+                                                        <?php if ($computer_skills > 0 && $computer_skills != null) {
+                                                            foreach ($computer_skills as $key => $computer_skill) { ?>
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="computer_skill1[]" value="<?= $computer_skill->computer_skill1 ?>" class="form-control" placeholder="Skill 1" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="computer_skill2[]" value="<?= $computer_skill->computer_skill1 ?>" class="form-control" placeholder="Skill 2" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="computer_skill3[]" value="<?= $computer_skill->computer_skill1 ?>" class="form-control" placeholder="Skill 3" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="computer_skill4[]" value="<?= $computer_skill->computer_skill1 ?>" class="form-control" placeholder="Skill 4" />
+                                                                        </div>
+                                                                    </td>
 
-                                                            <td>
-                                                                <button type="button" class="delete_icon" id="computerRemove">
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="computerRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <tr class="vertical-center">
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="computer_skill1[]" class="form-control" placeholder="Skill 1" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="computer_skill2[]" class="form-control" placeholder="Skill 2" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="computer_skill3[]" class="form-control" placeholder="Skill 3" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <input type="text" name="computer_skill4[]" class="form-control" placeholder="Skill 4" />
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    <button type="button" class="delete_icon" id="computerRemove">
+                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+
+
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1160,115 +1686,209 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="vertical-center">
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <?php
-                                                                    $languages = array("Bangla" => "Bangla", "English" => "English", "Hindi" => "Hindi");
-                                                                    ?>
-                                                                    <select class="custom-select" name="language[]" id="genderSelect">
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <?php foreach ($languages as $key => $value) { ?>
-                                                                            <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->blood_group) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $value; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Language .
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <?php
-                                                                    $speakings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                                    ?>
-                                                                    <select class="custom-select" name="speaking[]" id="genderSelect" required>
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <?php foreach ($speakings as $key => $value) { ?>
-                                                                            <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->blood_group) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $value; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Speaking.
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
+                                                        <?php if ($language_proficincy > 0 && $language_proficincy != null) {
+                                                            foreach ($language_proficincy as $key => $language_data) { ?>
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $languages = array("Bangla" => "Bangla", "English" => "English", "Hindi" => "Hindi");
+                                                                            ?>
+                                                                            <select class="custom-select" name="language[]" id="genderSelect">
+                                                                                <option disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($languages as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $language_data->language ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Language .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $speakings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                            ?>
+                                                                            <select class="custom-select" name="speaking[]" id="genderSelect" required>
+                                                                                <option disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($speakings as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $language_data->speaking ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Speaking.
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
 
-                                                                    <?php
-                                                                    $writings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                                    ?>
-                                                                    <select class="custom-select" name="writing[]" id="genderSelect" required>
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <?php foreach ($writings as $key => $value) { ?>
-                                                                            <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->blood_group) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $value; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Writing .
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <?php
-                                                                    $readings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                                    ?>
-                                                                    <select class="custom-select" name="reading[]" id="genderSelect" required>
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <?php foreach ($readings as $key => $value) { ?>
-                                                                            <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->blood_group) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $value; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Reading .
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="table_input_area">
-                                                                    <?php
-                                                                    $listenings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                                    ?>
-                                                                    <select class="custom-select" name="listening[]" id="genderSelect" required>
-                                                                        <option selected disabled value="">
-                                                                            Choose...
-                                                                        </option>
-                                                                        <?php foreach ($listenings as $key => $value) { ?>
-                                                                            <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->blood_group) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>><?php echo $value; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                    <div class="invalid-feedback">
-                                                                        Please select Listening .
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                                            <?php
+                                                                            $writings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                            ?>
+                                                                            <select class="custom-select" name="writing[]" id="genderSelect" required>
+                                                                                <option disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($writings as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $language_data->writing ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Writing .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $readings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                            ?>
+                                                                            <select class="custom-select" name="reading[]" id="genderSelect" required>
+                                                                                <option disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($readings as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $language_data->reading ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Reading .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $listenings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                            ?>
+                                                                            <select class="custom-select" name="listening[]" id="genderSelect" required>
+                                                                                <option selected disabled value="">
+                                                                                    Choose...
+                                                                                </option>
+                                                                                <?php foreach ($listenings as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>" <?= $key == $language_data->listening ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">
+                                                                                Please select Listening .
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
 
-                                                            <td>
-                                                                <button type="button" class="delete_icon" id="languageRemove">
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="languageRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <tr class="vertical-center">
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $languages = array("Bangla" => "Bangla", "English" => "English", "Hindi" => "Hindi");
+                                                                        ?>
+                                                                        <select class="custom-select" name="language[]" id="genderSelect">
+                                                                            <option disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($languages as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Language .
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $speakings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                        ?>
+                                                                        <select class="custom-select" name="speaking[]" id="genderSelect" required>
+                                                                            <option disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($speakings as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Speaking.
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+
+                                                                        <?php
+                                                                        $writings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                        ?>
+                                                                        <select class="custom-select" name="writing[]" id="genderSelect" required>
+                                                                            <option disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($writings as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Writing .
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $readings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                        ?>
+                                                                        <select class="custom-select" name="reading[]" id="genderSelect" required>
+                                                                            <option disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($readings as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Reading .
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="table_input_area">
+                                                                        <?php
+                                                                        $listenings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                        ?>
+                                                                        <select class="custom-select" name="listening[]" id="genderSelect" required>
+                                                                            <option selected disabled value="">
+                                                                                Choose...
+                                                                            </option>
+                                                                            <?php foreach ($listenings as $key => $value) { ?>
+                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                        <div class="invalid-feedback">
+                                                                            Please select Listening .
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    <button type="button" class="delete_icon" id="languageRemove">
+                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1327,35 +1947,35 @@
                                                         <h4>Reference 2</h4>
                                                         <div class="form-group">
                                                             <label for="ReferenceName">Name </label>
-                                                            <input type="text" name="ref_name[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
+                                                            <input type="text" name="ref_name2[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="ReferenceName">Designation
                                                             </label>
-                                                            <input type="text" name="ref_degignation[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
+                                                            <input type="text" name="ref_degignation2[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="ReferenceName">Organization
                                                             </label>
-                                                            <input type="text" name="ref_organization[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
+                                                            <input type="text" name="ref_organization2[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="ReferenceName">Mailing Address
                                                             </label>
-                                                            <input type="text" name="mailing_address[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
+                                                            <input type="text" name="mailing_address2[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="ReferenceName">E-mail Address
                                                             </label>
-                                                            <input type="email" name="ref_email[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
+                                                            <input type="email" name="ref_email2[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="ReferenceName">Cell Phone </label>
-                                                            <input type="number" name="ref_phone[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
+                                                            <input type="number" name="ref_phone2[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="ReferenceName">Relation</label>
-                                                            <input type="text" name="ref_relation[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
+                                                            <input type="text" name="ref_relation2[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1454,10 +2074,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <!-- if relative  table  -->
                                             <div id="relativeDepended" class="hide_area">
-                                            <hr>
+                                                <hr>
                                                 <div class="table-responsive mt-3">
                                                     <table class="table table-bordered" id="relativeTable">
                                                         <thead class="thead-light">

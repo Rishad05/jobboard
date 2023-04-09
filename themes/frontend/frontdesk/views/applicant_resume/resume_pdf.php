@@ -301,7 +301,8 @@
             }
 
         }
-        .user_name{
+
+        .user_name {
             color: red;
             border: solid 1px red;
         }
@@ -319,68 +320,174 @@
                     <h6>Last Update: <b>05 Dec 2023</b></h6>
                 </div>
             </div> -->
-            <div class="resume_area" id="pdfContentArea">
+            <div class="resume_area" style="border: 1px solid #d5d4d4;" id="pdfContentArea">
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="left_wrapper">
+                        <div class="left_wrapper" style="height: 100%;
+            padding: 10px 20px 40px 20px;
+            background-color: whitesmoke;">
                             <div class="user_info_area">
-                                <div class="user_img">
+                                <div class="user_img" style=" display: flex;
+                align-items: center;
+                justify-content: center;
+                max-width: 180px;
+                width: 100%;
+                height: 180px;
+                margin-left: auto;
+                margin-right: auto;">
                                     <?php if ($personal_info->applicant_photo ?? '') { ?>
-                                        <img src="<?= base_url('uploads/') . $personal_info->applicant_photo ?? ''; ?>" width="160">
+                                        <img src="<?= base_url('uploads/') . $personal_info->applicant_photo ?? ''; ?>" width="160" style=" max-height: 100%;">
                                     <?php } ?>
-                            
+
                                 </div>
-                                <h4  class="user_name"><?= $personal_info->full_name ?? 'Name' ?></h4>
-                                <ul class="contact_list">
-                                    <li>
-                                        <div class="icon">
-                                            <i class="fa-solid fa-phone"></i>
+                                <h4 class="user_name" style="   font-size: 24px;
+                font-weight: 600;
+                margin-top: 20px;"><?= $personal_info->full_name ?? 'Name' ?></h4>
+                                <ul class="contact_list" style="   margin-top: 30px;
+                margin-bottom: 40px;">
+                                    <li style="  display: grid;
+                  grid-template-columns: minmax(0, 26px) repeat(1, minmax(0, 1fr));
+                  align-items: start;
+                  gap: 10px;
+                  margin-top: 12px;">
+                                        <div class="icon" style="  display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 26px;
+                    background-color: #1fa898;
+                    border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -ms-border-radius: 50%;
+                    -o-border-radius: 50%;">
+                                            <i class="fa-solid fa-phone" style=" color: white;
+                      font-size: 12px;"></i>
                                         </div>
-                                        <a href="tel:+"><?= $personal_info->cell_phone_1 ?? 'Phone' ?></a>
+                                        <a href="tel:+" style="  font-size: 16px;
+                    font-weight: 500;"><?= $personal_info->cell_phone_1 ?? 'Phone' ?></a>
                                     </li>
-                                    <li>
-                                        <div class="icon">
-                                            <i class="fa-regular fa-envelope-open"></i>
+                                    <li style="  display: grid;
+                  grid-template-columns: minmax(0, 26px) repeat(1, minmax(0, 1fr));
+                  align-items: start;
+                  gap: 10px;
+                  margin-top: 12px;">
+                                        <div class="icon" style="  display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 26px;
+                    background-color: #1fa898;
+                    border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -ms-border-radius: 50%;
+                    -o-border-radius: 50%;">
+                                            <i class="fa-regular fa-envelope-open" style=" color: white;
+                      font-size: 12px;"></i>
                                         </div>
-                                        <a href="#"><?= $personal_info->email ?? 'Email' ?></a>
+                                        <a href="#" style="  font-size: 16px;
+                    font-weight: 500;"><?= $personal_info->email ?? 'Email' ?></a>
                                     </li>
-                                    <li>
-                                        <div class=" icon">
-                                            <i class="fa-solid fa-location-dot"></i>
+                                    <li style="  display: grid;
+                  grid-template-columns: minmax(0, 26px) repeat(1, minmax(0, 1fr));
+                  align-items: start;
+                  gap: 10px;
+                  margin-top: 12px;">
+                                        <div class=" icon" style="  display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 26px;
+                    background-color: #1fa898;
+                    border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -ms-border-radius: 50%;
+                    -o-border-radius: 50%;">
+                                            <i class="fa-solid fa-location-dot" style=" color: white;
+                      font-size: 12px;"></i>
                                         </div>
-                                        <a href="#" target="_blank"><?= $personal_info->present_address ?? 'Address' ?></a>
+                                        <a href="#" style="  font-size: 16px;
+                    font-weight: 500;" target="_blank"><?= $personal_info->present_address ?? 'Address' ?></a>
                                     </li>
 
                                 </ul>
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-user-tie"></i>
+                                <div class="resume_title_grid" style="     display: grid;
+                grid-template-columns: minmax(0, 28px) repeat(1, minmax(0, 1fr));
+                align-items: center;
+                gap: 12px;">
+                                    <div class="icon" style="   display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  height: 28px;
+                  background-color: #1fa898;
+                  border-radius: 50%;
+                  -webkit-border-radius: 50%;
+                  -moz-border-radius: 50%;
+                  -ms-border-radius: 50%;
+                  -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-user-tie" style=" color: white;
+                    font-size: 15px;"></i>
                                     </div>
-                                    <h3>Personal Information</h2>
+                                    <h3 style=" font-size: 22px;
+                  font-weight: 500;">Personal Information</h2>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Father's Name</h4>
-                                    <h5><?= $personal_info->father_name ?? 'Father Name' ?></h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px;
+                  font-weight: 400;
+                  text-transform: capitalize;">Father's Name</h4>
+                                    <h5 style=" font-size: 18px;
+                  font-weight: 500;
+                  margin-top: 2px;
+                  text-transform: capitalize;"><?= $personal_info->father_name ?? 'Father Name' ?></h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Mother's Name</h4>
-                                    <h5><?= $personal_info->mother_name ?? 'Mother Name' ?></h5>
+                                <div class="information_item" style="margin-top: 30px;">
+
+                                    <h4 style="   font-size: 16px;
+                  font-weight: 400;
+                  text-transform: capitalize;">Mother's Name</h4>
+                                    <h5 style=" font-size: 18px;
+                  font-weight: 500;
+                  margin-top: 2px;
+                  text-transform: capitalize;"><?= $personal_info->mother_name ?? 'Mother Name' ?></h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Gender </h4>
-                                    <h5><?= $personal_info->gender ?? 'Gender' ?> </h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px;
+                  font-weight: 400;
+                  text-transform: capitalize;">Gender </h4>
+                                    <h5 style=" font-size: 18px;
+                  font-weight: 500;
+                  margin-top: 2px;
+                  text-transform: capitalize;"><?= $personal_info->gender ?? 'Gender' ?> </h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Date of Birth </h4>
-                                    <h5><?= $personal_info->dob ?? 'Date of Birth' ?> </h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px;
+                  font-weight: 400;
+                  text-transform: capitalize;">Date of Birth </h4>
+                                    <h5 style=" font-size: 18px;
+                  font-weight: 500;
+                  margin-top: 2px;
+                  text-transform: capitalize;"><?= $personal_info->dob ?? 'Date of Birth' ?> </h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Nationality </h4>
-                                    <h5><?= $personal_info->nationality ?? 'Nationality' ?></h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px;
+                  font-weight: 400;
+                  text-transform: capitalize;">Nationality </h4>
+                                    <h5 style=" font-size: 18px;
+                  font-weight: 500;
+                  margin-top: 2px;
+                  text-transform: capitalize;"><?= $personal_info->nationality ?? 'Nationality' ?></h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Permanent Address </h4>
-                                    <h5><?= $personal_info->permanent_address ?? 'Permanent Address' ?></h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px;
+                  font-weight: 400;
+                  text-transform: capitalize;">Permanent Address </h4>
+                                    <h5 style=" font-size: 18px;
+                  font-weight: 500;
+                  margin-top: 2px;
+                  text-transform: capitalize;"><?= $personal_info->permanent_address ?? 'Permanent Address' ?></h5>
                                 </div>
 
                             </div>
@@ -432,7 +539,7 @@
                                             </li>
                                             <li>Training Period: <b><?= $value->start_date ?? '' ?> - <?= $value->end_date ?? '' ?> </b> </li>
                                             <li> Skills: <b> <?= $value->skills ?? '' ?></b> </li>
-                                            
+
                                         </ul>
                                     <?php  } ?>
                                 </div>
@@ -442,7 +549,8 @@
                                     <div class="icon">
                                         <i class="fa-solid fa-user-tie"></i>
                                     </div>
-                                    <h3>Professional <b>Qualification</b></h3> </h2>
+                                    <h3>Professional <b>Qualification</b></h3>
+                                    </h2>
                                 </div>
                                 <div class="category_item" style="margin-top: 7px ;">
                                     <?php foreach ($professional_qualification as $key => $value) { ?>
@@ -458,7 +566,7 @@
                                             </li>
                                             <li> Result: <b> <?= $value->result ?? '' ?></b> </li>
                                             <li> Remarks: <b> <?= $value->remarks ?? '' ?></b> </li>
-                                            
+
                                         </ul>
                                     <?php  } ?>
                                 </div>
@@ -468,7 +576,7 @@
                                     <div class="icon">
                                         <i class="fa-solid fa-lightbulb"></i>
                                     </div>
-                                    
+
                                     <h3>Key <b>Skills</b> </h3>
                                 </div>
                                 <div class="category_item" style="margin-top: 0px ;">
@@ -506,13 +614,14 @@
                                     <div class="icon">
                                         <i class="fa-solid fa-user-tie"></i>
                                     </div>
-                                    <h3>Language <b>Proficiency</b></h3> </h2>
+                                    <h3>Language <b>Proficiency</b></h3>
+                                    </h2>
                                 </div>
                                 <div class="category_item" style="margin-top: 7px ;">
                                     <?php foreach ($language_proficincy as $key => $value) { ?>
                                         <h4><?= $value->language ?? '' ?></h4>
                                         <ul>
-                                            <li>Speaking: <b><?= $value->speaking	 ?? '' ?></b>
+                                            <li>Speaking: <b><?= $value->speaking     ?? '' ?></b>
                                             </li>
                                             <li>Writing: <b><?= $value->writing ?? '' ?></b>
                                             </li>
@@ -551,7 +660,7 @@
                                     <div class="icon">
                                         <i class="fa-solid fa-graduation-cap"></i>
                                     </div>
-                                    <h3>Refarances </h2>
+                                    <h3>References </h2>
                                 </div>
                                 <?php foreach ($references as $key => $value) { ?>
                                     <div class="category_item">
