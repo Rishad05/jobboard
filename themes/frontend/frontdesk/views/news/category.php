@@ -1,0 +1,76 @@
+<section class="sub_header_sec">
+    <div class="tg-innerpagebanner tg-haslayout">
+        <div class="tg-pagetitle tg-haslayout tg-parallaximg" data-appear-top-offset="600" data-parallax="scroll" >
+           <div class="container">
+              <div class="row">
+                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="page-title-wrap">
+                       <div class="titlebar-sc-wrap">
+                          <p>
+                          </p>
+                          <div class="sc-boxed-call-to-cation  ">
+                             <div class="tg-titleandbtns">
+                                <h1 style="color:#ffffff"><?= $page_title; ?><br>
+                                </h1>
+                                <div class="tg-btnsbox">
+                                </div>
+                             </div>
+                          </div>
+                          <p></p>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="container">
+           <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ol class="tg-breadcrumb">
+                    <li class="first-item">
+                        <a href="<?= base_url(); ?>">Home</a></li>
+                    <li class="last-item"><?= $page_title; ?></li>
+                </ol>
+              </div>
+           </div>
+        </div>
+    </div>
+</section>
+
+<!-- FDB News Section -->
+<section class="fdb_news_sec section_area news-main_section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="row">
+                    <?php 
+                    if($allNews){
+                    foreach ($allNews as $key => $news) { ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="news_fdb_sec">
+                          <?php if($news->thumbnail){ ?>
+                            <img src="<?= base_url('uploads/news/'.$news->thumbnail); ?>" class="w-100" alt="Jobs">
+                          <?php } ?>
+                            <div class="news_info">
+                                <h4> <?= $news->title; ?></h4>
+                                <p class="date_time_main"><span class="date_time"><?= date('M d, Y', strtotime($news->created_at)); ?> </span></p>
+                                <p class="news_info_details"> <?= substr($news->short_description, 0, 150) . '...';  ?></p> 
+                                <a href="<?= base_url('news/details/'.strtolower(
+                                            str_replace(' ','_',$news->title) ));?>" class="btn btn-outline-primary btn_Read_more">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } } ?>  
+                </div>
+                <div class="row mt-5 mb-4">
+                  <div class="col-lg-12">
+                     <nav aria-label="Page navigation example">
+                      <?= $this->pagination->create_links(); ?>                    
+                    </nav>
+                  </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</section>

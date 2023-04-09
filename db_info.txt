@@ -1,0 +1,8 @@
+goldemko_jobboard
+db_pass:^&TT6P9{48Zm
+goldemko_jobboard
+
+ftp_pass:.sW!w-fb~@W.
+FTP Username: jobboard@jobboard.goldeninfotech.com.bd
+FTP server: ftp.goldeninfotech.com.bd
+FTP & explicit FTPS port:  21

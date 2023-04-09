@@ -1,0 +1,62 @@
+<script>
+    $(document).ready(function() {  
+        function image(n) {
+            if(n) { 
+                return '<img src="<?= base_url('uploads/teams/')?>'+n+'" width="80px">';  
+            }
+            return '';
+        } 
+        $('#catData').dataTable({
+            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, '<?= lang('all'); ?>']],
+            "aaSorting": [[ 6, "asc" ]], "iDisplayLength": <?= $Settings->rows_per_page ?>,
+            'bProcessing': true, 'bServerSide': true,
+            'sAjaxSource': '<?= site_url('admin/teams/get_teams') ?>',
+            'fnServerData': function (sSource, aoData, fnCallback) {
+                aoData.push({
+                    "name": "<?= $this->security->get_csrf_token_name() ?>",
+                    "value": "<?= $this->security->get_csrf_hash() ?>"
+                });
+                $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
+            },
+			"aoColumns": [ {"mRender":image}, null, null, null, null, null,null]
+        });
+
+    });
+
+</script>
+<section class="content">
+    <a class='top-add-butto' href='<?= base_url('admin/teams/add'); ?>' title='Add'><i class="fa fa-plus-circle" aria-hidden="true"></i></a>   
+    <a href="javascript:history.go(-1)" class="top-back-butto" title="Back"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> </a>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header"> 
+                    <h3 class="box-title"><?= lang('list_results'); ?></h3>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="catData" class="table table-striped table-bordered table-condensed table-hover" style="margin-bottom:5px;">
+                            <thead>
+                            <tr class="active">
+                                <th>Profile Image</th>  
+                                <th>Name</th> 
+                                <th>Group</th> 
+                                <th>Designation</th> 
+                                <th>Email</th> 
+                                <th>Order By</th> 
+                                <th style="width:60px;"><?= lang('actions'); ?></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="dataTables_empty"><?= lang('loading_data_from_server'); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

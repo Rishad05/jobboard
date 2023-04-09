@@ -1,0 +1,379 @@
+//Font
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400&display=swap");
+
+/*
+!Utilities Or Helper CSS
+*/
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+}
+html,
+body {
+  overflow-x: hidden;
+}
+.nav-item{
+  padding:0px !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: $primary-font;
+}
+p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  color: #000000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0;
+}
+img,
+svg {
+  max-width: 100%;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+a,
+span {
+  display: inline-block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+:focus {
+  outline: none !important;
+}
+input,
+select,
+textarea {
+  font-weight: 400;
+  font-size: 16px;
+  color: #101010;
+}
+input:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid #1fa898 !important;
+}
+
+textarea:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button {
+  cursor: pointer;
+  border: none !important;
+  background-color: transparent;
+}
+
+button:hover {
+  border: none !important;
+}
+
+*::placeholder {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #707070;
+  text-transform: capitalize;
+}
+
+*::-moz-placeholder {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #707070;
+  text-transform: capitalize;
+}
+::selection {
+  color: rgb(255, 255, 255);
+  background: #1fa898;
+}
+::-moz-selection {
+  color: rgb(255, 255, 255);
+  background: #1fa898;
+}
+
+// Hide input number type right icon
+
+/*  Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Common Class */
+.container {
+  @include max-media-width(575) {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+.container,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+  @include min-media-width(1300) {
+    max-width: 1200px;
+  }
+}
+.d-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 7px 12px;
+}
+.g-sm {
+  gap: 8px 12px;
+}
+.g-smm {
+  gap: 8px;
+}
+.g-lg {
+  gap: 10px 15px;
+}
+
+.mm-30 {
+  @include max-media-width(767) {
+    margin-top: 30px;
+  }
+}
+.mlg-30 {
+  @include max-media-width(991) {
+    margin-top: 30px;
+  }
+}
+.default_section_gap {
+  margin-top: 80px;
+  @include media-break-width(768, 991) {
+    margin-top: 60px;
+  }
+  @include max-media-width(767) {
+    margin-top: 50px;
+  }
+}
+.vertical-center {
+  th,
+  td {
+    vertical-align: middle !important;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: none;
+}
+
+
+
+
+
+.m-sm-30 {
+  @include max-media-width(767) {
+    margin-top: 30px;
+  }
+}
+.hide_area{
+  display: none;
+}
+.list_disc{
+  padding-left: 20px;
+  li{
+    list-style-type: disc;
+  }
+}
+
+
+
+//Form Area
+.form_area {
+  .upload_img_area {
+    @include max-media-width(767) {
+      margin-top: 20px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 180px;
+      background: whitesmoke;
+      cursor: pointer;
+      @include max-media-width(767) {
+        margin-top: 20px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    .upload_text {
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+  .preview_img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .change_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgb(199, 195, 195);
+    &:hover {
+      background: rgb(160, 159, 159);
+    }
+  }
+
+  .label_helper {
+    font-size: 14px;
+  }
+  .form_control_file {
+    padding-bottom: 36px;
+  }
+  .download_btn {
+    padding: 9px 20px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    text-align: center;
+    @include max-media-width(767) {
+      display: block;
+      width: 100%;
+    }
+    &:hover {
+      background-color: #ced4da;
+    }
+  }
+  .have_account_area {
+    margin-top: 30px;
+    h4 {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      a {
+        color: #1fa898;
+        font-weight: 600;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+}
+//Hide valid check
+.form-control.is-valid,
+.was-validated .form-control:valid,
+.custom-select.is-valid,
+.was-validated .custom-select:valid {
+  background-image: none !important;
+  padding-right: 0.75rem !important;
+}
+
+//Invalid text
+.invalid-feedback {
+  text-transform: capitalize;
+}
+
+//Star
+.star {
+  position: relative;
+  top: 4px;
+  color: rgb(228, 24, 24);
+}
+
+//Table Responsive
+.table-responsive {
+  @include customScrollbarTable();
+}
+
+//Disable button
+.btnNext,.btnPrevious{
+  &:disabled{
+    cursor: not-allowed;
+  }
+}

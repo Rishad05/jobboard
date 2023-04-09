@@ -1,0 +1,197 @@
+<section class="sub_header_sec">
+            <div class="tg-innerpagebanner tg-haslayout">
+               <div class="tg-pagetitle tg-haslayout tg-parallaximg" data-appear-top-offset="600" data-parallax="scroll" >
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                           <div class="page-title-wrap">
+                              <div class="titlebar-sc-wrap">
+                                 <p>
+                                 </p>
+                                 <div class="sc-boxed-call-to-cation  ">
+                                    <div class="tg-titleandbtns">
+                                       <h1 style="color:#ffffff">Current Jobs<br>
+                                       </h1>
+                                       <div class="tg-btnsbox">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <p></p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="clearfix"></div>
+               <div class="container">
+                  <div class="row">
+                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <ol class="tg-breadcrumb">
+                        <li class="first-item">
+                            <a href="index.html">Home</a></li>
+                        <li class="last-item">Current Jobs</li>
+                    </ol>
+                     </div>
+                  </div>
+               </div>
+            </div>
+           </section>
+
+      <!-- Current Jobs section -->
+      <section class="Current_Jobs_full_section">
+         <div class="container">
+            <div class="row mb-2">
+               <div class="col-md-12">
+                   <form class="form_singel">
+                                    <div class="form-row mb-3">
+                                       <div class="col">
+                                          <input type="text" class="form-control" placeholder="Keywords">
+                                       </div>
+                                       <div class="col">                         
+                                          <input type="email" class="form-control" placeholder="Location">
+                                       </div>
+                                    </div>
+                                    
+                                    <div class="form-row mb-3">
+                                       <div class="col-md-12">
+                                          <div class="select-style">
+                                <select class="w-100 form-control"> 
+                                  <option value="volvo">Choose a Category</option>
+                                 <option value="saab">Food</option>
+                                 <option value="mercedes">Markting</option>
+                                 <option value="audi">Service</option>
+                                </select>
+                              </div>
+                                       </div>
+                                    </div>
+                                    <div class="form-row">
+                                       
+                                          <div class="form-group form-check job_filters">
+
+                                             <ul class="job_types">
+                                     <li>
+                                         <label for="job_type_freelance" class="freelance">
+                                             <input type="checkbox" checked="checked"> Freelance</label>
+                                     </li>
+                                     <li>
+                                         <label for="job_type_full-time" class="full-time">
+                                             <input type="checkbox" checked="checked" > Full Time</label>
+                                     </li>
+                                     <li>
+                                         <label for="job_type_internship" class="internship">
+                                             <input type="checkbox"  value="internship" checked="checked"> Internship</label>
+                                     </li>
+                                     <li>
+                                         <label for="job_type_part-time" class="part-time">
+                                             <input type="checkbox"  checked="checked"> Part Time</label>
+                                     </li>
+                                     <li>
+                                         <label for="job_type_temporary" class="temporary">
+                                             <input type="checkbox"  checked="checked"> Temporary</label>
+                                     </li>
+                                 </ul>         
+                                    </div>
+                                </div>
+                          </form>
+               </div>
+            </div>
+            <div class="row mb-3">
+               <div class="col-md-12">
+                  <ul class="job_listings">
+
+                      <li class="job_listing type-job_listing" style="visibility: visible;">
+                          <a href="https://hrex.pk/job/construction-manager/">
+
+                              <img class="company_logo" src="<?= $frontend_assets; ?>images/cr001.jpg" alt="">
+                              <div class="position">
+                                  <h3>Construction Manager</h3>
+                                  <div class="company">
+                                      <strong>Construction</strong>
+                                      <div class="tagline">Experience: 3-4 Years</div>
+                                      <div class="tagline">Qualification: Bachelors</div>
+                                  </div>
+                              </div>
+                              <div class="location">
+                                  Dhaka 
+                              </div>
+                              <ul class="meta">
+                                  <li class="job-type full-time">Full Time</li>
+                                  <li class="date"> <span class=""> <i class="far fa-clock"></i></i></span>
+                                      <time datetime="2019-09-04">Posted 3 days ago </time> <span class="calen"><i class="far fa-calendar-alt"></i></span> Wed Sep 4, 2019</li>
+                              </ul>
+                          </a>
+                      </li>
+                      <li class="job_listing type-job_listing" style="visibility: visible;">
+                          <a href="https://hrex.pk/job/construction-manager/">
+
+                              <img class="company_logo" src="<?= $frontend_assets; ?>images/cr001.jpg" alt="">
+                              <div class="position">
+                                  <h3>HR Assistant</h3>
+                                  <div class="company">
+                                      <strong>Construction</strong>
+                                      <div class="tagline">Experience: 3-4 Years</div>
+                                      <div class="tagline">Qualification: Bachelors</div>
+                                  </div>
+                              </div>
+                              <div class="location">
+                                  Dhaka 
+                              </div>
+                              <ul class="meta">
+                                  <li class="job-type full-time">Full Time</li>
+                                  <li class="date"> <span class=""> <i class="far fa-clock"></i></i></span>
+                                      <time datetime="2019-09-04">Posted 4 days ago </time> <span class="calen"><i class="far fa-calendar-alt"></i></span> Wed Sep 5, 2019</li>
+                              </ul>
+                          </a>
+                      </li>
+                      <li class="job_listing type-job_listing" style="visibility: visible;">
+                          <a href="https://hrex.pk/job/construction-manager/">
+
+                              <img class="company_logo" src="<?= $frontend_assets; ?>images/cr001.jpg" alt="">
+                              <div class="position">
+                                  <h3>Recovery Officer</h3>
+                                  <div class="company">
+                                      <strong>Energy</strong>
+                                      <div class="tagline">Experience: 3-5 Years</div>
+                                      <div class="tagline">Qualification: Bachelors</div>
+                                  </div>
+                              </div>
+                              <div class="location">
+                                  Dhaka 
+                              </div>
+                              <ul class="meta">
+                                  <li class="job-type full-time">Full Time</li>
+                                  <li class="date"> <span class=""> <i class="far fa-clock"></i></i></span>
+                                      <time datetime="2019-09-04">Posted 2 days ago </time> <span class="calen"><i class="far fa-calendar-alt"></i></span> Wed Sep 1, 2019</li>
+                              </ul>
+                          </a>
+                      </li>
+                      <li class="job_listing type-job_listing" style="visibility: visible;">
+                          <a href="https://hrex.pk/job/construction-manager/">
+
+                              <img class="company_logo" src="<?= $frontend_assets; ?>images/cr001.jpg" alt="">
+                              <div class="position">
+                                  <h3>Sales Manager (Residential)</h3>
+                                  <div class="company">
+                                      <strong>Energy</strong>
+                                      <div class="tagline">Experience: 3-4 Years</div>
+                                      <div class="tagline">Qualification: Bachelors</div>
+                                  </div>
+                              </div>
+                              <div class="location">
+                                  Dhaka 
+                              </div>
+                              <ul class="meta">
+                                  <li class="job-type full-time">Full Time</li>
+                                  <li class="date"> <span class=""> <i class="far fa-clock"></i></i></span>
+                                      <time datetime="2019-09-04">Posted 3 days ago </time> <span class="calen"><i class="far fa-calendar-alt"></i></span> Wed Sep 4, 2019</li>
+                              </ul>
+                          </a>
+                      </li>
+                     
+                  </ul>
+                  <a class="load_more_jobs" href="#" style=""><strong>View more Jobs</strong></a>
+               </div>
+            </div>
+         </div>
+      </section>

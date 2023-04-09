@@ -1,0 +1,258 @@
+ <!--page_titlebar Section Start-->
+<div class="page_titlebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 align-self-center">
+                <h2 class="page_titlebar_heading"><?= $page_title; ?></h2>
+                <ul class="breadcumb">
+                    <li><a href="<?= site_url(); ?>"><i class="fa fa-dashboard"></i> <?= lang('home'); ?></a></li>
+                    <?php
+                    foreach ($bc as $b) {
+                        if ($b['link'] === '#') {
+                            echo '<li class="active">' . $b['page'] . '</li>';
+                        } else {
+                            echo '<li><a href="' . $b['link'] . '">' . $b['page'] . '</a></li>';
+                        }
+                    }
+                    ?> 
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--page_titlebar Section End-->
+
+
+
+
+<div class="content_area">
+    <!--Like What you see section Start-->
+    <div class="like_what_you_see_section">
+      <div class="product_main_wraper News_main">
+
+        <section class="blog-wrap">
+
+          <div class="container">
+
+            <div class="row">
+
+              <div class="col-md-8">
+
+                <main id="main" class="site-main">
+                  <article id="post-2441" class="blog-single-item post-2441 post type-post status-publish format-standard has-post-thumbnail hentry category-education">
+
+                    <header class="entry-header">
+
+                      <h2>How to make a reservation</h2>
+
+                      <div class="post-thumbnail">                                                
+
+                       
+                        <img src="<?= $frontend_assets ?>img/Post_1.jpg" height="329"  alt="post_3" class="w-100"/>
+
+                      </div><!-- .post-thumbnail -->
+
+                    </header><!-- .entry-header -->
+                    <div class="entry-content blog-title_block">
+                      <h6>
+                        <a href="#"><i class="far fa-user" aria-hidden="true"></i><span>Rakib</span></a>
+                        | <a href="#" rel="category tag"><span class="cat-links"><i class="fa fa-folder-open" aria-hidden="true"></i> Driver Training Guide</span></a></h6>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type.<span id="more-2441"></span></p>
+                        <blockquote><p>Many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose.</p></blockquote>
+                        <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions.</p>
+                        <ul>
+                          <li>Cras sed ante sagittis, imperdiet purus non, molestie nisi.</li>
+                          <li>Quisque pellentesque ligula sed augue euismod, sit amet accumsa</li>
+                          <li>Sed varius velit sit amet tortor interdum tincidunt.</li>
+                        </ul>
+                      </div><!-- .entry-content -->
+
+
+
+                      <footer class="entry-footer">
+                        <div class="blog-icons">
+                          <div class="blog-share_block">
+                            <div class="entry-date pull-left">
+                              <time class="entry-date published">August 16, 2018</time></div>
+
+                              <div class="blog-share_block">
+
+                                <ul>
+
+                                  <li><a target="_blank" href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+
+                                  <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+
+                                  <li><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
+
+                                  <li><a href="#"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
+
+                                  <li>Share :</li>
+
+                                </ul>
+
+                              </div>
+
+                            </div>
+
+                          </div>
+
+                        </footer><!-- .entry-footer --></article><!-- #post-## -->
+
+
+
+
+
+                        <div class="clear post-nav-clear"></div>
+
+                        <div id="comments" class="comments-area">
+
+
+
+
+
+                          <!-- Nav tabs -->
+
+
+
+                          <div class="clearfix"></div>
+
+                          <div class="blogpost-tabs">
+
+                            <!-- Tab panes -->
+
+                            <div class="tab-content">
+
+                              <div class="tab-pane " id="read-comments" role="tabpanel">
+
+                              </div>
+
+                              <div class="tab-pane hidden-print active" id="write-comment" role="tabpanel">
+
+                                <div id="respond" class="comment-respond">
+
+                                  <h3 id="reply-title" class="comment-reply-title"> <small><a rel="nofollow" id="cancel-comment-reply-link" href="/unisco-pro/blog-heading-here-one-line-2-2/#respond" style="display:none;">Cancel Reply</a></small></h3>            <form action="#" method="post" id="commentform" class="row comment-form" novalidate="">
+
+                                    <div class="col-12"><div class="form-group"><label for="">Comment</label><textarea class="form-control" rows="6" maxlength="65525"></textarea></div><!-- // end .form-group --></div><div class="col-4"><div class="form-group"><label for="name">Full Name</label><input id="name" name="author" type="text" class="form-control" placeholder="Full Name" value="" aria-required="true"></div><!-- // end .form-group --></div>
+
+                                    <div class="col-4"><div class="form-group"><label for="email">Email ID</label><input id="email" name="email" type="text" class="form-control" placeholder="Email ID" value="" aria-required="true"></div><!-- // end .form-group --></div>
+
+                                    <div class="col-4"><div class="form-group"><label for="url">Website URL</label><input id="url" name="url" type="text" class="form-control" placeholder="Website URL" value=""></div><!-- // end .form-group --></div>
+
+                                    <div class="col-12">
+
+                                      <input type="submit" name="submit" value="Submit Comment" class="btn btn-warning">
+
+                                    </div>
+
+                                    <!-- // end .col-12 -->
+
+                                    <p class="form-submit"> <input type="hidden" name="comment_post_ID" value="2441" id="comment_post_ID">
+
+                                      <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+
+                                    </p>            </form>
+
+                                  </div><!-- #respond -->
+
+                                </div>
+
+                              </div>
+
+                            </div>
+
+                          </div><!-- #comments -->
+
+
+
+                        </main><!-- #main -->
+
+                      </div><!-- .col-md-8 -->
+
+
+
+
+
+                      <div class="col-md-4 widget">
+
+                        <h3 class="widget-title">Categories</h3>
+
+                        <ul>
+
+                          <a href="#" class="active"><li>Self-Driving</li></a>
+
+                          <a href="#"><li>Shared Mobility</li></a>
+
+                          <a href="#"><li>Driver Training Guide</li></a>
+
+                          <a href="#"><li>Delivery</li></a>
+
+                          <a href="#"><li>Driver Organizing</li></a>
+
+                          <a href="#"><li>Driving Strategies</li></a>
+
+                          <a href="#"><li>Policies & Information</li></a>
+
+                          <a href="#"><li>Special Contributor</li></a>
+
+                        </ul>
+
+                      </div>
+
+
+
+
+
+                      <!-- .col-md-4 -->
+
+
+
+                    </div><!-- .row -->
+
+                  </div><!-- .container -->
+
+                </section>
+
+
+
+              </div>
+    </div>
+    <!--Like What you see section End-->
+</div>
+<!--        Info Icon Section Start-->
+<div class="info_icon_area content_info">
+    <div class="info_icon_overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="info_icon text-center">
+                    <i class="fas fa-truck-moving"></i>
+                    <h2>Quick Services</h2>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="info_icon text-center">
+                    <i class="fas fa-hourglass-half"></i>
+                    <h2>24/7 Support</h2>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="info_icon text-center">
+                    <i class="fas fa-user-alt"></i>
+                    <h2>User Friendly</h2>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="info_icon text-center">
+                    <i class="fas fa-handshake"></i>
+                    <h2>Easy Solution </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        Info Icon Section End

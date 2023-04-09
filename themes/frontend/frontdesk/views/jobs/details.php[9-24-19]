@@ -1,0 +1,154 @@
+<section class="sub_header_sec">
+    <div class="tg-innerpagebanner tg-haslayout">
+       <div class="tg-pagetitle tg-haslayout tg-parallaximg" data-appear-top-offset="600" data-parallax="scroll" >
+          <div class="container">
+             <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                   <div class="page-title-wrap">
+                      <div class="titlebar-sc-wrap">
+                         <p>
+                         </p>
+                         <div class="sc-boxed-call-to-cation  ">
+                            <div class="tg-titleandbtns">
+                               <h1 style="color:#ffffff">Jobs Details<br>
+                               </h1>
+                               <div class="tg-btnsbox">
+                               </div>
+                            </div>
+                         </div>
+                         <p></p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="clearfix"></div>
+       <div class="container">
+          <div class="row">
+             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ol class="tg-breadcrumb">
+                <li class="first-item">
+                    <a href="<?= base_url(''); ?>">Home</a></li>
+                <li class="last-item">Current Jobs</li>
+            </ol>
+             </div>
+          </div>
+       </div>
+    </div>
+</section>
+<section class="Current_Jobs_full_section crt_jb_dtils">
+	<div class="container">
+		<?php //print_r($job); ?>
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="post_description">
+				    <div class="single_job_listing">
+				      <ul class="job-listing-meta meta">
+				         <li class="job-type full-time"><?= $job->job_type_name ? $job->job_type_name : '';?></li>
+				         <li class="location"><a class="google_map_link" href="#" target="_blank"><i class="fas fa-map-marker-alt"></i> <?= $job->location ? $job->location : '';?></a></li>
+				         <li class="date-posted"> <span class=""><i class="far fa-clock"></i></span>  <time datetime="2019-08-24"><?= $job->created_at ? $this->tec->timeago($job->created_at) : ''?> </time> <span class="calen"><i class="far fa-calendar-alt"></i></span> <?= $job->last_date ? date('D M d, Y', strtotime($job->last_date)) : ''; ?></li>
+				      </ul>
+				      <div class="company">
+				         <img class="company_logo" src="<?= base_url('uploads/company/'. $job->company_logo); ?>" alt="">
+				         <p class="name comp">
+				            <!----------<a class="website" href="" target="_blank" rel="nofollow">Website</a>-------->
+				            <i class="icon icon-building"></i><strong>Industry: </strong><?= $job->company_name; ?>
+				         </p>
+				         <?php 
+				         	$mre = json_decode($job->minimum_requirement); 
+                            $minrequ = $this->site->whereIn('minimum_requirement','id',$mre);
+                            ?>
+				         <p class="name qlf"><i class="icon icon-graduation-cap"></i><strong>Qualification: </strong><?php if($minrequ){
+                                  $dddd = ''; 
+                                  foreach ($minrequ as $key => $minreq) {
+                                    $dddd .= $minreq->title.'/ ';
+                                    }
+                                    echo substr(trim($dddd), 0, -1);
+                                  } ?></p>
+				         <p class="name exp"><i class="icon icon-certificate"></i><strong>Experience: </strong><?= $job->experience ? $job->experience : ''; ?></p>
+				    </div>
+				    <div class="job_description">
+				        <p><strong>Responsibilities:</strong></p>
+				        <?= $job->descriptions ? $job->descriptions : ''; ?>
+				        <p><strong>Edutcation Requirement :</strong></p>
+				        <?= $job->education_experience ? $job->education_experience : ''; ?>
+				        <p><strong>Additional Requirement :</strong></p>
+				        <?= $job->additional_requirement ? $job->additional_requirement : ''; ?>
+				    </div> 
+				   </div>				  
+				</div>
+			</div>
+
+			<div class=" col-sm-12">
+				<div class="wpb_wrapper">					
+					<div class="wpb_text_column wpb_content_element  vc_1446714968660 ">
+						<div class="wpb_wrapper">  
+							<?= form_open_multipart("", 'class="validation"'); ?> 
+								<div class="row">
+									<div class="form-group col-md-6">
+										<input type="hidden" name="client_id" value="<?= $job->company_id; ?>">
+					                    <label for="name">Your Name<samp class="required-star">*</samp></label>
+					                    <?= form_input('name', set_value('name'), 'class="form-control tip" id="name" required="required"'); ?>
+					                </div>
+					                <div class="form-group col-md-6">
+					                    <label for="dob">Date of Birth<samp class="required-star">*</samp></label>
+					                    <?= form_input('dob', set_value('dob'), 'class="form-control tip" id="dob" required="required"'); ?>
+					                </div>  
+								</div>
+								<div class="row">
+									<div class="form-group col-md-6">
+					                    <label for="email">Your Email<samp class="required-star">*</samp></label>
+					                    <?= form_input('email', set_value('email'), 'class="form-control tip" id="email" required="required"'); ?>
+					                </div>
+					                <div class="form-group col-md-6">
+					                    <label for="cell">Cell<samp class="required-star">*</samp></label>
+					                    <?= form_input('cell', set_value('cell'), 'class="form-control tip" id="cell" required="required"'); ?>
+					                </div>  
+								</div> 
+								<div class="row">
+									<div class="form-group col-md-6">
+					                    <label for="current_postion">Current Postion </label>
+					                    <?= form_input('current_postion', set_value('current_postion'), 'class="form-control tip" id="current_postion"'); ?>
+					                </div>
+					                <div class="form-group col-md-6">
+					                    <label for="current_organization">Current Organization</label>
+					                    <?= form_input('current_organization', set_value('current_organization'), 'class="form-control tip" id="current_organization"'); ?>
+					                </div>  
+								</div>
+								<div class="row">
+									<div class="form-group col-md-6">
+					                    <label for="experience">Experience</label>
+					                    <?= form_input('experience', set_value('experience'), 'class="form-control tip" id="experience"'); ?>
+					                </div>
+					                <div class="form-group col-md-6">
+					                    <label for="current_salary">Current Salary</label>
+					                    <?= form_input('current_salary', set_value('current_salary'), 'class="form-control tip" id="current_salary"'); ?>
+					                </div>  
+								</div> 
+								<div class="row">
+									<div class="form-group col-md-6">
+					                    <label for="expectation">Expectation</label>
+					                    <?= form_input('expectation', set_value('expectation'), 'class="form-control tip" id="expectation"'); ?>
+					                </div> 
+									<div class="col-md-6"> 
+										<label for="attach">Attach CV (only doc file)</label> 
+								 		<input type="file" name="userfile" size="40" class=" form-control ">
+								 		</p> 
+									</div> 
+								</div> 
+								<br>
+								<div class="row"> 
+									<div class="col-md-6 job_application application"> 
+										<?= form_submit('news_add', 'Apply for job', 'class="btn btn-primary apply_now_jobs"'); ?>	 
+									</div>
+								</div> <br>
+								<?= form_close(); ?>
+							</div>
+						</div>
+					</div>
+				</div> <!-- END .wpb_wrapper -->
+			</div>
+		</div>
+	</div>
+</section>

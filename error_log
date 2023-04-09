@@ -1,0 +1,49 @@
+[13-May-2019 18:28:49 Australia/Perth] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/ab42659/public_html/bos/themes/admin/default/views/users/create_user.php on line 37
+[20-May-2019 12:48:12 Australia/Perth] PHP Parse error:  syntax error, unexpected '<' in /home3/ab42659/public_html/bos/themes/admin/default/views/gallery.php on line 33
+[20-May-2019 12:48:14 Australia/Perth] PHP Parse error:  syntax error, unexpected '<' in /home3/ab42659/public_html/bos/themes/admin/default/views/gallery.php on line 33
+[20-May-2019 17:56:20 Australia/Perth] PHP Parse error:  syntax error, unexpected '}' in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/member/index.php on line 85
+[22-May-2019 15:19:27 Australia/Perth] PHP Fatal error:  Call to undefined method Home_model::count_image() in /home3/ab42659/public_html/bos/application/controllers/Home.php on line 53
+[01-Jun-2019 17:54:28 Australia/Perth] PHP Parse error:  syntax error, unexpected end of file in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/pages/gallery.php on line 135
+[13-Jun-2019 21:48:57 Australia/Perth] PHP Parse error:  syntax error, unexpected end of file in /home3/ab42659/public_html/bos/application/controllers/Auth.php on line 543
+[16-Jun-2019 02:08:20 Australia/Perth] PHP Fatal error:  Call to undefined method Auth_model::quInfo() in /home3/ab42659/public_html/bos/application/controllers/Auth.php on line 870
+[16-Jun-2019 02:08:27 Australia/Perth] PHP Fatal error:  Call to undefined method Auth_model::quInfo() in /home3/ab42659/public_html/bos/application/controllers/Auth.php on line 870
+[18-Jun-2019 15:09:07 Australia/Perth] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home3/ab42659/public_html/bos/application/libraries/Tec.php on line 557
+[19-Jun-2019 14:55:24 Australia/Perth] PHP Fatal error:  Call to undefined method Home_model::getevents() in /home3/ab42659/public_html/bos/application/controllers/Home.php on line 285
+[24-Jun-2019 16:20:27 Australia/Perth] PHP Fatal error:  Call to undefined method Groups_model::get_members() in /home3/ab42659/public_html/bos/application/controllers/admin/Trainingprogram.php on line 326
+[25-Jun-2019 11:23:28 Australia/Perth] PHP Fatal error:  Call to undefined method Site::reply_count() in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/pages/forum_post.php on line 108
+[25-Jun-2019 11:23:35 Australia/Perth] PHP Fatal error:  Call to undefined method Site::reply_count() in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/pages/forum_post.php on line 108
+[25-Jun-2019 12:54:06 Australia/Perth] PHP Fatal error:  Call to undefined method Site::reply_count() in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/pages/forum_post.php on line 108
+[25-Jun-2019 12:54:16 Australia/Perth] PHP Fatal error:  Call to undefined method Site::reply_count() in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/pages/forum_post.php on line 108
+[25-Jun-2019 12:54:16 Australia/Perth] PHP Fatal error:  Call to undefined method Site::reply_count() in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/pages/forum_post.php on line 108
+[25-Jun-2019 14:04:06 Australia/Perth] PHP Fatal error:  Call to undefined method Groups_model::getMemberInfo() in /home3/ab42659/public_html/bos/themes/admin/default/views/forum/replies.php on line 29
+[25-Jun-2019 14:23:58 Australia/Perth] PHP Fatal error:  Call to undefined method Site::reply_count() in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/pages/forum_post.php on line 108
+[25-Jun-2019 15:01:30 Australia/Perth] PHP Fatal error:  Call to undefined method Site::reply_count() in /home3/ab42659/public_html/bos/themes/frontend/bos_theme/views/pages/forum_post.php on line 108
+[27-Jun-2019 21:59:36 Australia/Perth] PHP Fatal error:  Call to undefined method Home_model::getHonoraryMembers() in /home3/ab42659/public_html/bos/application/controllers/Home.php on line 377
+[30-Jun-2019 13:48:19 Australia/Perth] PHP Parse error:  syntax error, unexpected '{' in /home3/ab42659/public_html/bos/themes/admin/default/views/auth/user_details.php on line 157
+[30-Jun-2019 13:48:26 Australia/Perth] PHP Parse error:  syntax error, unexpected '{' in /home3/ab42659/public_html/bos/themes/admin/default/views/auth/user_details.php on line 157
+[02-Jul-2019 16:17:18 Australia/Perth] PHP Parse error:  syntax error, unexpected end of file in /home3/ab42659/public_html/bos/application/models/Auth_model.php on line 2769
+[06-Jul-2019 20:40:56 Australia/Perth] PHP Fatal error:  Call to undefined method Site::getLastRegistertMember() in /home3/ab42659/public_html/bos/themes/admin/default/views/auth/user_details.php on line 57
+[06-Jul-2019 20:40:58 Australia/Perth] PHP Fatal error:  Call to undefined method Site::getLastRegistertMember() in /home3/ab42659/public_html/bos/themes/admin/default/views/auth/user_details.php on line 57
+[09-Jul-2019 15:01:33 Australia/Perth] PHP Fatal error:  Call to undefined method Groups_model::chekEmail() in /home3/ab42659/public_html/bos/application/controllers/admin/Management.php on line 869
+[16-Sep-2019 19:50:12 Australia/Perth] PHP Fatal error:  Call to undefined method Home_model::count() in /home3/ab42659/public_html/frontdesk/dev/application/controllers/News.php on line 17
+[18-Sep-2019 19:13:44 Australia/Perth] PHP Fatal error:  Call to undefined method Site::fetch() in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Partners.php on line 37
+[21-Sep-2019 21:24:18 Australia/Perth] PHP Fatal error:  Call to undefined method Site::whereIn() in /home3/ab42659/public_html/frontdesk/dev/themes/frontend/frontdesk/views/jobs/index.php on line 134
+[21-Sep-2019 21:24:22 Australia/Perth] PHP Fatal error:  Call to undefined method Site::whereIn() in /home3/ab42659/public_html/frontdesk/dev/themes/frontend/frontdesk/views/jobs/index.php on line 134
+[21-Sep-2019 21:24:50 Australia/Perth] PHP Fatal error:  Call to undefined method Site::whereIn() in /home3/ab42659/public_html/frontdesk/dev/themes/frontend/frontdesk/views/jobs/index.php on line 134
+[21-Sep-2019 21:24:55 Australia/Perth] PHP Fatal error:  Call to undefined method Tec::timeago() in /home3/ab42659/public_html/frontdesk/dev/themes/frontend/frontdesk/views/jobs/index.php on line 150
+[24-Sep-2019 15:04:06 Australia/Perth] PHP Parse error:  syntax error, unexpected '.0001' (T_DNUMBER) in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Jobs.php on line 93
+[24-Sep-2019 15:04:58 Australia/Perth] PHP Parse error:  syntax error, unexpected '0001' (T_LNUMBER) in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Jobs.php on line 93
+[24-Sep-2019 20:28:55 Australia/Perth] PHP Parse error:  syntax error, unexpected ''created_at'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Jobs.php on line 77
+[25-Sep-2019 16:34:02 Australia/Perth] PHP Fatal error:  Call to a member function initialize() on null in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Contacts.php on line 28
+[25-Sep-2019 16:36:07 Australia/Perth] PHP Fatal error:  Call to a member function initialize() on null in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Contacts.php on line 28
+[25-Sep-2019 16:36:25 Australia/Perth] PHP Fatal error:  Call to a member function initialize() on null in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Contacts.php on line 28
+[30-Sep-2019 16:33:17 Australia/Perth] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Jobs.php on line 246
+[30-Sep-2019 16:33:50 Australia/Perth] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Jobs.php on line 246
+[30-Sep-2019 16:33:54 Australia/Perth] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Jobs.php on line 246
+[30-Sep-2019 16:35:34 Australia/Perth] PHP Fatal error:  Call to a member function initialize() on null in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Jobs.php on line 239
+[30-Sep-2019 16:37:15 Australia/Perth] PHP Fatal error:  Call to a member function initialize() on null in /home3/ab42659/public_html/frontdesk/dev/application/controllers/Jobs.php on line 238
+[03-Oct-2019 14:51:36 Australia/Perth] PHP Parse error:  syntax error, unexpected ',' in /home3/ab42659/public_html/frontdesk/dev/themes/admin/default/views/training/edit.php on line 102
+[03-Oct-2019 14:51:43 Australia/Perth] PHP Parse error:  syntax error, unexpected ',' in /home3/ab42659/public_html/frontdesk/dev/themes/admin/default/views/training/edit.php on line 102
+[03-Oct-2019 14:51:52 Australia/Perth] PHP Parse error:  syntax error, unexpected ',' in /home3/ab42659/public_html/frontdesk/dev/themes/admin/default/views/training/edit.php on line 102
+[03-Oct-2019 14:53:36 Australia/Perth] PHP Parse error:  syntax error, unexpected ',' in /home3/ab42659/public_html/frontdesk/dev/themes/admin/default/views/training/edit.php on line 102
+[03-Oct-2019 14:53:52 Australia/Perth] PHP Parse error:  syntax error, unexpected ',' in /home3/ab42659/public_html/frontdesk/dev/themes/admin/default/views/training/edit.php on line 102
