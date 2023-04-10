@@ -139,7 +139,7 @@ class Jobs extends MY_Controller
 
                     $email = $getInfo->email;
                     $subject = 'You have successfully applied for ' . $jobs->positions;
-                    $from_name = 'Golden Infotech';
+                    $from_name = 'BITOPI GROUP';
                     $to = $getInfo->email;
                     $from = $this->Settings->default_email;
                     $data['positions'] = $jobs->positions;

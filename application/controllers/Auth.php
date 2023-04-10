@@ -1132,7 +1132,7 @@ class Auth extends MY_Controller
 				$update_status = $this->db->where('id', $register_data)->update('users', ['active' => 1, 'applicant_id' => $applicant_id]);
 				// Log in the user
 				$this->ion_auth->login($email, $password, TRUE);
-				$this->session->set_flashdata('message', lang('You are successfully logedin'));
+				$this->session->set_flashdata('message', lang('Thank you! You are successfully register'));
 				redirect('career');
 			}
 		}
@@ -1223,6 +1223,7 @@ class Auth extends MY_Controller
 					//$this->session->set_flashdata('message', $this->ion_auth->messages());
 
 				}
+				$this->session->set_flashdata('message', lang('Thank you! You are successfully logedin'));
 				redirect('career');
 				// redirect('personal_information/insert_personal_info');
 			} else {

@@ -442,6 +442,28 @@
                     </div>
                     <div class="col-md-7">
                         <div class="right_wrapper ">
+                        <div class="right_item">
+                                <div class="resume_title_grid">
+                                    <div class="icon">
+                                        <i class="fa-solid fa-graduation-cap"></i>
+                                    </div>
+                                    <h3>Education </h2>
+                                </div>
+                                <?php foreach ($acadamic_info as $key => $value) { ?>
+                                    <div class="category_item">
+                                        <h4><?= $value->degree ?? '' ?></h4>
+                                        <ul>
+                                            <li>Institute: <b><?= $value->name_of_institution ?? '' ?></b>
+                                            </li>
+                                            <li>Pass Year: <b> <?= $value->passing_year ?? '' ?> </b> </li>
+                                            <li>Concentration/Major: <b> <?= $value->major ?? '' ?></b> </li>
+                                            <li>Result: <b><?= $value->result ?? '' ?> (Out of <?= $value->result_out_of ?? '' ?>) </b> </li>
+
+                                        </ul>
+                                    </div>
+                                <?php } ?>
+
+                            </div>
                             <div class="right_item">
                                 <div class="resume_title_grid">
                                     <div class="icon">
@@ -527,7 +549,10 @@
                                     <?php foreach ($key_skills as $key => $value) { ?>
                                         <!-- <h4>Web Developer</h4> -->
                                         <ul class="list_disc">
-                                            <li><?= $value->key_skill ?? '' ?> </li>
+                                            <li><?= $value->key_skill1 ?? '' ?> </li>
+                                            <li><?= $value->key_skill2 ?? '' ?> </li>
+                                            <li><?= $value->key_skill3 ?? '' ?> </li>
+                                            <li><?= $value->key_skill4 ?? '' ?> </li>
                                         </ul>
                                     <?php } ?>
                                 </div>
@@ -546,7 +571,10 @@
                                     <?php foreach ($computer_skills as $key => $value) { ?>
                                         <!-- <h4>Web Developer</h4> -->
                                         <ul class="list_disc">
-                                            <li><?= $value->computer_skill ?? '' ?> </li>
+                                            <li><?= $value->computer_skill1 ?? '' ?> </li>
+                                            <li><?= $value->computer_skill2 ?? '' ?> </li>
+                                            <li><?= $value->computer_skill3 ?? '' ?> </li>
+                                            <li><?= $value->computer_skill4 ?? '' ?> </li>
                                         </ul>
                                     <?php } ?>
                                 </div>
@@ -576,38 +604,17 @@
                                     <?php  } ?>
                                 </div>
                             </div>
+                            
                             <div class="right_item">
                                 <div class="resume_title_grid">
                                     <div class="icon">
                                         <i class="fa-solid fa-graduation-cap"></i>
                                     </div>
-                                    <h3>Education </h2>
-                                </div>
-                                <?php foreach ($acadamic_info as $key => $value) { ?>
-                                    <div class="category_item">
-                                        <h4><?= $value->degree ?? '' ?></h4>
-                                        <ul>
-                                            <li>Institute: <b><?= $value->name_of_institution ?? '' ?></b>
-                                            </li>
-                                            <li>Pass Year: <b> <?= $value->passing_year ?? '' ?> </b> </li>
-                                            <li>Concentration/Major: <b> <?= $value->major ?? '' ?></b> </li>
-                                            <li>Result: <b><?= $value->result ?? '' ?> (Out of <?= $value->result_out_of ?? '' ?>) </b> </li>
-
-                                        </ul>
-                                    </div>
-                                <?php } ?>
-
-                            </div>
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-graduation-cap"></i>
-                                    </div>
-                                    <h3>Refarances </h2>
+                                    <h3>References </h2>
                                 </div>
                                 <?php foreach ($references as $key => $value) { ?>
                                     <div class="category_item">
-                                        <h4><?= $value->ref_name ?? '' ?></h4>
+                                        <h4>Name: <?= $value->ref_name ?? '' ?></h4>
                                         <ul>
                                             <li>Degignation: <b><?= $value->ref_degignation ?? '' ?></b>
                                             </li>
@@ -616,6 +623,18 @@
                                             <li>Email: <b><?= $value->ref_email ?? '' ?> </b> </li>
                                             <li>Phone: <b><?= $value->ref_phone ?? '' ?> </b> </li>
                                             <li>Relation: <b><?= $value->ref_relation ?? '' ?> </b> </li>
+
+                                        </ul>
+                                        <hr>
+                                        <h4 class="mt-2">Name: <?= $value->ref_name2 ?? '' ?></h4>
+                                        <ul>
+                                            <li>Degignation: <b><?= $value->ref_degignation2 ?? '' ?></b>
+                                            </li>
+                                            <li>Organization: <b> <?= $value->ref_organization2 ?? '' ?> </b> </li>
+                                            <li>Mailing Address: <b> <?= $value->mailing_address2 ?? '' ?></b> </li>
+                                            <li>Email: <b><?= $value->ref_email2 ?? '' ?> </b> </li>
+                                            <li>Phone: <b><?= $value->ref_phone2 ?? '' ?> </b> </li>
+                                            <li>Relation: <b><?= $value->ref_relation2 ?? '' ?> </b> </li>
 
                                         </ul>
                                     </div>
@@ -629,7 +648,8 @@
 
             
             <div class="text-center mt-4 mb-2">
-                <button type="button"  class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/'). $user_id ?>">Download</a> </button>
+            <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
+                <!-- <button type="button"  class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/'). $user_id ?>">Download</a> </button> -->
             </div>
         </section>
     </main>

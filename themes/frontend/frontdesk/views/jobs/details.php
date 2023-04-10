@@ -231,7 +231,7 @@
                 <?php if (isset($_SESSION['member_id'])) { ?>
                     <div class="row">
                         <div class="col-md-6 d-flex justify-content-center">
-                            <?= form_submit('news_add', 'Apply for job', 'class="btn btn-dark apply_now_jobs"'); ?>
+                            <?= form_submit('news_add', 'Apply For Job', 'class="btn btn-dark apply_now_jobs"'); ?>
                         </div>
                     </div> <br>
                 <?php } else { ?>

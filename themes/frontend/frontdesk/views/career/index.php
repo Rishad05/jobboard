@@ -125,12 +125,18 @@
                             <a class="nav-link" href="<?= base_url('personal_information/insert_personal_info'); ?>">Add Your Profile Information</span></a>
 
                         </button>
+                        <button class=" btn btn-dark nav-item m-3">
+                            <a class="nav-link" onclick="return confirm('Please add your information first')"href="#">Apply for a Position</span></a>
+                        </button>
                     <?php } ?>
                 <?php } else { ?>
                     <button class=" btn btn-dark nav-item m-3">
                         <a class="nav-link" href="<?= base_url('personal_information/insert_personal_info'); ?>">Add Your Profile Information</span></a>
 
                     </button>
+                    <button class=" btn btn-dark nav-item m-3">
+                            <a class="nav-link" onclick="return confirm('Please add your information first')"href="#">Apply for a Position</span></a>
+                        </button>
                 <?php } ?>
 
                 <button class=" btn btn-dark nav-item m-3"> <a class="nav-link" href="<?= base_url('jobs/applicant_applied_jobs'); ?>">My Applied Jobs</a></button>

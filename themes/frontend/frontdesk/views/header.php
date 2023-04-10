@@ -146,11 +146,11 @@
                             } else {
                                 // show login button
                                 echo '<li class="nav-item" id="training">
-                                            <a class="nav-link" href="' . base_url('auth/applicant_login') . '">Login</span></a>
+                                            <a class="nav-link" href="' . base_url('career') . '">Career</span></a>
                                       </li>';
-                                echo '<li class="nav-item" id="training">
-                                            <a class="nav-link" href="' . base_url('auth/applicant_register') . '">Registration</span></a>
-                                      </li>';
+                                // echo '<li class="nav-item" id="training">
+                                //             <a class="nav-link" href="' . base_url('auth/applicant_register') . '">Registration</span></a>
+                                //       </li>';
                             }
                             ?>
 

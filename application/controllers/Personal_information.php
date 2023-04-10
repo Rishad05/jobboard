@@ -25,7 +25,7 @@ class Personal_information extends MY_Controller
     public function insert_personal_info()
     {
 
-        // $this->form_validation->set_rules('full_name', 'Full Name', 'required');
+        $this->form_validation->set_rules('full_name', 'Full Name', 'required');
         $this->form_validation->set_rules('dob', 'Date Of Birth', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('blood_group', 'Blood Group ', 'required');
@@ -55,7 +55,7 @@ class Personal_information extends MY_Controller
         if ($this->form_validation->run() == true) {
             $data = array(
 
-                'full_name' => $user_name,
+                'full_name' => $this->input->post('full_name'),
                 'dob'         => $this->input->post('dob'),
                 'gender'         => $this->input->post('gender'),
                 'blood_group'     => $this->input->post('blood_group'),
@@ -98,6 +98,8 @@ class Personal_information extends MY_Controller
             if (isset($footerLogo)) {
                 $data['applicant_photo'] = $footerLogo;
             }
+            $this->db->where('id', $user_id)->update('users', ['username' => $data['full_name']]);
+            $this->session->set_userdata('username', $data['full_name']);
 
             $updatePersonalInfo = $this->db->where('user_id', $user_id)->update("personal_info", $data);
 
@@ -490,6 +492,8 @@ class Personal_information extends MY_Controller
             $this->data['language_proficincy'] =  $this->db->select('*')->from('language_proficincy')->where('user_id', $user_id)->get()->result();
             $this->data['references'] =  $this->db->select('*')->from('references')->where('user_id', $user_id)->get()->result();
             $this->data['additional_info'] =  $this->db->select('*')->from('additional_info')->where('user_id', $user_id)->get()->result();
+            $this->data['relatives'] =  $this->db->select('*')->from('relative')->where('user_id', $user_id)->get()->result();
+            $this->data['previously_interview'] =  $this->db->select('*')->from('previously_interviewed')->where('user_id', $user_id)->get()->result();
 
             $this->data['page_title'] = 'Applicant Personal Info';
 

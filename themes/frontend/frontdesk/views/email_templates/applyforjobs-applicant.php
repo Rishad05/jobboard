@@ -52,7 +52,9 @@
                                  margin-top: 0;
                                  text-align: left;
                                  ">
-                              <?php echo $mailData['name']; ?>
+                                 <p>Hello
+                              <?php echo $mailData['username']; ?>, Thank you for applying! We will contact you soon.</p>
+                              </p>
                            </td>
                         </tr>
                         <tr>
@@ -73,7 +75,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['phone']; ?>
+                              <!-- <?php echo $mailData['phone']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -136,7 +138,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['dob']; ?>
+                              <!-- <?php echo $mailData['dob']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -157,7 +159,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['current_organizations']; ?>
+                              <!-- <?php echo $mailData['current_organizations']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -178,7 +180,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['experience']; ?>
+                              <!-- <?php echo $mailData['experience']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -199,7 +201,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['current_salary']; ?>
+                              <!-- <?php echo $mailData['current_salary']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -220,7 +222,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['expectation']; ?>
+                              <!-- <?php echo $mailData['expectation']; ?> -->
                            </td>
                         </tr>
 
@@ -242,7 +244,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['profile_code']; ?>
+                              <!-- <?php echo $mailData['profile_code']; ?> -->
                            </td>
                         </tr>
 
@@ -256,7 +258,7 @@
                                     margin-top: 0;
                                     text-align: left;">
                                  Regards,<br>
-                                 Golden Infotech
+                                 BITOPI GROUP
                               </p>
                            </td>
                         </tr>
