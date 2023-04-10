@@ -91,19 +91,19 @@
             <div class="form-group">
                 <label for="name">Name </label>
                 <!-- <input type="text" class="form-control" id="name" placeholder="Enter Name" required /> -->
-                <input type="text" name="username" class="form-control" id="name" placeholder="Enter Name" required>
+                <input type="text" name="username" class="form-control" id="name" value="<?= set_value('username') ?>" placeholder="Enter Name" required>
                 <span class="error-massage"><?= form_error('username'); ?></span>
                 <div class="invalid-feedback">Please Enter Name.</div>
             </div>
             <div class="form-group">
                 <label for="email">Email </label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email" required />
+                <input type="email" name="email" class="form-control" id="email" value="<?= set_value('email') ?>" placeholder="Enter Email" required />
                 <span class="error-massage"><?= form_error('email'); ?></span>
                 <div class="invalid-feedback">Please Enter Email.</div>
             </div>
             <div class="form-group">
                 <label for="password">Password </label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required />
+                <input type="password" name="password" class="form-control" id="password"  placeholder="Enter Password" required />
                 <span class="error-massage"><?= form_error('password'); ?></span>
                 <div class="invalid-feedback">Please Enter Password.</div>
             </div>
@@ -120,7 +120,7 @@
             <div class="have_account_area mt-3">
                 <h4>
                     If you have an account.
-                    <a href="<?= base_url('auth/applicant_login') ?>">Click Here </a> to Login
+                    <a href="<?= base_url('auth/applicant_login') ?>">Click Here </a> to login
                 </h4>
             </div>
             <?php echo form_close(); ?>
