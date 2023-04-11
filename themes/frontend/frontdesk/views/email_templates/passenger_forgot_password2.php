@@ -26,7 +26,7 @@
                 <tr style="background:#f5f5f5">
                     <td colspan="3" style="padding:50px 35px;">
                         <h3 style="text-transform: capitalize;color:#059348">Hi <?php echo $parse_data['user_name']; ?></h3>
-                        <p style="font-size: 18px;color: #333;"> You recently requested to reset your password for your BOS account. Click the button below to reset it. if you did not request a password reset, please ignore this email.</p>
+                        <p style="font-size: 18px;color: #333;"> You recently requested to reset your password for your applicant account. Click the button below to reset it. if you did not request a password reset, please ignore this email.</p>
 
 
                         <a href="<?php echo $parse_data['reset_password_link']; ?>" style="width: 150px;display: block;background: green;color: #fff;text-decoration: none;padding: 15px 25px;text-align: center;">Password Reset</a>
