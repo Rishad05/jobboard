@@ -146,11 +146,10 @@
   min-height: 100vh;
 }
 .sign_up_wrapper .form_area {
-  max-width: 850px;
+  max-width: 800px;
   width: 100%;
   border: 1px solid #ced4da;
   padding: 20px;
-  margin-bottom: 20px;
 }
 
 .resume_wrapper {
