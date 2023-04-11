@@ -674,7 +674,8 @@ class Auth extends MY_Controller
 				$this->data['code'] = $code;
 				$this->data['identity_label'] = $user->email;
 				$this->data['page_title'] = lang('reset_password');
-				$this->load->view($this->theme . 'auth/reset_pass_member', $this->data);
+				// $this->load->view($this->theme . 'auth/reset_pass_member', $this->data);
+				$this->frontend_construct('pages/reset_password', $this->data);
 			} else {
 				if ($user->id != $this->input->post('user_id')) {
 					$this->ion_auth->clear_forgotten_password_code($code);

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Forget Password</title>
+    <title>Change Password</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="<?= $frontend_assets; ?>images/header/logo.png" type="image/x-icon" />
@@ -26,7 +26,7 @@
                                     </p>
                                     <div class="sc-boxed-call-to-cation  ">
                                         <div class="tg-titleandbtns">
-                                            <h1 style="color:#ffffff">Forget Password<br>
+                                            <h1 style="color:#ffffff">Reset Password<br>
                                             </h1>
                                             <div class="tg-btnsbox">
                                             </div>
@@ -52,7 +52,7 @@
                                 <a href="<?= base_url('career') ?>"> Career</a>
                             </li>
                             <li class="arrow-item"><i class="fas fa-angle-right"></i></li>
-                            <li class="last-item">Forget Password</li>
+                            <li class="last-item">Reset Password</li>
                         </ol>
                     </div>
                 </div>
@@ -63,21 +63,42 @@
         <!-- Section  -->
         <section class="sign_up_wrapper d-flex align-items-center justify-content-center flex-column">
             <div class="text-center mb-4">
-                <h1 class="text-center" style="color:aquamarine">Applicant Forget Password</h1>
-                <h3 class="text-center pt-3">Please enter your email to reset your password</h3>
-                <!-- <img src="<?= $frontend_assets; ?>images/Logo.png" alt="logo" /> -->
+                <h1 class="text-center" style="color:aquamarine">Applicant Reset Password</h1>
+                <h3 class="text-center pt-3">Please enter your new password to access your account</h3>
+                <!-- <img src="assets/images/Logo.png" alt="logo" /> -->
             </div>
             <!-- <form action="" class="form_area needs-validation" novalidate> -->
-            <?php echo form_open('auth/applicant_forgot_password', ['class' => 'form_area needs-validation', 'novalidate' => 'true']); ?>
+            <?php if ($error) { ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= $error; ?>
+                </div>
+            <?php }
+            if ($message) { ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= $message; ?>
+                </div>
+            <?php } ?>
+            <?= form_open('auth/reset_password_member/' . $code, ['class' => 'form_area needs-validation']); ?>
             <div class="form-group">
-                <label for="email">Email </label>
-                <input type="email" name="forgot_email" class="form-control" id="email" placeholder="Enter Email" required />
-                <div class="invalid-feedback">Please Enter Email.</div>
+                <label for="password">Password </label>
+                <input type="password" name="new" class="form-control" id="password" placeholder="Enter Password" required />
+                <div class="invalid-feedback">Please Enter Password.</div>
             </div>
+            <div class="form-group">
+                <label for="passwordConfirm">Confirm Password </label>
 
-            <button type="submit" class="btn btn-info w-100 mt-3">Submit</button>
-            <!-- </form> -->
-            <?php echo form_close(); ?>
+                <input type="password" name="new_confirm" class="form-control" id="passwordConfirm" placeholder="Enter Confirm Password" required />
+                <div class="invalid-feedback">Please Enter Confirm Password.</div>
+            </div>
+            <?php echo form_input($user_id); ?>
+            <?php echo form_hidden($csrf); ?>
+            <button type="submit" class="btn btn-info w-100 mt-3">
+                Change Password
+            </button>
+            <?= form_close(); ?>
+            </form>
         </section>
     </main>
 

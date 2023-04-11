@@ -1388,13 +1388,10 @@ class Auth_model extends CI_Model
 
     public function forgotten_password_member($identity)
     {
-        echo 'ok step1';
         if ($this->forgotten_password($identity)) {
-            echo 'ok step2';
+           
             $user = $this->ion_auth->where($this->config->item('identity', 'ion_auth'), $identity)->where('active', 1)->users()->row();
-            // echo $user;
             if ($user) {
-                echo 'ok step3';
 
                 $data = array(
                     'identity' => $user->{$this->config->item('identity', 'ion_auth')},
@@ -1408,8 +1405,6 @@ class Auth_model extends CI_Model
 
                     return $data;
                 } else {
-                    echo 'ok step5';
-                    // die;
                     $data['parse_data'] = array(
                         'user_name' => $user->first_name . ' ' . $user->last_name,
                         'email' => $user->email,
