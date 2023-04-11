@@ -715,9 +715,11 @@
                                                                     <div class="table_input_area">
                                                                         <select required class="custom-select" name="passing_year[]" id="passing_year">
                                                                             <option selected disabled value="">Choose...</option>
-                                                                            <?php foreach ($range as $key => $value) { ?>
-                                                                                <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
-                                                                            <?php } ?>
+                                                                            <?php foreach ($range as $key => $value) {
+                                                                                if ($value != 'continue') :  ?>
+                                                                                    <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+                                                                            <?php endif;
+                                                                            } ?>
                                                                         </select>
                                                                         <div class="invalid-feedback">
                                                                             Please select Board .
@@ -2694,12 +2696,6 @@
             </div>
         </section>
     </main>
-    <script>
-        // $(document).ready(function () {
-
-
-        // })
-    </script>
     <!-- JS Here -->
     <script src="<?= $frontend_assets; ?>plugins/js/jquery-3.6.0.min.js"></script>
     <script src="<?= $frontend_assets; ?>plugins/js/bootstrap.bundle.min.js"></script>
@@ -2714,14 +2710,6 @@
     </script>
 
     <script src="<?= $frontend_assets; ?>js/main.js"></script>
-    <?php
-    if ($additional->any_relatives == "Yes") { ?>
-        <script>
-            $('#relativeSelect').click();
-        </script>
-    <?php
-    }
-    ?>
 
 </body>
 

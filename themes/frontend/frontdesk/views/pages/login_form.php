@@ -114,12 +114,13 @@
                     Do you have't account? <a href="<?= base_url('auth/applicant_register') ?>">Create Account </a>
                 </h4>
             </div>
-            <!-- <div class="have_account_area mt-3">
+            <div class="have_account_area mt-3">
+
                 <h4>
                     You don't remember your password?
-                    <a href="#">Click Here </a>
+                    <a href="<?= base_url('auth/applicant_forgetpassview') ?>">Click Here </a>
                 </h4>
-            </div> -->
+            </div>
             <?php echo form_close(); ?>
         </section>
     </main>

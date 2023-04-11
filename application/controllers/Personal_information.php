@@ -421,8 +421,8 @@ class Personal_information extends MY_Controller
             $i = isset($_POST['previous_position']) ? sizeof($_POST['previous_position']) : 0;
             for ($r = 0; $r < $i; $r++) {
                 $previous_position = $_POST['previous_position'][$r];
-                $interview_month = isset($_POST['interview_month'][$r])? $_POST['interview_month'][$r]: null;
-                $interview_year = isset($_POST['interview_year'][$r])? $_POST['interview_year'][$r]:null;
+                $interview_month = isset($_POST['interview_month'][$r]) ? $_POST['interview_month'][$r] : null;
+                $interview_year = isset($_POST['interview_year'][$r]) ? $_POST['interview_year'][$r] : null;
                 $interview_remarks = $_POST['interview_remarks'][$r];
                 $user_id = $this->session->userdata('member_id');
                 $previously_interviewed[] = array(
@@ -611,16 +611,16 @@ class Personal_information extends MY_Controller
 
 
 
-        $this->data['page_title'] = 'Applicant Personal Info';
+        $this->data['page_title'] = 'Applicant Resume';
 
         $bc = array(
             array(
                 'link' => '#',
-                'page' => 'Applicant Personal Info',
+                'page' => 'Applicant Resume',
             ),
         );
         $meta = array(
-            'page_title' => 'Applicant Personal Info',
+            'page_title' => 'Applicant Resume',
             'bc' => $bc,
         );
         $this->frontend_construct('applicant_resume/resume', $this->data, $meta);
@@ -641,6 +641,7 @@ class Personal_information extends MY_Controller
         $query = $this->db->get()->row();
         $this->data['personal_info'] = $query;
         $this->data['user_id'] = $user_id;
+
 
         $this->db->select('*');
         $this->db->from('acadamic_info');
@@ -696,24 +697,23 @@ class Personal_information extends MY_Controller
         $query = $this->db->get();
         $this->data['additional_info'] = $query->result();
 
+
+
         $this->load->library('pdf');
-        $this->data['page_title'] = 'Applicant Personal Info';
+        $this->data['page_title'] = 'Applicant Resume';
 
         $bc = array(
             array(
                 'link' => '#',
-                'page' => 'Applicant Personal Info',
+                'page' => 'Applicant Resume',
             ),
         );
         $meta = array(
-            'page_title' => 'Applicant Personal Info',
+            'page_title' => 'Applicant Resume',
             'bc' => $bc,
         );
-        // $this->data['frontend_asset'] 
+
         $html =  $this->load->view($this->frontend_theme . 'applicant_resume/resume_pdf', $this->data, true);
-        // $html =  $this->frontend_construct('applicant_resume/resume', $this->data);
-        // echo $html;
-        // die;
-        $this->pdf->createPDF($html, 'mypdf', false);
+        $this->pdf->createPDF($html, $this->data['personal_info']->full_name, false);
     }
 }

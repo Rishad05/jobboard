@@ -679,22 +679,26 @@ class Auth extends MY_Controller
 				if ($user->id != $this->input->post('user_id')) {
 					$this->ion_auth->clear_forgotten_password_code($code);
 					$this->session->set_flashdata('error', $this->ion_auth->errors());
-					redirect('member-login');
+					// redirect('member-login');
+					redirect('auth/applicant_login');
 				} else {
 					$identity = $user->email;
 					$change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
 					if ($change) {
 						$this->session->set_flashdata('message', $this->ion_auth->messages());
-						redirect('member-login');
+						// redirect('member-login');
+						redirect('auth/applicant_login');
 					} else {
 						$this->session->set_flashdata('error', $this->ion_auth->errors());
-						redirect('member-login');
+						// redirect('member-login');
+						redirect('auth/applicant_login');
 					}
 				}
 			}
 		} else {
 			$this->session->set_flashdata('error', $this->ion_auth->errors());
-			redirect("member-login");
+			// redirect("member-login");
+			redirect('auth/applicant_login');
 		}
 	}
 	function activate($id, $code = false)
@@ -1139,54 +1143,11 @@ class Auth extends MY_Controller
 		$this->frontend_construct('pages/registration_form', $this->data, $meta);
 	}
 
-
-	/* public function applicant_register()
-	{
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('username', 'Name', 'required|min_length[5]|is_unique[users.username]');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
-		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
-		if ($this->form_validation->run() === FALSE) {
-			$this->data['page_title'] = 'Applicant Registration';
-			$bc = array(
-				array(
-					'link' => '#',
-					'page' => 'Applicant Login',
-				),
-			);
-			$meta = array(
-				'page_title' => 'Applicant Registration',
-				'bc' => $bc,
-			);
-			$this->session->set_flashdata('error', validation_errors());
-		} else {
-			$username = $this->input->post('username');
-			$email = $this->input->post('email');
-			$password = $this->input->post('password');
-
-			$additional_data = array(
-				'first_name' => $this->input->post('username'),
-				'last_name' => '',
-			);
-			$register_data = $this->ion_auth->register($username, $password, $email, $additional_data);
-			if ($register_data) {
-				$update_status = $this->db->where('id', $register_data)->update('users', ['active' => 1]);
-			}
-			// echo "<pre>";
-			// print_r($register_data);
-			// die;
-			// $this->ion_auth->register($userdata);
-			redirect('auth/applicant_login');
-		}
-		$this->frontend_construct('pages/registration_form', $this->data, $meta);
-	} */
-
 	public function applicant_login()
 	{
 
 		if ($this->ion_auth->logged_in() && !$this->Admin) {
-			// redirect('personal_information');
+
 			redirect('career');
 			// redirect('personal_information/insert_personal_info');
 			//$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -1233,5 +1194,48 @@ class Auth extends MY_Controller
 		}
 
 		$this->frontend_construct('pages/login_form', $this->data, $meta);
+	}
+
+
+	function applicant_forgot_password()
+	{
+		$this->form_validation->set_rules('forgot_email', lang('email_address'), 'required|valid_email');
+		if ($this->form_validation->run() == false) {
+			$error = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+			$this->session->set_flashdata('error', $error);
+			redirect("auth/applicant_login");
+		} else {
+			$identity = $this->ion_auth->where('email', strtolower($this->input->post('forgot_email')))->users()->row();
+			if (empty($identity)) {
+				$this->ion_auth->set_message('forgot_password_email_not_found');
+				$this->session->set_flashdata('error', $this->ion_auth->messages());
+				redirect("auth/applicant_login");
+			}
+			//$forgotten = $this->ion_auth->forgotten_password_member($identity->email);
+			$forgotten = $this->ion_auth->forgotten_password_member($identity->email);
+			if ($forgotten) {
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect("auth/applicant_login");
+			} else {
+				$this->session->set_flashdata('error', $this->ion_auth->errors());
+				redirect("auth/applicant_login");
+			}
+		}
+	}
+
+	function applicant_forgetpassview()
+	{
+		$this->data['page_title'] = 'Applicant Login';
+		$bc = array(
+			array(
+				'link' => '#',
+				'page' => 'Applicant Login',
+			),
+		);
+		$meta = array(
+			'page_title' => 'Applicant Login',
+			'bc' => $bc,
+		);
+		$this->frontend_construct('pages/forgot_password', $this->data, $meta);
 	}
 }

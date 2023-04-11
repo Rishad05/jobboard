@@ -305,7 +305,9 @@
 </head>
 
 <body>
+
     <section class="sub_header_sec" id="banner">
+
         <div class="tg-innerpagebanner tg-haslayout">
             <div class="tg-pagetitle tg-haslayout tg-parallaximg" data-appear-top-offset="600" data-parallax="scroll">
                 <div class="container">
@@ -350,7 +352,7 @@
                             </li>
                             <li class="arrow-item"><i class="fas fa-angle-right"></i></li>
                             <li class="last-item"><?php if ($this->Admin) {  ?>
-                                    View resume of <?= $personal_info->full_name ?? 'Name' ?> resume
+                                    View resume of <?= $personal_info->full_name ?? 'Name' ?>
                                 <?php } else { ?>
                                     View my resume
                                 <?php } ?></li>
@@ -364,76 +366,100 @@
     <main>
         <!-- Resume Section  -->
         <section class="resume_wrapper">
-            <!-- <div class="d-flex-between apply_title_area">
-                <h4>Job Title: <b>Full Stack Developer</b></h4>
-                <div>
-                    <h6>Source:bdjobs online cv maker</h6>
-                    <h6>Last Update: <b>05 Dec 2023</b></h6>
-                </div>
-            </div> -->
+            <?php
+            //Use this code to convert your image to base64
+            $path = base_url('uploads/') . $personal_info->applicant_photo;
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            ?>
             <div class="resume_area" id="pdfContentArea">
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="left_wrapper">
+                        <div class="left_wrapper" style="height: 100%; padding: 10px 20px 40px 20px; background-color: whitesmoke;">
                             <div class="user_info_area">
-                                <div class="user_img">
+                                <div class="user_img" style=" display: flex; align-items: center;justify-content: center; max-width: 180px; width: 100%;height: 180px;margin-left: auto;margin-right: auto;">
                                     <?php if ($personal_info->applicant_photo ?? '') { ?>
-                                        <img src="<?= base_url('uploads/') . $personal_info->applicant_photo ?? ''; ?>" width="160">
-                                    <?php } else { ?>
-                                        <img src="<?= $frontend_assets; ?>images/default-user-image.png" width="160">
+                                        <img src="<?= $base64 ?>" width="160" style=" max-height: 100%;">
                                     <?php } ?>
+
                                 </div>
-                                <h4 class="user_name"><?= $personal_info->full_name ?? 'Name' ?></h4>
-                                <ul class="contact_list">
-                                    <li>
-                                        <div class="icon">
-                                            <i class="fa-solid fa-phone"></i>
+                                <h4 class="user_name" style="   font-size: 24px; font-weight: 600; margin-top: 20px;">
+                                    <?= $personal_info->full_name ?? 'Name' ?></h4>
+                                <ul class="contact_list" style="   margin-top: 30px; margin-bottom: 40px;">
+                                    <li style="  display: grid; grid-template-columns: minmax(0, 26px) repeat(1, minmax(0, 1fr));align-items: start; gap: 10px;margin-top: 12px;">
+                                        <div class="icon" style="  display: flex; align-items: center; justify-content: center; width: 100%;height: 26px;background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%;">
+                                            <i class="fa-solid fa-phone" style=" color: white;font-size: 12px;"></i>
                                         </div>
-                                        <a href="tel:+"><?= $personal_info->cell_phone_1 ?? 'Phone' ?></a>
+                                        <a href="tel:+" style="  font-size: 16px; font-weight: 500;"><?= $personal_info->cell_phone_1 ?? 'Phone' ?></a>
                                     </li>
-                                    <li>
-                                        <div class="icon">
-                                            <i class="fa-regular fa-envelope-open"></i>
+                                    <li style="  display: grid;grid-template-columns: minmax(0, 26px) repeat(1, minmax(0, 1fr)); align-items: start; gap: 10px;margin-top: 12px;">
+                                        <div class="icon" style="  display: flex; align-items: center; justify-content: center; width: 100%;height: 26px;background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;-ms-border-radius: 50%; -o-border-radius: 50%;">
+                                            <i class="fa-regular fa-envelope-open" style=" color: white; font-size: 12px;"></i>
                                         </div>
-                                        <a href="#"><?= $personal_info->email ?? 'Email' ?></a>
+                                        <a href="#" style="  font-size: 16px;font-weight: 500;"><?= $personal_info->email ?? 'Email' ?></a>
                                     </li>
-                                    <li>
-                                        <div class=" icon">
-                                            <i class="fa-solid fa-location-dot"></i>
+                                    <li style="  display: grid; grid-template-columns: minmax(0, 26px) repeat(1, minmax(0, 1fr)); align-items: start; gap: 10px;margin-top: 12px;">
+                                        <div class=" icon" style="  display: flex; align-items: center; justify-content: center; width: 100%; height: 26px;  background-color: #1fa898; border-radius: 50%;-webkit-border-radius: 50%; -moz-border-radius: 50%;-ms-border-radius: 50%; -o-border-radius: 50%;">
+                                            <i class="fa-solid fa-location-dot" style=" color: white;font-size: 12px;"></i>
                                         </div>
-                                        <a href="#" target="_blank"><?= $personal_info->present_address ?? 'Address' ?></a>
+                                        <a href="#" style="  font-size: 16px; font-weight: 500;" target="_blank"><?= $personal_info->present_address ?? 'Address' ?></a>
                                     </li>
 
                                 </ul>
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-user-tie"></i>
+                                <div class="resume_title_grid" style="     display: grid; grid-template-columns: minmax(0, 28px) repeat(1, minmax(0, 1fr)); align-items: center; gap: 12px;">
+                                    <div class="icon" style="   display: flex; align-items:     center; justify-content: center; width:     100%; height: 28px; background-color: #1fa898;  border-radius: 50%;-webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-user-tie" style=" color: white;font-size: 15px;">
+                                        </i>
                                     </div>
-                                    <h3>Personal Information</h2>
+                                    <h3 style=" font-size: 22px; font-weight: 500;">Personal Information
+                                    </h3>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Father's Name</h4>
-                                    <h5><?= $personal_info->father_name ?? 'Father Name' ?></h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px;font-weight: 400;text-transform: capitalize;">Father's
+                                        Name
+                                    </h4>
+                                    <h5 style=" font-size: 18px;font-weight: 500; margin-top: 2px; text-transform: capitalize;">
+                                        <?= $personal_info->father_name ?? 'Father Name' ?>
+                                    </h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Mother's Name</h4>
-                                    <h5><?= $personal_info->mother_name ?? 'Mother Name' ?></h5>
+                                <div class="information_item" style="margin-top: 30px;">
+
+                                    <h4 style="   font-size: 16px; font-weight: 400; text-transform: capitalize;">
+                                        Mother's Name
+                                    </h4>
+                                    <h5 style=" font-size: 18px; font-weight: 500; margin-top: 2px; text-transform: capitalize;">
+                                        <?= $personal_info->mother_name ?? 'Mother Name' ?>
+                                    </h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Gender </h4>
-                                    <h5><?= $personal_info->gender ?? 'Gender' ?> </h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px; font-weight: 400; text-transform: capitalize;">Gender
+                                    </h4>
+                                    <h5 style=" font-size: 18px; font-weight: 500; margin-top: 2px; text-transform: capitalize;">
+                                        <?= $personal_info->gender ?? 'Gender' ?>
+                                    </h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Date of Birth </h4>
-                                    <h5><?= $personal_info->dob ?? 'Date of Birth' ?> </h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px; font-weight: 400; text-transform: capitalize;">Date
+                                        of Birth
+                                    </h4>
+                                    <h5 style=" font-size: 18px; font-weight: 500;margin-top: 2px; text-transform: capitalize;">
+                                        <?= $personal_info->dob ?? 'Date of Birth' ?>
+                                    </h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Nationality </h4>
-                                    <h5><?= $personal_info->nationality ?? 'Nationality' ?></h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px;font-weight: 400;text-transform: capitalize;">
+                                        Nationality
+                                    </h4>
+                                    <h5 style=" font-size: 18px; font-weight: 500;      margin-top: 2px;text-transform: capitalize;">
+                                        <?= $personal_info->nationality ?? 'Nationality' ?>
+                                    </h5>
                                 </div>
-                                <div class="information_item">
-                                    <h4>Permanent Address </h4>
-                                    <h5><?= $personal_info->permanent_address ?? 'Permanent Address' ?></h5>
+                                <div class="information_item" style="margin-top: 30px;">
+                                    <h4 style="   font-size: 16px; font-weight: 400; text-transform: capitalize;">
+                                        Permanent Address </h4>
+                                    <h5 style=" font-size: 18px; font-weight: 500;  margin-top: 2px;text-transform: capitalize;">
+                                        <?= $personal_info->permanent_address ?? 'Permanent Address' ?></h5>
                                 </div>
 
                             </div>
@@ -442,120 +468,134 @@
 
                     </div>
                     <div class="col-md-7">
-                        <div class="right_wrapper ">
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-graduation-cap"></i>
+                        <div class="right_wrapper " style=" margin-top: 10px;">
+                            <div class="right_item" style=" margin-bottom: 20px;">
+                                <div class="resume_title_grid" style="display: grid;
+                grid-template-columns: minmax(0, 28px) repeat(1, minmax(0, 1fr));
+                align-items: center;
+                gap: 12px;">
+                                    <div class="icon" style="display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  height: 28px;
+                  background-color: #1fa898;
+                  border-radius: 50%;
+                  -webkit-border-radius: 50%;
+                  -moz-border-radius: 50%;
+                  -ms-border-radius: 50%;
+                  -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-graduation-cap" style=" color: white; font-size: 15px;"></i>
                                     </div>
-                                    <h3>Education </h2>
+                                    <h3 style=" font-size: 22px;
+                  font-weight: 500;">Education </h2>
                                 </div>
                                 <?php foreach ($acadamic_info as $key => $value) { ?>
-                                    <div class="category_item">
-                                        <h4><?= $value->degree ?? '' ?></h4>
-                                        <ul>
-                                            <li>Institute: <b><?= $value->name_of_institution ?? '' ?></b>
+                                    <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px;">
+                                        <h4 style="  font-size: 18px;font-weight: 500;"><?= $value->degree ?? '' ?></h4>
+                                        <ul style="   margin-top: 15px;">
+                                            <li style="font-size: 16px;font-weight: 400; margin-top: 5px;">Institute: <b><?= $value->name_of_institution ?? '' ?></b>
                                             </li>
-                                            <li>Pass Year: <b> <?= $value->passing_year ?? '' ?> </b> </li>
-                                            <li>Concentration/Major: <b> <?= $value->major ?? '' ?></b> </li>
-                                            <li>Result: <b><?= $value->result ?? '' ?> (Out of <?= $value->result_out_of ?? '' ?>) </b> </li>
+                                            <li style="font-size: 16px;font-weight: 400;margin-top: 5px;">Pass Year: <b> <?= $value->passing_year ?? '' ?> </b> </li>
+                                            <li style="font-size: 16px; font-weight: 400;margin-top: 5px;">Concentration/Major: <b> <?= $value->major ?? '' ?></b> </li>
+                                            <li style="font-size: 16px; font-weight: 400;margin-top: 5px;">Result: <b><?= $value->result ?? '' ?> (Out of <?= $value->result_out_of ?? '' ?>) </b> </li>
 
                                         </ul>
                                     </div>
                                 <?php } ?>
 
                             </div>
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-user-tie"></i>
+                            <div class="right_item" style=" margin-bottom: 20px;">
+                                <div class="resume_title_grid" style="     display: grid; grid-template-columns: minmax(0, 28px) repeat(1, minmax(0, 1fr));align-items: center;gap: 12px;">
+                                    <div class="icon" style="   display: flex; align-items: center; justify-content: center; width:100%; height: 28px; background-color: #1fa898;border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%;">
+                                        <i class="fa-solid fa-user-tie" style=" color: white; font-size: 15px;"></i>
                                     </div>
-                                    <h3>Employment <b>History</b> </h3>
+                                    <h3 style=" font-size: 22px; font-weight: 500;">Employment <b>History</b> </h3>
                                 </div>
-                                <div class="category_item" style="margin-top: 7px ;">
+                                <div class="category_item" style=" margin-top: 40px; padding-bottom: 10px;border-bottom: 1px solid #b0afaf;">
                                     <?php foreach ($employment_history as $key => $value) { ?>
-                                        <h4><?= $value->designation ?? '' ?></h4>
-                                        <ul>
-                                            <li>Industry Type: <b><?= $value->industry_type ?? '' ?></b>
+                                        <h4 style="  font-size: 18px; font-weight: 500;"><?= $value->designation ?? '' ?></h4>
+                                        <ul style="   margin-top: 15px; padding-left: 20px;">
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Industry Type: <b><?= $value->industry_type ?? '' ?></b>
+                                            </li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Department: <b><?= $value->department ?? '' ?></b>
+                                            </li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Key Reponsibility: <b><?= $value->key_responsibility ?? '' ?></b>
                                             </li>
-                                            <li>Department: <b><?= $value->department ?? '' ?></b>
-                                            </li>
-                                            <li>Key Reponsibility: <b><?= $value->key_responsibility ?? '' ?></b>
-                                            </li>
-                                            <li> Company: <b> <?= $value->organization_name ?? '' ?></b> </li>
-                                            <li> Address: <b> <?= $value->address ?? '' ?></b> </li>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Company: <b> <?= $value->organization_name ?? '' ?></b> </li>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Address: <b> <?= $value->address ?? '' ?></b> </li>
                                         </ul>
                                     <?php  } ?>
                                 </div>
                             </div>
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-user-tie"></i>
+                            <div class="right_item" style=" margin-bottom: 20px;">
+                                <div class="resume_title_grid" style="     display: grid; grid-template-columns: minmax(0, 28px)repeat(1, minmax(0, 1fr));align-items: center; gap: 12px;">
+                                    <div class="icon" style="   display: flex; align-items: center; justify-content: center;width: 100%; height: 28px; background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-user-tie" style=" color: white; font-size: 15px;"></i>
                                     </div>
-                                    <h3>Training <b>Info</b> </h3>
+                                    <h3 style=" font-size: 22px; font-weight: 500;">Training <b>Info</b> </h3>
                                 </div>
-                                <div class="category_item" style="margin-top: 7px ;">
+                                <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px; ">
                                     <?php foreach ($training_info as $key => $value) { ?>
-                                        <h4><?= $value->title ?? '' ?></h4>
-                                        <ul>
-                                            <li>Institution Name: <b><?= $value->institution_name ?? '' ?></b>
+                                        <h4 style="font-size: 18px; font-weight: 500;"><?= $value->title ?? '' ?></h4>
+                                        <ul style="margin-top: 15px; padding-left: 20px;">
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Institution Name: <b><?= $value->institution_name ?? '' ?></b>
+                                            </li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Address: <b><?= $value->address ?? '' ?></b>
                                             </li>
-                                            <li>Address: <b><?= $value->address ?? '' ?></b>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Duration: <b><?= $value->duration ?? '' ?></b>
                                             </li>
-                                            <li>Duration: <b><?= $value->duration ?? '' ?></b>
-                                            </li>
-                                            <li>Training Period: <b><?= $value->start_date ?? '' ?> - <?= $value->end_date ?? '' ?> </b> </li>
-                                            <li> Skills: <b> <?= $value->skills ?? '' ?></b> </li>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Training Period: <b><?= $value->start_date ?? '' ?> - <?= $value->end_date ?? '' ?> </b> </li>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Skills: <b> <?= $value->skills ?? '' ?></b> </li>
 
                                         </ul>
                                     <?php  } ?>
                                 </div>
                             </div>
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-user-tie"></i>
+                            <div class="right_item" style=" margin-bottom: 20px;">
+                                <div class="resume_title_grid" style="     display: grid; grid-template-columns: minmax(0, 28px)repeat(1, minmax(0, 1fr));align-items: center; gap: 12px;">
+                                    <div class="icon" style="   display: flex; align-items: center; justify-content: center;width: 100%; height: 28px; background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-user-tie" style=" color: white; font-size: 15px;"></i>
                                     </div>
-                                    <h3>Professional <b>Qualification</b></h3>
-                                    </h2>
+                                    <h3 style=" font-size: 22px; font-weight: 500;">Professional <b>Qualification</b></h3>
+
                                 </div>
-                                <div class="category_item" style="margin-top: 7px ;">
+                                <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px;border-bottom: 1px solid #b0afaf;">
                                     <?php foreach ($professional_qualification as $key => $value) { ?>
-                                        <h4><?= $value->certificate ?? '' ?></h4>
+                                        <h4 style="  font-size: 18px; font-weight: 500;"><?= $value->certificate ?? '' ?></h4>
                                         <ul>
-                                            <li>Awarding Body: <b><?= $value->awarding_body ?? '' ?></b>
-                                            </li>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Awarding Body: <b><?= $value->awarding_body ?? '' ?></b>
+                                            </li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">
                                             <li>Address: <b><?= $value->address ?? '' ?></b>
                                             </li>
-                                            <li>Registration Number: <b><?= $value->registration_number ?? '' ?></b>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Registration Number: <b><?= $value->registration_number ?? '' ?></b>
                                             </li>
-                                            <li>Passing Year: <b><?= $value->passing_year ?? '' ?></b>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Passing Year: <b><?= $value->passing_year ?? '' ?></b>
                                             </li>
-                                            <li> Result: <b> <?= $value->result ?? '' ?></b> </li>
-                                            <li> Remarks: <b> <?= $value->remarks ?? '' ?></b> </li>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Result: <b> <?= $value->result ?? '' ?></b> </li>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Remarks: <b> <?= $value->remarks ?? '' ?></b> </li>
 
                                         </ul>
                                     <?php  } ?>
                                 </div>
                             </div>
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-lightbulb"></i>
+                            <div class="right_item" style=" margin-bottom: 20px;">
+                                <div class="resume_title_grid" style="     display: grid; grid-template-columns: minmax(0, 28px)repeat(1, minmax(0, 1fr));align-items: center; gap: 12px;">
+                                    <div class="icon" style="   display: flex; align-items: center; justify-content: center;width: 100%; height: 28px; background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-lightbulb" style=" color: white; font-size: 15px;"></i>
                                     </div>
 
-                                    <h3>Key <b>Skills</b> </h3>
+                                    <h3 style=" font-size: 22px; font-weight: 500;">Key <b>Skills</b> </h3>
                                 </div>
-                                <div class="category_item" style="margin-top: 0px ;">
+                                <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px;border-bottom: 1px solid #b0afaf;">
                                     <?php
                                     foreach ($key_skills as $key => $value) { ?>
                                         <!-- <h4>Web Developer</h4> -->
                                         <ul class="list_disc">
-                                            <?= ($value->key_skill1 != null) ? "<li>" . $value->key_skill1 . "</li>" : null ?>
-                                            <?= ($value->key_skill2 != null) ? "<li>" . $value->key_skill2 . "</li>" : null ?>
-                                            <?= ($value->key_skill3 != null) ? "<li>" . $value->key_skill3 . "</li>" : null ?>
-                                            <?= ($value->key_skill4 != null) ? "<li>" . $value->key_skill4 . "</li>" : null ?>
+                                            <?= ($value->key_skill1 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;" >' . $value->key_skill1 . '</li>' : null ?>
+                                            <?= ($value->key_skill2 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">' . $value->key_skill2 . '</li>' : null ?>
+                                            <?= ($value->key_skill3 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">' . $value->key_skill3 . '</li>' : null ?>
+                                            <?= ($value->key_skill4 != null) ? '<li>' . $value->key_skill4 . "</li>" : null ?>
 
                                         </ul>
                                     <?php } ?>
@@ -564,23 +604,23 @@
 
 
                             </div>
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-lightbulb"></i>
+                            <div class="right_item" style=" margin-bottom: 20px;">
+                                <div class="resume_title_grid" style="     display: grid; grid-template-columns: minmax(0, 28px)repeat(1, minmax(0, 1fr));align-items: center; gap: 12px;">
+                                    <div class="icon" style="   display: flex; align-items: center; justify-content: center;width: 100%; height: 28px; background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-lightbulb" style=" color: white; font-size: 15px;"></i>
                                     </div>
-                                    <h3>Computer <b>Skills</b></h3>
+                                    <h3 style=" font-size: 22px; font-weight: 500;">Computer <b>Skills</b></h3>
                                     <!-- <h3>Computer Skills</b> </h2> -->
                                 </div>
-                                <div class="category_item" style="margin-top: 0px ;">
+                                <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px;border-bottom: 1px solid #b0afaf;">
                                     <?php
                                     foreach ($computer_skills as $key => $value) { ?>
                                         <!-- <h4>Web Developer</h4> -->
                                         <ul class="list_disc">
-                                            <?= ($value->computer_skill1 != null) ? "<li>" . $value->computer_skill1 . "</li>" : null ?>
-                                            <?= ($value->computer_skill2 != null) ? "<li>" . $value->computer_skill2 . "</li>" : null ?>
-                                            <?= ($value->computer_skill3 != null) ? "<li>" . $value->computer_skill3 . "</li>" : null ?>
-                                            <?= ($value->computer_skill4 != null) ? "<li>" . $value->computer_skill4 . "</li>" : null ?>
+                                            <?= ($value->computer_skill1 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">' . $value->computer_skill1 . '</li>' : null ?>
+                                            <?= ($value->computer_skill2 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">' . $value->computer_skill2 . '</li>' : null ?>
+                                            <?= ($value->computer_skill3 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">' . $value->computer_skill3 . '</li>' : null ?>
+                                            <?= ($value->computer_skill4 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">' . $value->computer_skill4 . '</li>' : null ?>
 
                                         </ul>
                                     <?php } ?>
@@ -589,59 +629,59 @@
 
 
                             </div>
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-user-tie"></i>
+                            <div class="right_item" style=" margin-bottom: 20px;">
+                                <div class="resume_title_grid" style="     display: grid; grid-template-columns: minmax(0, 28px)repeat(1, minmax(0, 1fr));align-items: center; gap: 12px;">
+                                    <div class="icon" style="   display: flex; align-items: center; justify-content: center;width: 100%; height: 28px; background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-user-tie" style=" color: white; font-size: 15px;"></i>
                                     </div>
-                                    <h3>Language <b>Proficiency</b></h3>
+                                    <h3 style=" font-size: 22px; font-weight: 500;">Language <b>Proficiency</b></h3>
                                     </h2>
                                 </div>
-                                <div class="category_item" style="margin-top: 7px ;">
+                                <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px;border-bottom: 1px solid #b0afaf;">
                                     <?php foreach ($language_proficincy as $key => $value) { ?>
-                                        <h4><?= $value->language ?? '' ?></h4>
+                                        <h4 style=" font-size: 18px; font-weight: 500;"><?= $value->language ?? '' ?></h4>
                                         <ul>
-                                            <li>Speaking: <b><?= $value->speaking     ?? '' ?></b>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Speaking: <b><?= $value->speaking     ?? '' ?></b>
                                             </li>
-                                            <li>Writing: <b><?= $value->writing ?? '' ?></b>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Writing: <b><?= $value->writing ?? '' ?></b>
                                             </li>
-                                            <li>Reading: <b><?= $value->reading ?? '' ?></b>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Reading: <b><?= $value->reading ?? '' ?></b>
                                             </li>
-                                            <li>Listening: <b><?= $value->listening ?? '' ?></b>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Listening: <b><?= $value->listening ?? '' ?></b>
                                             </li>
                                         </ul>
                                     <?php  } ?>
                                 </div>
                             </div>
 
-                            <div class="right_item">
-                                <div class="resume_title_grid">
-                                    <div class="icon">
-                                        <i class="fa-solid fa-graduation-cap"></i>
+                            <div class="right_item" style=" margin-top: 40px;    padding-bottom: 10px;border-bottom: 1px solid #b0afaf;">
+                                <div class="resume_title_grid" style="     display: grid; grid-template-columns: minmax(0, 28px)repeat(1, minmax(0, 1fr));align-items: center; gap: 12px;">
+                                    <div class="icon" style="   display: flex; align-items: center; justify-content: center;width: 100%; height: 28px; background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%;">
+                                        <i class="fa-solid fa-graduation-cap" style=" color: white; font-size: 15px;"></i>
                                     </div>
-                                    <h3>References </h2>
+                                    <h3 style=" font-size: 22px; font-weight: 500;">References </h2>
                                 </div>
                                 <?php foreach ($references as $key => $value) { ?>
-                                    <div class="category_item">
-                                        <?= ($value->ref_name != null) ? "<h4> Name:" . $value->ref_name . "</h4>" : null ?>
+                                    <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px;border-bottom: 1px solid #b0afaf;">
+                                        <?= ($value->ref_name != null) ? '<h4 style=" font-size: 18px; font-weight: 500;"> Name:' . $value->ref_name . '</h4>' : null ?>
                                         <ul>
-                                            <?= ($value->ref_degignation != null) ? "<li> Degignation: <b>" . $value->ref_degignation . "</b></li>" : null ?>
-                                            <?= ($value->ref_organization != null) ? "<li> Organization: <b>" . $value->ref_organization . "</b></li>" : null ?>
-                                            <?= ($value->mailing_address != null) ? "<li> Mailing Address: <b>" . $value->mailing_address . "</b></li>" : null ?>
-                                            <?= ($value->ref_email != null) ? "<li> Email: <b>" . $value->ref_email . "</b></li>" : null ?>
-                                            <?= ($value->ref_phone != null) ? "<li> Phone: <b>" . $value->ref_phone . "<b></li>" : null ?>
-                                            <?= ($value->ref_relation  != null) ? "<li> Relation: <b>" . $value->ref_relation . "</b></li>" : null ?>
+                                            <?= ($value->ref_degignation != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Degignation: <b>' . $value->ref_degignation . '</b></li>' : null ?>
+                                            <?= ($value->ref_organization != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Organization: <b>' . $value->ref_organization . '</b></li>' : null ?>
+                                            <?= ($value->mailing_address != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Mailing Address: <b>' . $value->mailing_address . '</b></li>' : null ?>
+                                            <?= ($value->ref_email != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Email: <b>' . $value->ref_email . '</b></li>' : null ?>
+                                            <?= ($value->ref_phone != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Phone: <b>' . $value->ref_phone . '<b></li>' : null ?>
+                                            <?= ($value->ref_relation  != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Relation: <b>' . $value->ref_relation . '</b></li>' : null ?>
                                         </ul>
 
                                         <hr>
-                                        <?= ($value->ref_name2 != null) ? "<h4> Name:" . $value->ref_name2 . "</h4>" : null ?>
+                                        <?= ($value->ref_name2 != null) ? '<h4 style=" font-size: 18px; font-weight: 500;"> Name:' . $value->ref_name2 . "</h4>" : null ?>
                                         <ul>
-                                            <?= ($value->ref_degignation2 != null) ? "<li> Degignation: <b>" . $value->ref_degignation2 . "</b></li>" : null ?>
-                                            <?= ($value->ref_organization2 != null) ? "<li> Organization: <b>" . $value->ref_organization2 . "</b></li>" : null ?>
-                                            <?= ($value->mailing_address2 != null) ? "<li> Mailing Address: <b>" . $value->mailing_address2 . "</b></li>" : null ?>
-                                            <?= ($value->ref_email2 != null) ? "<li> Email: <b>" . $value->ref_email2 . "</b></li>" : null ?>
-                                            <?= ($value->ref_phone2 != null) ? "<li> Phone: <b>" . $value->ref_phone2 . "<b></li>" : null ?>
-                                            <?= ($value->ref_relation2  != null) ? "<li> Relation: <b>" . $value->ref_relation2 . "</b></li>" : null ?>
+                                            <?= ($value->ref_degignation2 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Degignation: <b>' . $value->ref_degignation2 . '</b></li>' : null ?>
+                                            <?= ($value->ref_organization2 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Organization: <b>' . $value->ref_organization2 . '</b></li>' : null ?>
+                                            <?= ($value->mailing_address2 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Mailing Address: <b>' . $value->mailing_address2 . '</b></li>' : null ?>
+                                            <?= ($value->ref_email2 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Email: <b>' . $value->ref_email2 . "</b></li>" : null ?>
+                                            <?= ($value->ref_phone2 != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Phone: <b>' . $value->ref_phone2 . '<b></li>' : null ?>
+                                            <?= ($value->ref_relation2  != null) ? '<li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Relation: <b>' . $value->ref_relation2 . '</b></li>' : null ?>
                                         </ul>
                                     </div>
                                 <?php } ?>
@@ -651,18 +691,23 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="text-center mt-4 mb-2">
                 <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
-                <!-- <button type="button"  class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button> -->
+                <!-- <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button> -->
             </div>
+
+
+            <!-- <div class="text-center mt-4 mb-2">
+                <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
+                <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button>
+            </div> -->
         </section>
     </main>
 
     <!-- JS Here -->
     <script src="<?= $frontend_assets; ?>plugins/js/jquery-3.6.0.min.js"></script>
     <script src="<?= $frontend_assets; ?>plugins/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $frontend_assets; ?>plugins/js/html2pdf.bundle.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"  ></script> -->
     <script src="https://kit.fontawesome.com/46f35fbc02.js" crossorigin="anonymous"></script>
@@ -671,12 +716,21 @@
     <script>
         let downloadPdf = document.querySelector('#downloadPdf');
         let pdfContentArea = document.querySelector('#pdfContentArea');
+        var option = {
+            margin: [2, 1],
+            filename: '<?= $personal_info->full_name . '.pdf' ?>',
+            // image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: {
+                scale: 1,
+                scrollY: 0
+            }
+            // jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
         if (downloadPdf) {
             downloadPdf.addEventListener('click', () => {
-                window.print()
-                // html2pdf()
-                //     .from(pdfContentArea)
-                //     .save();
+                html2pdf().set(option)
+                    .from(pdfContentArea)
+                    .save();
 
             })
         }

@@ -285,7 +285,7 @@ class Jobboard extends MY_Controller
 			$popUp = '"' . site_url('admin/jobboard/apply_details/$1') . '"';
 			// $applicant_info = '"' . site_url('personal_information/user_all_data/$2') . '"';
 
-			$this->fild .= "<a href='" . site_url('personal_information/user_all_data/$2') . "' title='Applicant Info' class='tip btn btn-warning btn-xs'><i class='fa fa-user'></i></a>";
+			$this->fild .= "<a target='_blank' href='" . site_url('personal_information/user_all_data/$2') . "' title='Applicant Info' class='tip btn btn-warning btn-xs'><i class='fa fa-user'></i></a>";
 			/* $this->fild .= "<a class='tip btn btn-primary btn-xs' onclick='applicant_data(" . $applicant_info . ")' href='javascript:;' title='View UserInfo'><i class='fa fa-list'></i></a> "; */
 
 			$this->fild .= "<a class='tip btn btn-primary btn-xs' onclick='popUp(" . $popUp . ")' href='javascript:;' title='View Details'><i class='fa fa-list'></i></a> ";

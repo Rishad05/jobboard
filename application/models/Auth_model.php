@@ -1388,20 +1388,28 @@ class Auth_model extends CI_Model
 
     public function forgotten_password_member($identity)
     {
+        echo 'ok step1';
         if ($this->forgotten_password($identity)) {
+            echo 'ok step2';
             $user = $this->ion_auth->where($this->config->item('identity', 'ion_auth'), $identity)->where('active', 1)->users()->row();
-
+            // echo $user;
             if ($user) {
+                echo 'ok step3';
+
                 $data = array(
                     'identity' => $user->{$this->config->item('identity', 'ion_auth')},
                     'forgotten_password_code' => $user->forgotten_password_code
                 );
 
                 if (!$this->config->item('use_ci_email', 'ion_auth')) {
+                    echo 'ok step4';
+
                     $this->set_message('forgot_password_successful');
 
                     return $data;
                 } else {
+                    echo 'ok step5';
+                    // die;
                     $data['parse_data'] = array(
                         'user_name' => $user->first_name . ' ' . $user->last_name,
                         'email' => $user->email,
@@ -1416,9 +1424,13 @@ class Auth_model extends CI_Model
 
                     $subject = lang('email_forgotten_password_subject') . ' - ' . $this->Settings->site_name;
                     if ($this->tec->send_email($user->email, $subject, $message)) {
+                        echo 'ok step6';
+                        // die;
                         $this->set_message('forgot_password_successful');
                         return true;
                     } else {
+                        echo 'ok step7';
+                        die;
                         $this->set_error('sending_email_failed');
                         return false;
                     }
@@ -1460,33 +1472,19 @@ class Auth_model extends CI_Model
                     return false;
                 }
             }
-
             $password = $this->salt();
-
             $data = array(
                 'password' => $this->hash_password($password, $salt),
                 'forgotten_password_code' => null,
                 'active' => 1,
 
             );
-
             $this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
-
             $this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_successful'));
-
             return $password;
         }
 
-
-
-
-
-
-
         $this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
-
-
-
         return false;
     }
 
