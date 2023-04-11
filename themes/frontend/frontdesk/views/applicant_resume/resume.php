@@ -316,13 +316,13 @@
                                     <p>
                                     </p>
                                     <div class="sc-boxed-call-to-cation  ">
-                                        
+
                                         <div class="tg-titleandbtns">
-                                            <h1 style="color:#ffffff"><?php if($this->Admin) {  ?>
-                                                View Resume of <?=$personal_info->full_name ?? 'Name'?> 
+                                            <h1 style="color:#ffffff"><?php if ($this->Admin) {  ?>
+                                                    View Resume of <?= $personal_info->full_name ?? 'Name' ?>
                                                 <?php } else { ?>
                                                     View My Resume
-                                                    <?php } ?>
+                                                <?php } ?>
                                                 <br>
                                             </h1>
                                             <div class="tg-btnsbox">
@@ -349,11 +349,11 @@
                                 <a href="<?= base_url('career'); ?>">Career</a>
                             </li>
                             <li class="arrow-item"><i class="fas fa-angle-right"></i></li>
-                            <li class="last-item"><?php if($this->Admin) {  ?>
-                                                View resume of <?=$personal_info->full_name ?? 'Name'?> resume
-                                                <?php } else { ?>
-                                                    View my resume
-                                                    <?php } ?></li>
+                            <li class="last-item"><?php if ($this->Admin) {  ?>
+                                    View resume of <?= $personal_info->full_name ?? 'Name' ?> resume
+                                <?php } else { ?>
+                                    View my resume
+                                <?php } ?></li>
                         </ol>
                     </div>
                 </div>
@@ -379,8 +379,9 @@
                                 <div class="user_img">
                                     <?php if ($personal_info->applicant_photo ?? '') { ?>
                                         <img src="<?= base_url('uploads/') . $personal_info->applicant_photo ?? ''; ?>" width="160">
+                                    <?php } else { ?>
+                                        <img src="<?= $frontend_assets; ?>images/default-user-image.png" width="160">
                                     <?php } ?>
-                            
                                 </div>
                                 <h4 class="user_name"><?= $personal_info->full_name ?? 'Name' ?></h4>
                                 <ul class="contact_list">
@@ -442,7 +443,7 @@
                     </div>
                     <div class="col-md-7">
                         <div class="right_wrapper ">
-                        <div class="right_item">
+                            <div class="right_item">
                                 <div class="resume_title_grid">
                                     <div class="icon">
                                         <i class="fa-solid fa-graduation-cap"></i>
@@ -506,7 +507,7 @@
                                             </li>
                                             <li>Training Period: <b><?= $value->start_date ?? '' ?> - <?= $value->end_date ?? '' ?> </b> </li>
                                             <li> Skills: <b> <?= $value->skills ?? '' ?></b> </li>
-                                            
+
                                         </ul>
                                     <?php  } ?>
                                 </div>
@@ -516,7 +517,8 @@
                                     <div class="icon">
                                         <i class="fa-solid fa-user-tie"></i>
                                     </div>
-                                    <h3>Professional <b>Qualification</b></h3> </h2>
+                                    <h3>Professional <b>Qualification</b></h3>
+                                    </h2>
                                 </div>
                                 <div class="category_item" style="margin-top: 7px ;">
                                     <?php foreach ($professional_qualification as $key => $value) { ?>
@@ -532,7 +534,7 @@
                                             </li>
                                             <li> Result: <b> <?= $value->result ?? '' ?></b> </li>
                                             <li> Remarks: <b> <?= $value->remarks ?? '' ?></b> </li>
-                                            
+
                                         </ul>
                                     <?php  } ?>
                                 </div>
@@ -542,19 +544,22 @@
                                     <div class="icon">
                                         <i class="fa-solid fa-lightbulb"></i>
                                     </div>
-                                    
+
                                     <h3>Key <b>Skills</b> </h3>
                                 </div>
                                 <div class="category_item" style="margin-top: 0px ;">
-                                    <?php foreach ($key_skills as $key => $value) { ?>
+                                    <?php
+                                    foreach ($key_skills as $key => $value) { ?>
                                         <!-- <h4>Web Developer</h4> -->
                                         <ul class="list_disc">
-                                            <li><?= $value->key_skill1 ?? '' ?> </li>
-                                            <li><?= $value->key_skill2 ?? '' ?> </li>
-                                            <li><?= $value->key_skill3 ?? '' ?> </li>
-                                            <li><?= $value->key_skill4 ?? '' ?> </li>
+                                            <?= ($value->key_skill1 != null) ? "<li>" . $value->key_skill1 . "</li>" : null ?>
+                                            <?= ($value->key_skill2 != null) ? "<li>" . $value->key_skill2 . "</li>" : null ?>
+                                            <?= ($value->key_skill3 != null) ? "<li>" . $value->key_skill3 . "</li>" : null ?>
+                                            <?= ($value->key_skill4 != null) ? "<li>" . $value->key_skill4 . "</li>" : null ?>
+
                                         </ul>
                                     <?php } ?>
+
                                 </div>
 
 
@@ -568,15 +573,18 @@
                                     <!-- <h3>Computer Skills</b> </h2> -->
                                 </div>
                                 <div class="category_item" style="margin-top: 0px ;">
-                                    <?php foreach ($computer_skills as $key => $value) { ?>
+                                    <?php
+                                    foreach ($computer_skills as $key => $value) { ?>
                                         <!-- <h4>Web Developer</h4> -->
                                         <ul class="list_disc">
-                                            <li><?= $value->computer_skill1 ?? '' ?> </li>
-                                            <li><?= $value->computer_skill2 ?? '' ?> </li>
-                                            <li><?= $value->computer_skill3 ?? '' ?> </li>
-                                            <li><?= $value->computer_skill4 ?? '' ?> </li>
+                                            <?= ($value->computer_skill1 != null) ? "<li>" . $value->computer_skill1 . "</li>" : null ?>
+                                            <?= ($value->computer_skill2 != null) ? "<li>" . $value->computer_skill2 . "</li>" : null ?>
+                                            <?= ($value->computer_skill3 != null) ? "<li>" . $value->computer_skill3 . "</li>" : null ?>
+                                            <?= ($value->computer_skill4 != null) ? "<li>" . $value->computer_skill4 . "</li>" : null ?>
+
                                         </ul>
                                     <?php } ?>
+
                                 </div>
 
 
@@ -586,13 +594,14 @@
                                     <div class="icon">
                                         <i class="fa-solid fa-user-tie"></i>
                                     </div>
-                                    <h3>Language <b>Proficiency</b></h3> </h2>
+                                    <h3>Language <b>Proficiency</b></h3>
+                                    </h2>
                                 </div>
                                 <div class="category_item" style="margin-top: 7px ;">
                                     <?php foreach ($language_proficincy as $key => $value) { ?>
                                         <h4><?= $value->language ?? '' ?></h4>
                                         <ul>
-                                            <li>Speaking: <b><?= $value->speaking	 ?? '' ?></b>
+                                            <li>Speaking: <b><?= $value->speaking     ?? '' ?></b>
                                             </li>
                                             <li>Writing: <b><?= $value->writing ?? '' ?></b>
                                             </li>
@@ -604,7 +613,7 @@
                                     <?php  } ?>
                                 </div>
                             </div>
-                            
+
                             <div class="right_item">
                                 <div class="resume_title_grid">
                                     <div class="icon">
@@ -614,28 +623,25 @@
                                 </div>
                                 <?php foreach ($references as $key => $value) { ?>
                                     <div class="category_item">
-                                        <h4>Name: <?= $value->ref_name ?? '' ?></h4>
+                                        <?= ($value->ref_name != null) ? "<h4> Name:" . $value->ref_name . "</h4>" : null ?>
                                         <ul>
-                                            <li>Degignation: <b><?= $value->ref_degignation ?? '' ?></b>
-                                            </li>
-                                            <li>Organization: <b> <?= $value->ref_organization ?? '' ?> </b> </li>
-                                            <li>Mailing Address: <b> <?= $value->mailing_address ?? '' ?></b> </li>
-                                            <li>Email: <b><?= $value->ref_email ?? '' ?> </b> </li>
-                                            <li>Phone: <b><?= $value->ref_phone ?? '' ?> </b> </li>
-                                            <li>Relation: <b><?= $value->ref_relation ?? '' ?> </b> </li>
-
+                                            <?= ($value->ref_degignation != null) ? "<li> Degignation: <b>" . $value->ref_degignation . "</b></li>" : null ?>
+                                            <?= ($value->ref_organization != null) ? "<li> Organization: <b>" . $value->ref_organization . "</b></li>" : null ?>
+                                            <?= ($value->mailing_address != null) ? "<li> Mailing Address: <b>" . $value->mailing_address . "</b></li>" : null ?>
+                                            <?= ($value->ref_email != null) ? "<li> Email: <b>" . $value->ref_email . "</b></li>" : null ?>
+                                            <?= ($value->ref_phone != null) ? "<li> Phone: <b>" . $value->ref_phone . "<b></li>" : null ?>
+                                            <?= ($value->ref_relation  != null) ? "<li> Relation: <b>" . $value->ref_relation . "</b></li>" : null ?>
                                         </ul>
-                                        <hr>
-                                        <h4 class="mt-2">Name: <?= $value->ref_name2 ?? '' ?></h4>
-                                        <ul>
-                                            <li>Degignation: <b><?= $value->ref_degignation2 ?? '' ?></b>
-                                            </li>
-                                            <li>Organization: <b> <?= $value->ref_organization2 ?? '' ?> </b> </li>
-                                            <li>Mailing Address: <b> <?= $value->mailing_address2 ?? '' ?></b> </li>
-                                            <li>Email: <b><?= $value->ref_email2 ?? '' ?> </b> </li>
-                                            <li>Phone: <b><?= $value->ref_phone2 ?? '' ?> </b> </li>
-                                            <li>Relation: <b><?= $value->ref_relation2 ?? '' ?> </b> </li>
 
+                                        <hr>
+                                        <?= ($value->ref_name2 != null) ? "<h4> Name:" . $value->ref_name2 . "</h4>" : null ?>
+                                        <ul>
+                                            <?= ($value->ref_degignation2 != null) ? "<li> Degignation: <b>" . $value->ref_degignation2 . "</b></li>" : null ?>
+                                            <?= ($value->ref_organization2 != null) ? "<li> Organization: <b>" . $value->ref_organization2 . "</b></li>" : null ?>
+                                            <?= ($value->mailing_address2 != null) ? "<li> Mailing Address: <b>" . $value->mailing_address2 . "</b></li>" : null ?>
+                                            <?= ($value->ref_email2 != null) ? "<li> Email: <b>" . $value->ref_email2 . "</b></li>" : null ?>
+                                            <?= ($value->ref_phone2 != null) ? "<li> Phone: <b>" . $value->ref_phone2 . "<b></li>" : null ?>
+                                            <?= ($value->ref_relation2  != null) ? "<li> Relation: <b>" . $value->ref_relation2 . "</b></li>" : null ?>
                                         </ul>
                                     </div>
                                 <?php } ?>
@@ -646,10 +652,10 @@
                 </div>
             </div>
 
-            
+
             <div class="text-center mt-4 mb-2">
-            <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
-                <!-- <button type="button"  class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/'). $user_id ?>">Download</a> </button> -->
+                <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
+                <!-- <button type="button"  class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button> -->
             </div>
         </section>
     </main>

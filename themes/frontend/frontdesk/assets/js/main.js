@@ -93,17 +93,28 @@ $(document).ready(function () {
 
     let range_arr = JSON.parse(year_range);
 
-    let allyear = '';
-    for (let index = 0; index <= range_arr.length - 1; index++) {
-        allyear += `<option value="${range_arr[index]}">${range_arr[index]}</option>`;
+    const getAllYear = (show = false) => {
+        let allyear = '';
+        for (let index = 0; index <= range_arr.length - 1; index++) {
+            if (show === true && range_arr[index] == "continue") {
+                allyear += `<option value="${range_arr[index]}">${range_arr[index]}</option>`;
+            } else {
+                if (range_arr[index] != "continue") {
+                    allyear += `<option value="${range_arr[index]}">${range_arr[index]}</option>`;
+                }
+            }
 
+        }
+
+        return allyear;
     }
+
 
     //Academic tab add remove functionality
     const academicHtml = `<tr class="vertical-center">
     <td>
         <div class="table_input_area">
-            <select required class="custom-select" name="education_lavel[]" id="genderSelect">
+            <select required class="custom-select" name="education_lavel[]" id="education_lavel">
                 <option selected disabled value="">
                     Choose...
                 </option>
@@ -136,10 +147,10 @@ $(document).ready(function () {
     <td>
         <div class="table_input_area">
             <select required class="custom-select" name="passing_year[]" id="
-                genderSelect">
+            passing_year">
                 <option selected disabled value="">
                     Choose...
-                </option>${allyear}
+                </option>${getAllYear()}
                 
             </select>
             <div class="invalid-feedback">
@@ -149,7 +160,7 @@ $(document).ready(function () {
     </td>
     <td>
         <div class="table_input_area">
-            <select class="custom-select" name="board[]" id="genderSelect">
+            <select class="custom-select" name="board[]" id="board">
                 <option selected disabled value="">
                     Choose...
                 </option>
@@ -162,7 +173,7 @@ $(document).ready(function () {
                 <option value="Sylhet">Sylhet</option>
                 <option value="Chittagong">Chittagong</option>
                 <option value="Dinajpur">Dinajpur</option>
-                <option value="Other">Other</option>
+                <option value="Others">Others</option>
             </select>
             <div class="invalid-feedback">
                 Please select Board .
@@ -179,13 +190,14 @@ $(document).ready(function () {
     </td>
     <td>
         <div class="table_input_area">
-            <select required class="custom-select" name="major[]" id="genderSelect">
+            <select required class="custom-select" name="major[]" id="major">
                 <option selected disabled value="">
                     Choose...
                 </option>
                 <option value="Science">Science</option>
                 <option value="Commerce">Commerce</option>
                 <option value="Arts">Arts</option>
+                <option value="Others">Others</option>
             </select>
             <div class="invalid-feedback">
                 Please select Concentration.
@@ -202,7 +214,7 @@ $(document).ready(function () {
     </td>
     <td>
         <div class="table_input_area">
-            <input required type="number" class="form-control" name="result_out_of[]" placeholder="Result" />
+            <input required type="text" class="form-control" name="result_out_of[]" placeholder="Result" />
             <div class="invalid-feedback">
                 Please Enter result.
             </div>
@@ -243,13 +255,14 @@ $(document).ready(function () {
 
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="industry_type[]" id="genderSelect">
+          <select class="custom-select" name="industry_type[]" id="industryType">
               <option>
                   Choose...
               </option>
               <option value="IT">IT</option>
               <option value="Group of company">Group of company</option>
               <option value="Garments">Garments</option>
+              
           </select>
           <div class="invalid-feedback">
               Please select Industry Type.
@@ -258,7 +271,7 @@ $(document).ready(function () {
   </td>
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="department[]" id="genderSelect">
+          <select class="custom-select" name="department[]" id="department">
               <option>
                   Choose...
               </option>
@@ -293,7 +306,7 @@ $(document).ready(function () {
               <option>
                   Choose...
               </option>
-              ${allyear}
+              ${getAllYear()}
 
           </select>
           <div class="invalid-feedback">
@@ -307,7 +320,7 @@ $(document).ready(function () {
               <option>
                   Choose...
               </option>
-              ${allyear}
+              ${getAllYear(true)}
           </select>
           <div class="invalid-feedback">
               Please select To .
@@ -400,7 +413,7 @@ $(document).ready(function () {
     const professionalHtml = ` <tr class="vertical-center">
   <td>
       <div class="table_input_area">
-          <input type="text" name="certificate[]" class="form-control" placeholder="Certification" />
+          <input required type="text" name="certificate[]" class="form-control" placeholder="Certification" />
           <div class="invalid-feedback">
               Please Enter Certification.
           </div>
@@ -408,7 +421,7 @@ $(document).ready(function () {
   </td>
   <td>
       <div class="table_input_area">
-          <input type="text" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
+          <input required type="text" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
           <div class="invalid-feedback">
               Please Enter Awarding Body.
           </div>
@@ -433,11 +446,11 @@ $(document).ready(function () {
 
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="passing_year[]" id="genderSelect">
+          <select class="custom-select" name="passing_year[]" id="passingYear">
               <option>
                   Choose...
               </option>
-              ${allyear}
+              ${getAllYear()}
 
           </select>
           <div class="invalid-feedback">
@@ -554,7 +567,7 @@ $(document).ready(function () {
     const languageHtml = `<tr class="vertical-center">
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="language[]" id="genderSelect">
+          <select class="custom-select" name="language[]" id="language">
               <option>
                   Choose...
               </option>
@@ -569,7 +582,7 @@ $(document).ready(function () {
   </td>
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="speaking[]" id="genderSelect" required>
+          <select class="custom-select" name="speaking[]" id="speaking" required>
               <option>
                   Choose...
               </option>
@@ -584,7 +597,7 @@ $(document).ready(function () {
   </td>
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="writing[]" id="genderSelect" required>
+          <select class="custom-select" name="writing[]" id="writing" required>
               <option>
                   Choose...
               </option>
@@ -599,7 +612,7 @@ $(document).ready(function () {
   </td>
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="reading[]" id="genderSelect" required>
+          <select class="custom-select" name="reading[]" id="reading" required>
               <option>
                   Choose...
               </option>
@@ -614,7 +627,7 @@ $(document).ready(function () {
   </td>
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="listening[]" id="genderSelect" required>
+          <select class="custom-select" name="listening[]" id="listening" required>
               <option>
                   Choose...
               </option>
@@ -667,11 +680,11 @@ $(document).ready(function () {
   <td>
       <div class="table_input_area">
           
-          <select class="custom-select" name="rel_job_location[]" id="genderSelect">
+          <select class="custom-select" name="rel_job_location[]" id="rel_job_location">
               <option>Choose...</option>
                   <option value="Dhaka">Dhaka</option> 
                   <option value="Noakhali">Noakhali</option> 
-                  <option value="Cumilla">Cumilla</option> 
+                   
           </select>
       </div>
   </td>
@@ -700,7 +713,7 @@ $(document).ready(function () {
 
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="interview_month[]" id="genderSelect">
+          <select class="custom-select" name="interview_month[]" id="interview_month">
               <option>Choose...</option>
                   <option value="January">January</option>
                   <option value="February">February</option>
@@ -719,9 +732,9 @@ $(document).ready(function () {
   </td>
   <td>
       <div class="table_input_area">
-          <select class="custom-select" name="interview_year[]" id="genderSelect">
+          <select class="custom-select" name="interview_year[]" id="interview_year">
               <option>Choose...</option>
-              ${allyear}
+              ${getAllYear()}
           </select>
       </div>
   </td>
@@ -750,6 +763,7 @@ $(document).ready(function () {
         console.log('ok');
         const getValue = $(`${selectID} :selected`).val();
         if (getValue == valueCheck) {
+            console.log('ok');
             $(toggleID).css("display", "block");
         } else {
             $(toggleID).css("display", "none");
@@ -763,16 +777,19 @@ $(document).ready(function () {
 
     //How Know Select
     $("#howKnow").change(function () {
-        hideShowDiv("#howKnow", "#howKnowDepended", "Other");
+
+        hideShowDiv("#howKnow", "#howKnowDepended", "Others");
     });
 
     //Relative Select
     $("#relativeSelect").change(function () {
+
         hideShowDiv("#relativeSelect", "#relativeDepended");
     });
 
     //Previous Select
     $("#previousInterview").change(function () {
+        console.log('ok');
         hideShowDiv("#previousInterview", "#previousDepended");
     });
 });

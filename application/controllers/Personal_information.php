@@ -110,11 +110,11 @@ class Personal_information extends MY_Controller
             for ($r = 0; $r < $i; $r++) {
                 $education_lavel = $_POST['education_lavel'][$r];
                 $degree = $_POST['degree'][$r];
-                $passing_year = $_POST['passing_year'][$r];
+                $passing_year_acadamic = $_POST['passing_year'][$r];
                 $name_of_institution = $_POST['name_of_institution'][$r];
                 $board = $_POST['board'][$r];
                 $major = $_POST['major'][$r];
-                $result = $_POST['result'][$r];
+                $result_acadamic = $_POST['result'][$r];
                 $result_out_of = $_POST['result_out_of'][$r];
                 $user_id = $this->session->userdata('member_id');
 
@@ -126,11 +126,11 @@ class Personal_information extends MY_Controller
                     'user_id' => $user_id,
                     'education_lavel' => $education_lavel,
                     'degree' => $degree,
-                    'passing_year' => $passing_year,
+                    'passing_year' => $passing_year_acadamic,
                     'name_of_institution' => $name_of_institution,
                     'board' => $board,
                     'major' => $major,
-                    'result' => $result,
+                    'result' => $result_acadamic,
                     'result_out_of' => $result_out_of,
                 );
                 // }
@@ -147,7 +147,7 @@ class Personal_information extends MY_Controller
             $i = isset($_POST['organization_name']) ? sizeof($_POST['organization_name']) : 0;
             for ($r = 0; $r < $i; $r++) {
                 $organization_name = $_POST['organization_name'][$r];
-                $address = $_POST['address'][$r];
+                $address_employment = $_POST['address'][$r];
                 $department = $_POST['department'][$r];
                 $designation = $_POST['designation'][$r];
                 $industry_type = $_POST['industry_type'][$r];
@@ -160,7 +160,7 @@ class Personal_information extends MY_Controller
                 $employment_history[] = array(
                     'user_id' => $user_id,
                     'organization_name' => $organization_name,
-                    'address' => $address,
+                    'address' => $address_employment,
                     'department' => $department,
                     'designation' => $designation,
                     'industry_type' => $industry_type,
@@ -183,7 +183,7 @@ class Personal_information extends MY_Controller
             for ($r = 0; $r < $i; $r++) {
                 $title = $_POST['title'][$r];
                 $institution_name = $_POST['institution_name'][$r];
-                $address = $_POST['address'][$r];
+                $address_training = $_POST['address'][$r];
                 $duration = $_POST['duration'][$r];
                 $start_date = $_POST['start_date'][$r];
                 $end_date = $_POST['end_date'][$r];
@@ -195,7 +195,7 @@ class Personal_information extends MY_Controller
                     'user_id' => $user_id,
                     'title' => $title,
                     'institution_name' => $institution_name,
-                    'address' => $address,
+                    'address' => $address_training,
                     'duration' => $duration,
                     'start_date' => $start_date,
                     'end_date' => $end_date,
@@ -215,11 +215,11 @@ class Personal_information extends MY_Controller
             for ($r = 0; $r < $i; $r++) {
                 $certificate = $_POST['certificate'][$r];
                 $awarding_body = $_POST['awarding_body'][$r];
-                $address = $_POST['address'][$r];
+                $address_professional = $_POST['address'][$r];
                 $registration_number = $_POST['registration_number'][$r];
-                $passing_year = $_POST['passing_year'][$r];
-                $result = $_POST['result'][$r];
-                $remarks = $_POST['remarks'][$r];
+                $passing_year_professional = $_POST['passing_year'][$r];
+                $result_professional = $_POST['result'][$r];
+                $remarks_professional = $_POST['remarks'][$r];
                 $user_id = $this->session->userdata('member_id');
 
                 // if (isset($certificate) && isset($awarding_body) && isset($address) && $registration_number && $passing_year && $result && $remarks  && $user_id > 0) {
@@ -227,11 +227,11 @@ class Personal_information extends MY_Controller
                     'user_id' => $user_id,
                     'certificate' => $certificate,
                     'awarding_body' => $awarding_body,
-                    'address' => $address,
+                    'address' => $address_professional,
                     'registration_number' => $registration_number,
-                    'passing_year' => $passing_year,
-                    'result' => $result,
-                    'remarks' => $remarks,
+                    'passing_year' => $passing_year_professional,
+                    'result' => $result_professional,
+                    'remarks' => $remarks_professional,
                 );
                 // }
             }
@@ -399,7 +399,7 @@ class Personal_information extends MY_Controller
                 $rel_relationship = $_POST['rel_relationship'][$r];
                 $rel_designation = $_POST['rel_designation'][$r];
                 $rel_department = $_POST['rel_department'][$r];
-                $rel_job_location = $_POST['rel_job_location'][$r];
+                $rel_job_location = isset($_POST['rel_job_location'][$r]) ? $_POST['rel_job_location'][$r] : null;
                 $user_id = $this->session->userdata('member_id');
                 $relatives[] = array(
                     'user_id' => $user_id,
@@ -421,8 +421,8 @@ class Personal_information extends MY_Controller
             $i = isset($_POST['previous_position']) ? sizeof($_POST['previous_position']) : 0;
             for ($r = 0; $r < $i; $r++) {
                 $previous_position = $_POST['previous_position'][$r];
-                $interview_month = $_POST['interview_month'][$r];
-                $interview_year = $_POST['interview_year'][$r];
+                $interview_month = isset($_POST['interview_month'][$r])? $_POST['interview_month'][$r]: null;
+                $interview_year = isset($_POST['interview_year'][$r])? $_POST['interview_year'][$r]:null;
                 $interview_remarks = $_POST['interview_remarks'][$r];
                 $user_id = $this->session->userdata('member_id');
                 $previously_interviewed[] = array(

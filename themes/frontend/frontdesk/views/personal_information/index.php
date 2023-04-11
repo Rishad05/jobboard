@@ -17,6 +17,8 @@
             color: red !important;
         }
     </style>
+
+
 </head>
 
 <body>
@@ -27,7 +29,10 @@
     // print_r($acadamic_info);
     // die;
     $start_year = date("Y");
-    $range = range($start_year, 1980);
+    $range_item = range($start_year, 1980);
+    $range = array_merge_recursive(["continue"], $range_item);
+
+
 
     ?>
     <section class="sub_header_sec">
@@ -148,7 +153,7 @@
                                                 <?= $error; ?>
                                             </div>
                                         <?php }
-                                        if ($message) { ?>
+                                                if ($message) { ?>
                                             <div class="alert alert-success alert-dismissable">
                                                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                                 <?= $message; ?>
@@ -167,7 +172,7 @@
                                                     </div>
 
                                                     <?php
-                                            if ($personal_info->applicant_photo && $personal_info->applicant_photo != null) { ?>
+                                                    if (isset($personal_info->applicant_photo) && $personal_info->applicant_photo != null) { ?>
                                                         <img id="previewImage" src="<?= base_url('uploads/') . $personal_info->applicant_photo ?? ''; ?>" width="160">
                                                     <?php } else { ?>
                                                         <img id="previewImage" src="<?= $frontend_assets; ?>images/default-user-image.png" width="160">
@@ -188,7 +193,7 @@
                                                         <!-- <span class="label_helper">(Block Letter)</span> -->
                                                         <span class="star">*</span>
                                                     </label>
-                                                    <input type="text" name="full_name" class=" form-control" id="fullName"  required placeholder="Enter full Name" value="<?= $this->session->userdata('username') ?>" />
+                                                    <input type="text" name="full_name" class=" form-control" id="fullName" required placeholder="Enter full Name" value="<?= $this->session->userdata('username') ?>" />
                                                     <span class="error-massage"><?= form_error('full_name'); ?></span>
                                                     <div class="invalid-feedback">
                                                         Please enter full name
@@ -199,18 +204,18 @@
                                                         <div class="form-group">
                                                             <label for="genderSelect">Gender <span class="star">*</span></label>
                                                             <?php
-                                                    $genders = array("Male" => "Male", "Female" => "Female", "Other" => "Other");
-    ?>
+                                                            $genders = array("Male" => "Male", "Female" => "Female", "Other" => "Other");
+                                                            ?>
                                                             <select required class="custom-select" name="gender" id="genderSelect">
                                                                 <option selected disabled value="">
                                                                     Choose...
                                                                 </option>
-                                                                <?php foreach ($genders as $key => $value) { ?>
-                                                                    <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->gender) {
-                                                                        echo "selected";
-                                                                    } ?>>
-                                                                        <?php echo $value; ?>
-                                                                    </option>
+                                                                <?php
+                                                                foreach ($genders as $key => $value) { ?>
+                                                                    <option value="<?php echo $key; ?>" <?= isset($personal_info->gender) ? (($key == $personal_info->gender) ? "selected" : "") : "";
+                                                                                                        ?>> <?php echo $value; ?> </option>
+
+
                                                                 <?php } ?>
                                                             </select>
                                                             <span class="error-massage"><?= form_error('gender'); ?></span>
@@ -225,14 +230,16 @@
                                                                 <span class="star">*</span></label>
                                                             <?php
                                                             $blood_groups = array("O+" => "O+ve", "A+" => "A+ve", "B+" => "B+ve", "A-" => "A-ve");
-    ?>
+                                                            ?>
 
                                                             <select required class="custom-select" name="blood_group" id="bloodSelect">
                                                                 <option selected disabled value="">Choose...</option>
                                                                 <?php foreach ($blood_groups as $key => $value) { ?>
-                                                                    <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->blood_group) {
-                                                                        echo "selected";
-                                                                    } ?>><?php echo $value; ?></option>
+                                                                    <option value="<?php echo $key; ?>" <?php if (isset($personal_info->blood_group)) {
+                                                                                                            if ($key == $personal_info->blood_group) {
+                                                                                                                echo "selected";
+                                                                                                            }
+                                                                                                        }  ?>><?php echo $value; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                             <span class="error-massage"><?= form_error('blood_group'); ?></span>
@@ -320,15 +327,17 @@
                                                             <label for="religionSelect">Religion <span class="star">*</span></label>
                                                             <?php
                                                             $religious = array("Islam" => "Islam", "Hindu" => "Hindu", "Buddha" => "Buddha", "Christianity" => "Christianity");
-    ?>
+                                                            ?>
                                                             <select required class="custom-select" name="religion" id="religionSelect">
                                                                 <option selected disabled value="">
                                                                     Choose...
                                                                 </option>
                                                                 <?php foreach ($religious as $key => $value) { ?>
-                                                                    <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->religion ?? '') {
-                                                                        echo "selected";
-                                                                    } ?>><?php echo $value; ?></option>
+                                                                    <option value="<?php echo $key; ?>" <?php if (isset($personal_info->religion)) {
+                                                                                                            if ($key == $personal_info->religion) {
+                                                                                                                echo "selected";
+                                                                                                            }
+                                                                                                        }  ?>><?php echo $value; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                             <span class="error-massage"><?= form_error('religion'); ?></span>
@@ -343,15 +352,17 @@
                                                                 <span class="star">*</span></label>
                                                             <?php
                                                             $marital_status = array("Married" => "Married", "Single" => "Single");
-    ?>
+                                                            ?>
                                                             <select required class="custom-select" name="marital_status" id="MaritialStatus">
                                                                 <option selected disabled value="">
                                                                     Choose...
                                                                 </option>
                                                                 <?php foreach ($marital_status as $key => $value) { ?>
-                                                                    <option value="<?php echo $key; ?>" <?php if ($key == $personal_info->marital_status ?? '') {
-                                                                        echo "selected";
-                                                                    } ?>><?php echo $value; ?></option>
+                                                                    <option value="<?php echo $key; ?>" <?php if (isset($personal_info->marital_status)) {
+                                                                                                            if ($key == $personal_info->marital_status) {
+                                                                                                                echo "selected";
+                                                                                                            }
+                                                                                                        }  ?>><?php echo $value; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                             <span class="error-massage"><?= form_error('marital_status'); ?></span>
@@ -517,7 +528,7 @@
                                                     </thead>
                                                     <?php
                                                     $education_lavels = array("ssc" => "SSC", "hsc" => "HSC", "under graduate" => "Under Graduate", "graduate" => "Graduate");
-    ?>
+                                                    ?>
                                                     <tbody>
                                                         <?php if ($acadamic_info > 0 && $acadamic_info != null) {
                                                             foreach ($acadamic_info as $key => $info) { ?>
@@ -526,8 +537,8 @@
                                                                     <td>
                                                                         <div class="table_input_area">
 
-                                                                            <select required class="custom-select" name="education_lavel[]" id="MaritialStatus">
-                                                                                <option disabled>
+                                                                            <select required class="custom-select" name="education_lavel[]" id="education_lavel">
+                                                                                <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
                                                                                 <?php foreach ($education_lavels as $key => $value) { ?>
@@ -543,9 +554,9 @@
                                                                         <div class="table_input_area">
                                                                             <?php
                                                                             $education_degrees = array("Secondary School Certificate" => "Secondary School Certificate", "Higher Secondary School Certificate" => "Higher Secondary School Certificate", "Bechelor" => "Bechelor", "Masters" => "Masters");
-                                                                ?>
-                                                                            <select required class="custom-select" name="degree[]" id="MaritialStatus">
-                                                                                <option disabled>
+                                                                            ?>
+                                                                            <select required class="custom-select" name="degree[]" id="degree">
+                                                                                <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
                                                                                 <?php foreach ($education_degrees as $key => $value) { ?>
@@ -560,11 +571,13 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <select required class="custom-select" name="passing_year[]" id="genderSelect">
+                                                                            <select required class="custom-select" name="passing_year[]" id="passing_year">
                                                                                 <option selected disabled value="">Choose...</option>
-                                                                                <?php foreach ($range as $key => $value) { ?>
-                                                                                    <option value="<?php echo $value; ?>" <?= $value == $info->passing_year ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                                                <?php } ?>
+                                                                                <?php foreach ($range as $key => $value) {
+                                                                                    if ($value != 'continue') : ?>
+                                                                                        <option value="<?php echo $value; ?>" <?= $value == $info->passing_year ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php endif;
+                                                                                } ?>
                                                                             </select>
                                                                             <div class="invalid-feedback">
                                                                                 Please select Board .
@@ -575,20 +588,20 @@
                                                                     <td>
                                                                         <div class="table_input_area">
                                                                             <?php
-                                                                $education_boards = array(
-                                                                    "Barisal" => "Barisal",
-                                                                    "Cumilla" => "Cumilla",
-                                                                    "Dhaka" => "Dhaka",
-                                                                    "Jessore" => "Jessore",
-                                                                    "Mymensingh" => "Mymensingh",
-                                                                    "Rajshahi" => "Rajshahi",
-                                                                    "Sylhet" => "Sylhet",
-                                                                    "Chittagong" => "Chittagong",
-                                                                    "Dinajpur" => "Dinajpur",
-                                                                    "Other" => "Other",
-                                                                );
-                                                                ?>
-                                                                            <select required class="custom-select" name="board[]" id="MaritialStatus">
+                                                                            $education_boards = array(
+                                                                                "Barisal" => "Barisal",
+                                                                                "Cumilla" => "Cumilla",
+                                                                                "Dhaka" => "Dhaka",
+                                                                                "Jessore" => "Jessore",
+                                                                                "Mymensingh" => "Mymensingh",
+                                                                                "Rajshahi" => "Rajshahi",
+                                                                                "Sylhet" => "Sylhet",
+                                                                                "Chittagong" => "Chittagong",
+                                                                                "Dinajpur" => "Dinajpur",
+                                                                                "Others" => "Others",
+                                                                            );
+                                                                            ?>
+                                                                            <select required class="custom-select" name="board[]" id="board">
                                                                                 <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
@@ -614,13 +627,14 @@
                                                                     <td>
                                                                         <div class="table_input_area">
                                                                             <?php
-                                                                $education_majors = array(
-                                                                    "Science" => "Science",
-                                                                    "Commerce" => "Commerce",
-                                                                    "Arts" => "Arts",
-                                                                );
-                                                                ?>
-                                                                            <select required class="custom-select" name="major[]" id="MaritialStatus">
+                                                                            $education_majors = array(
+                                                                                "Science" => "Science",
+                                                                                "Commerce" => "Commerce",
+                                                                                "Arts" => "Arts",
+                                                                                "Others" => "Others",
+                                                                            );
+                                                                            ?>
+                                                                            <select required class="custom-select" name="major[]" id="major">
                                                                                 <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
@@ -644,7 +658,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input required type="number" class="form-control" value="<?= $info->result_out_of ?>" name="result_out_of[]" placeholder="Result" />
+                                                                            <input required type="text" class="form-control" value="<?= $info->result_out_of ?>" name="result_out_of[]" placeholder="Result" />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter result.
                                                                             </div>
@@ -665,8 +679,8 @@
                                                                 <td>
                                                                     <div class="table_input_area">
 
-                                                                        <select required class="custom-select" name="education_lavel[]" id="MaritialStatus">
-                                                                            <option disabled>
+                                                                        <select required class="custom-select" name="education_lavel[]" id="education_lavel">
+                                                                            <option selected disabled value="">
                                                                                 Choose...
                                                                             </option>
                                                                             <?php foreach ($education_lavels as $key => $value) { ?>
@@ -682,9 +696,9 @@
                                                                     <div class="table_input_area">
                                                                         <?php
                                                                         $education_degrees = array("Secondary School Certificate" => "Secondary School Certificate", "Higher Secondary School Certificate" => "Higher Secondary School Certificate", "Bechelor" => "Bechelor", "Masters" => "Masters");
-                                                            ?>
-                                                                        <select required class="custom-select" name="degree[]" id="MaritialStatus">
-                                                                            <option disabled>
+                                                                        ?>
+                                                                        <select required class="custom-select" name="degree[]" id="degree">
+                                                                            <option selected disabled value="">
                                                                                 Choose...
                                                                             </option>
                                                                             <?php foreach ($education_degrees as $key => $value) { ?>
@@ -699,7 +713,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <select required class="custom-select" name="passing_year[]" id="genderSelect">
+                                                                        <select required class="custom-select" name="passing_year[]" id="passing_year">
                                                                             <option selected disabled value="">Choose...</option>
                                                                             <?php foreach ($range as $key => $value) { ?>
                                                                                 <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
@@ -714,20 +728,20 @@
                                                                 <td>
                                                                     <div class="table_input_area">
                                                                         <?php
-                                                            $education_boards = array(
-                                                                "Barisal" => "Barisal",
-                                                                "Cumilla" => "Cumilla",
-                                                                "Dhaka" => "Dhaka",
-                                                                "Jessore" => "Jessore",
-                                                                "Mymensingh" => "Mymensingh",
-                                                                "Rajshahi" => "Rajshahi",
-                                                                "Sylhet" => "Sylhet",
-                                                                "Chittagong" => "Chittagong",
-                                                                "Dinajpur" => "Dinajpur",
-                                                                "Other" => "Other",
-                                                            );
-                                                            ?>
-                                                                        <select required class="custom-select" name="board[]" id="MaritialStatus">
+                                                                        $education_boards = array(
+                                                                            "Barisal" => "Barisal",
+                                                                            "Cumilla" => "Cumilla",
+                                                                            "Dhaka" => "Dhaka",
+                                                                            "Jessore" => "Jessore",
+                                                                            "Mymensingh" => "Mymensingh",
+                                                                            "Rajshahi" => "Rajshahi",
+                                                                            "Sylhet" => "Sylhet",
+                                                                            "Chittagong" => "Chittagong",
+                                                                            "Dinajpur" => "Dinajpur",
+                                                                            "Others" => "Others",
+                                                                        );
+                                                                        ?>
+                                                                        <select required class="custom-select" name="board[]" id="board">
                                                                             <option selected disabled value="">
                                                                                 Choose...
                                                                             </option>
@@ -753,13 +767,14 @@
                                                                 <td>
                                                                     <div class="table_input_area">
                                                                         <?php
-                                                            $education_majors = array(
-                                                                "Science" => "Science",
-                                                                "Commerce" => "Commerce",
-                                                                "Arts" => "Arts",
-                                                            );
-                                                            ?>
-                                                                        <select required class="custom-select" name="major[]" id="MaritialStatus">
+                                                                        $education_majors = array(
+                                                                            "Science" => "Science",
+                                                                            "Commerce" => "Commerce",
+                                                                            "Arts" => "Arts",
+                                                                            "Others" => "Others",
+                                                                        );
+                                                                        ?>
+                                                                        <select required class="custom-select" name="major[]" id="major">
                                                                             <option selected disabled value="">
                                                                                 Choose...
                                                                             </option>
@@ -783,7 +798,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <input required type="number" class="form-control" name="result_out_of[]" placeholder="Result" />
+                                                                        <input required type="text" class="form-control" name="result_out_of[]" placeholder="Result" />
                                                                         <div class="invalid-feedback">
                                                                             Please Enter result.
                                                                         </div>
@@ -856,7 +871,7 @@
                                                                 <tr class="vertical-center">
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input type="text" class="form-control" value="<?= $history->organization_name ?>" name="organization_name[]" placeholder="Organization's Name" />
+                                                                            <input required type="text" class="form-control" value="<?= $history->organization_name ?>" name="organization_name[]" placeholder="Organization's Name" />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter Organization's Name.
                                                                             </div>
@@ -880,9 +895,9 @@
                                                                                 "Garments" => "Garments",
                                                                                 "Other" => "Other",
                                                                             );
-                                                                ?>
-                                                                            <select required class="custom-select" name="industry_type[]" id="MaritialStatus">
-                                                                                <option disabled>
+                                                                            ?>
+                                                                            <select required class="custom-select" name="industry_type[]" id="industryType">
+                                                                                <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
                                                                                 <?php foreach ($industry_types as $key => $value) { ?>
@@ -898,14 +913,14 @@
                                                                     <td>
                                                                         <div class="table_input_area">
                                                                             <?php
-                                                                $departments = array(
-                                                                    "Department 1" => "Department 1",
-                                                                    "Department 2" => "Department 2",
-                                                                    "Department 3" => "Department 3",
-                                                                );
-                                                                ?>
-                                                                            <select required class="custom-select" name="department[]" id="MaritialStatus">
-                                                                                <option disabled>
+                                                                            $departments = array(
+                                                                                "Department 1" => "Department 1",
+                                                                                "Department 2" => "Department 2",
+                                                                                "Department 3" => "Department 3",
+                                                                            );
+                                                                            ?>
+                                                                            <select required class="custom-select" name="department[]" id="department">
+                                                                                <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
                                                                                 <?php foreach ($departments as $key => $value) { ?>
@@ -920,7 +935,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input type="text" class="form-control" name="designation[]" placeholder="Designation " />
+                                                                            <input required type="text" class="form-control" value="<?= $history->designation ?>" name="designation[]" placeholder="Designation " />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter Designation .
                                                                             </div>
@@ -928,7 +943,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input type="text" class="form-control" name="key_responsibility[]" placeholder="Key Responsibilities" />
+                                                                            <input type="text" class="form-control" value="<?= $history->key_responsibility ?>" name="key_responsibility[]" placeholder="Key Responsibilities" />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter Key Responsibilities .
                                                                             </div>
@@ -936,13 +951,15 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <select class="custom-select" name="start_from[]" id="genderSelect">
-                                                                                <option disabled value="">
+                                                                            <select required class="custom-select" name="start_from[]" id="startfrom">
+                                                                                <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
-                                                                                <?php foreach ($range as $key => $value) { ?>
-                                                                                    <option value="<?php echo $value; ?>" <?= $value == $history->start_from ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                                                <?php } ?>
+                                                                                <?php foreach ($range as $key => $value) {
+                                                                                    if ($value != 'continue') : ?>
+                                                                                        <option value="<?php echo $value; ?>" <?= $value == $history->start_from ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php endif;
+                                                                                } ?>
 
                                                                             </select>
                                                                             <div class="invalid-feedback">
@@ -952,8 +969,8 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <select class="custom-select" name="end_to[]" id="genderSelect">
-                                                                                <option disabled value="">
+                                                                            <select required class="custom-select" name="end_to[]" id="endto">
+                                                                                <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
                                                                                 <?php foreach ($range as $key => $value) { ?>
@@ -977,7 +994,7 @@
                                                             <tr class="vertical-center">
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <input type="text" class="form-control" name="organization_name[]" placeholder="Organization's Name" />
+                                                                        <input required type="text" class="form-control" name="organization_name[]" placeholder="Organization's Name" />
                                                                         <div class="invalid-feedback">
                                                                             Please Enter Organization's Name.
                                                                         </div>
@@ -996,14 +1013,14 @@
                                                                     <div class="table_input_area">
                                                                         <?php
                                                                         $industry_types = array(
-                                                                "IT" => "IT",
-                                                                "Group of company" => "Group of company",
-                                                                "Garments" => "Garments",
-                                                                "Other" => "Other",
+                                                                            "IT" => "IT",
+                                                                            "Group of company" => "Group of company",
+                                                                            "Garments" => "Garments",
+                                                                            "Others" => "Others",
                                                                         );
-                                                            ?>
-                                                                        <select required class="custom-select" name="industry_type[]" id="MaritialStatus">
-                                                                            <option disabled>
+                                                                        ?>
+                                                                        <select required class="custom-select" name="industry_type[]" id="industryType">
+                                                                            <option selected disabled value="">
                                                                                 Choose...
                                                                             </option>
                                                                             <?php foreach ($industry_types as $key => $value) { ?>
@@ -1019,14 +1036,14 @@
                                                                 <td>
                                                                     <div class="table_input_area">
                                                                         <?php
-                                                            $departments = array(
-                                                                "Department 1" => "Department 1",
-                                                                "Department 2" => "Department 2",
-                                                                "Department 3" => "Department 3",
-                                                            );
-                                                            ?>
-                                                                        <select required class="custom-select" name="department[]" id="MaritialStatus">
-                                                                            <option disabled>
+                                                                        $departments = array(
+                                                                            "Department 1" => "Department 1",
+                                                                            "Department 2" => "Department 2",
+                                                                            "Department 3" => "Department 3",
+                                                                        );
+                                                                        ?>
+                                                                        <select required class="custom-select" name="department[]" id="department">
+                                                                            <option selected disabled value="">
                                                                                 Choose...
                                                                             </option>
                                                                             <?php foreach ($departments as $key => $value) { ?>
@@ -1041,7 +1058,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <input type="text" class="form-control" name="designation[]" placeholder="Designation " />
+                                                                        <input required type="text" class="form-control" name="designation[]" placeholder="Designation " />
                                                                         <div class="invalid-feedback">
                                                                             Please Enter Designation .
                                                                         </div>
@@ -1057,13 +1074,15 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <select class="custom-select" name="start_from[]" id="genderSelect">
-                                                                            <option disabled value="">
+                                                                        <select required class="custom-select" name="start_from[]" id="startFromSelect">
+                                                                            <option selected disabled value="">
                                                                                 Choose...
                                                                             </option>
-                                                                            <?php foreach ($range as $key => $value) { ?>
-                                                                                <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
-                                                                            <?php } ?>
+                                                                            <?php foreach ($range as $key => $value) {
+                                                                                if ($value != 'continue') : ?>
+                                                                                    <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+                                                                            <?php endif;
+                                                                            } ?>
 
                                                                         </select>
                                                                         <div class="invalid-feedback">
@@ -1073,8 +1092,8 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <select class="custom-select" name="end_to[]" id="genderSelect">
-                                                                            <option disabled value="">
+                                                                        <select required class="custom-select" name="end_to[]" id="endToSelect">
+                                                                            <option selected disabled value="">
                                                                                 Choose...
                                                                             </option>
                                                                             <?php foreach ($range as $key => $value) { ?>
@@ -1143,7 +1162,7 @@
                                                                 <tr class="vertical-center">
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input type="text" class="form-control" value="<?= $training->title ?>" name="title[]" placeholder="Training title" />
+                                                                            <input required type="text" class="form-control" value="<?= $training->title ?>" name="title[]" placeholder="Training title" />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter Training Information.
                                                                             </div>
@@ -1151,7 +1170,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input type="text" class="form-control" value="<?= $training->institution_name ?>" name="institution_name[]" placeholder="Institution name" />
+                                                                            <input required type="text" class="form-control" value="<?= $training->institution_name ?>" name="institution_name[]" placeholder="Institution name" />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter institution name
                                                                             </div>
@@ -1167,7 +1186,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input type="text" class="form-control" value="<?= $training->duration ?>" name="duration[]" placeholder="Duration" />
+                                                                            <input required type="text" class="form-control" value="<?= $training->duration ?>" name="duration[]" placeholder="Duration" />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter Duration.
                                                                             </div>
@@ -1203,7 +1222,7 @@
                                                             <tr class="vertical-center">
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <input type="text" class="form-control" name="title[]" placeholder="Training title" />
+                                                                        <input required type="text" class="form-control" name="title[]" placeholder="Training title" />
                                                                         <div class="invalid-feedback">
                                                                             Please Enter Training Information.
                                                                         </div>
@@ -1211,7 +1230,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <input type="text" class="form-control" name="institution_name[]" placeholder="Institution name" />
+                                                                        <input required type="text" class="form-control" name="institution_name[]" placeholder="Institution name" />
                                                                         <div class="invalid-feedback">
                                                                             Please Enter institution name
                                                                         </div>
@@ -1227,7 +1246,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <input type="text" class="form-control" name="duration[]" placeholder="Duration" />
+                                                                        <input required type="text" class="form-control" name="duration[]" placeholder="Duration" />
                                                                         <div class="invalid-feedback">
                                                                             Please Enter Duration.
                                                                         </div>
@@ -1310,7 +1329,7 @@
                                                                 <tr class="vertical-center">
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input type="text" value="<?= $qualification->certificate ?>" name="certificate[]" class="form-control" placeholder="Certification" />
+                                                                            <input required type="text" value="<?= $qualification->certificate ?>" name="certificate[]" class="form-control" placeholder="Certification" />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter Certification.
                                                                             </div>
@@ -1318,7 +1337,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <input type="text" value="<?= $qualification->awarding_body ?>" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
+                                                                            <input required type="text" value="<?= $qualification->awarding_body ?>" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
                                                                             <div class="invalid-feedback">
                                                                                 Please Enter Awarding Body.
                                                                             </div>
@@ -1343,13 +1362,15 @@
 
                                                                     <td>
                                                                         <div class="table_input_area">
-                                                                            <select class="custom-select" name="passing_year[]" id="genderSelect">
+                                                                            <select class="custom-select" name="passing_year[]" id="passingYearSelect">
                                                                                 <option selected disabled value="">
                                                                                     Choose...
                                                                                 </option>
-                                                                                <?php foreach ($range as $key => $value) { ?>
-                                                                                    <option value="<?php echo $value; ?>" <?= $key == $qualification->passing_year ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                                                <?php } ?>
+                                                                                <?php foreach ($range as $key => $value) {
+                                                                                    if ($value != 'continue') : ?>
+                                                                                        <option value="<?php echo $value; ?>" <?= $key == $qualification->passing_year ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                <?php endif;
+                                                                                } ?>
 
                                                                             </select>
                                                                             <div class="invalid-feedback">
@@ -1385,7 +1406,7 @@
                                                             <tr class="vertical-center">
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <input type="text" name="certificate[]" class="form-control" placeholder="Certification" />
+                                                                        <input required type="text" name="certificate[]" class="form-control" placeholder="Certification" />
                                                                         <div class="invalid-feedback">
                                                                             Please Enter Certification.
                                                                         </div>
@@ -1393,7 +1414,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <input type="text" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
+                                                                        <input required type="text" name="awarding_body[]" class="form-control" placeholder="Awarding Body" />
                                                                         <div class="invalid-feedback">
                                                                             Please Enter Awarding Body.
                                                                         </div>
@@ -1418,13 +1439,13 @@
 
                                                                 <td>
                                                                     <div class="table_input_area">
-                                                                        <select class="custom-select" name="passing_year[]" id="genderSelect">
-                                                                            <option selected disabled value="">
-                                                                                Choose...
-                                                                            </option>
-                                                                            <?php foreach ($range as $key => $value) { ?>
-                                                                                <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
-                                                                            <?php } ?>
+                                                                        <select class="custom-select" name="passing_year[]" id="passingYearSelect">
+                                                                            <option selected disabled value="">Choose...</option>
+                                                                            <?php foreach ($range as $key => $value) {
+                                                                                if ($value != 'continue') : ?>
+                                                                                    <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+                                                                            <?php endif;
+                                                                            } ?>
 
                                                                         </select>
                                                                         <div class="invalid-feedback">
@@ -1663,7 +1684,7 @@
                                                 <table class="table table-bordered" id="languageTable">
                                                     <thead class="thead-light">
                                                         <tr class="vertical-center">
-                                                            <th scope="col">Language</th>
+                                                            <th scope="col">Language<span class="star">* </span></th>
                                                             <th scope="col">
                                                                 Speaking<span class="star">* </span>
                                                             </th>
@@ -1693,11 +1714,9 @@
                                                                         <div class="table_input_area">
                                                                             <?php
                                                                             $languages = array("Bangla" => "Bangla", "English" => "English", "Hindi" => "Hindi");
-                                                                ?>
-                                                                            <select class="custom-select" name="language[]" id="genderSelect">
-                                                                                <option disabled value="">
-                                                                                    Choose...
-                                                                                </option>
+                                                                            ?>
+                                                                            <select required class="custom-select" name="language[]" id="languageSelect">
+                                                                                <option selected disabled value="">Choose...</option>
                                                                                 <?php foreach ($languages as $key => $value) { ?>
                                                                                     <option value="<?php echo $key; ?>" <?= $key == $language_data->language ? "selected" : '' ?>><?php echo $value; ?></option>
                                                                                 <?php } ?>
@@ -1710,12 +1729,10 @@
                                                                     <td>
                                                                         <div class="table_input_area">
                                                                             <?php
-                                                                $speakings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                                ?>
-                                                                            <select class="custom-select" name="speaking[]" id="genderSelect" required>
-                                                                                <option disabled value="">
-                                                                                    Choose...
-                                                                                </option>
+                                                                            $speakings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                            ?>
+                                                                            <select class="custom-select" name="speaking[]" id="speakingSelect" required>
+                                                                                <option selected disabled value="">Choose...</option>
                                                                                 <?php foreach ($speakings as $key => $value) { ?>
                                                                                     <option value="<?php echo $key; ?>" <?= $key == $language_data->speaking ? "selected" : '' ?>><?php echo $value; ?></option>
                                                                                 <?php } ?>
@@ -1729,12 +1746,10 @@
                                                                         <div class="table_input_area">
 
                                                                             <?php
-                                                                $writings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                                ?>
-                                                                            <select class="custom-select" name="writing[]" id="genderSelect" required>
-                                                                                <option disabled value="">
-                                                                                    Choose...
-                                                                                </option>
+                                                                            $writings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                            ?>
+                                                                            <select class="custom-select" name="writing[]" id="writingSelect" required>
+                                                                                <option selected disabled value="">Choose...</option>
                                                                                 <?php foreach ($writings as $key => $value) { ?>
                                                                                     <option value="<?php echo $key; ?>" <?= $key == $language_data->writing ? "selected" : '' ?>><?php echo $value; ?></option>
                                                                                 <?php } ?>
@@ -1747,12 +1762,10 @@
                                                                     <td>
                                                                         <div class="table_input_area">
                                                                             <?php
-                                                                $readings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                                ?>
-                                                                            <select class="custom-select" name="reading[]" id="genderSelect" required>
-                                                                                <option disabled value="">
-                                                                                    Choose...
-                                                                                </option>
+                                                                            $readings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                            ?>
+                                                                            <select class="custom-select" name="reading[]" id="readingSelect" required>
+                                                                                <option selected disabled value="">Choose...</option>
                                                                                 <?php foreach ($readings as $key => $value) { ?>
                                                                                     <option value="<?php echo $key; ?>" <?= $key == $language_data->reading ? "selected" : '' ?>><?php echo $value; ?></option>
                                                                                 <?php } ?>
@@ -1765,12 +1778,10 @@
                                                                     <td>
                                                                         <div class="table_input_area">
                                                                             <?php
-                                                                $listenings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                                ?>
-                                                                            <select class="custom-select" name="listening[]" id="genderSelect" required>
-                                                                                <option selected disabled value="">
-                                                                                    Choose...
-                                                                                </option>
+                                                                            $listenings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                            ?>
+                                                                            <select class="custom-select" name="listening[]" id="listeningSelect" required>
+                                                                                <option selected disabled value="">Choose...</option>
                                                                                 <?php foreach ($listenings as $key => $value) { ?>
                                                                                     <option value="<?php echo $key; ?>" <?= $key == $language_data->listening ? "selected" : '' ?>><?php echo $value; ?></option>
                                                                                 <?php } ?>
@@ -1794,11 +1805,9 @@
                                                                     <div class="table_input_area">
                                                                         <?php
                                                                         $languages = array("Bangla" => "Bangla", "English" => "English", "Hindi" => "Hindi");
-                                                            ?>
-                                                                        <select class="custom-select" name="language[]" id="genderSelect">
-                                                                            <option disabled value="">
-                                                                                Choose...
-                                                                            </option>
+                                                                        ?>
+                                                                        <select required class="custom-select" name="language[]" id="languageSelect">
+                                                                            <option selected disabled value="">Choose...</option>
                                                                             <?php foreach ($languages as $key => $value) { ?>
                                                                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
@@ -1811,12 +1820,10 @@
                                                                 <td>
                                                                     <div class="table_input_area">
                                                                         <?php
-                                                            $speakings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                            ?>
-                                                                        <select class="custom-select" name="speaking[]" id="genderSelect" required>
-                                                                            <option disabled value="">
-                                                                                Choose...
-                                                                            </option>
+                                                                        $speakings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                        ?>
+                                                                        <select class="custom-select" name="speaking[]" id="speakingSelect" required>
+                                                                            <option selected disabled value="">Choose...</option>
                                                                             <?php foreach ($speakings as $key => $value) { ?>
                                                                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
@@ -1830,12 +1837,10 @@
                                                                     <div class="table_input_area">
 
                                                                         <?php
-                                                            $writings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                            ?>
-                                                                        <select class="custom-select" name="writing[]" id="genderSelect" required>
-                                                                            <option disabled value="">
-                                                                                Choose...
-                                                                            </option>
+                                                                        $writings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                        ?>
+                                                                        <select class="custom-select" name="writing[]" id="writingSelect" required>
+                                                                            <option selected disabled value="">Choose...</option>
                                                                             <?php foreach ($writings as $key => $value) { ?>
                                                                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
@@ -1848,12 +1853,10 @@
                                                                 <td>
                                                                     <div class="table_input_area">
                                                                         <?php
-                                                            $readings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                            ?>
-                                                                        <select class="custom-select" name="reading[]" id="genderSelect" required>
-                                                                            <option disabled value="">
-                                                                                Choose...
-                                                                            </option>
+                                                                        $readings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                        ?>
+                                                                        <select class="custom-select" name="reading[]" id="readingSelect" required>
+                                                                            <option selected disabled value="">Choose...</option>
                                                                             <?php foreach ($readings as $key => $value) { ?>
                                                                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
@@ -1866,12 +1869,10 @@
                                                                 <td>
                                                                     <div class="table_input_area">
                                                                         <?php
-                                                            $listenings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
-                                                            ?>
-                                                                        <select class="custom-select" name="listening[]" id="genderSelect" required>
-                                                                            <option selected disabled value="">
-                                                                                Choose...
-                                                                            </option>
+                                                                        $listenings = array("Good" => "Good", "Average" => "Avarage", "Excellent" => "Excellent");
+                                                                        ?>
+                                                                        <select class="custom-select" name="listening[]" id="listeningSelect" required>
+                                                                            <option selected disabled value="">Choose...</option>
                                                                             <?php foreach ($listenings as $key => $value) { ?>
                                                                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                                                             <?php } ?>
@@ -1905,160 +1906,160 @@
 
                                         <div class="inner_table_area">
                                             <div class="row mt-4">
-                                                <?php if($references > 0 && $references != null) {
+                                                <?php if ($references > 0 && $references != null) {
                                                     foreach ($references as $key => $reference) { ?>
+                                                        <div class="col-md-6">
+                                                            <div class="reference_area">
+                                                                <h4>Reference 1</h4>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Name </label>
+                                                                    <input type="text" value="<?= $reference->ref_name ?>" name="ref_name[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Designation
+                                                                    </label>
+                                                                    <input type="text" value="<?= $reference->ref_degignation ?>" name="ref_degignation[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Organization
+                                                                    </label>
+                                                                    <input type="text" value="<?= $reference->ref_organization ?>" name="ref_organization[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Mailing Address
+                                                                    </label>
+                                                                    <input type="text" value="<?= $reference->mailing_address ?>" name="mailing_address[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">E-mail Address
+                                                                    </label>
+                                                                    <input type="email" value="<?= $reference->ref_email ?>" name="ref_email[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Cell Phone </label>
+                                                                    <input type="number" value="<?= $reference->ref_phone ?>" name="ref_phone[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Relation</label>
+                                                                    <input type="text" value="<?= $reference->ref_relation ?>" name="ref_relation[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 mm-30">
+                                                            <div class="reference_area">
+                                                                <h4>Reference 2</h4>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Name </label>
+                                                                    <input type="text" value="<?= $reference->ref_name2 ?>" name="ref_name2[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Designation
+                                                                    </label>
+                                                                    <input type="text" value="<?= $reference->ref_degignation2 ?>" name="ref_degignation2[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Organization
+                                                                    </label>
+                                                                    <input type="text" value="<?= $reference->ref_organization2 ?>" name="ref_organization2[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Mailing Address
+                                                                    </label>
+                                                                    <input type="text" value="<?= $reference->mailing_address2 ?>" name="mailing_address2[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">E-mail Address
+                                                                    </label>
+                                                                    <input type="email" value="<?= $reference->ref_email2 ?>" name="ref_email2[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Cell Phone </label>
+                                                                    <input type="number" value="<?= $reference->ref_phone2 ?>" name="ref_phone2[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ReferenceName">Relation</label>
+                                                                    <input type="text" value="<?= $reference->ref_relation2 ?>" name="ref_relation2[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
+                                                <?php } else { ?>
                                                     <div class="col-md-6">
-                                                    <div class="reference_area">
-                                                        <h4>Reference 1</h4>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Name </label>
-                                                            <input type="text" value="<?= $reference->ref_name ?>" name="ref_name[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Designation
-                                                            </label>
-                                                            <input type="text" value="<?= $reference->ref_degignation ?>" name="ref_degignation[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Organization
-                                                            </label>
-                                                            <input type="text" value="<?= $reference->ref_organization ?>" name="ref_organization[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Mailing Address
-                                                            </label>
-                                                            <input type="text" value="<?= $reference->mailing_address ?>" name="mailing_address[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">E-mail Address
-                                                            </label>
-                                                            <input type="email" value="<?= $reference->ref_email ?>" name="ref_email[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Cell Phone </label>
-                                                            <input type="number" value="<?= $reference->ref_phone ?>"  name="ref_phone[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Relation</label>
-                                                            <input type="text" value="<?= $reference->ref_relation ?>" name="ref_relation[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 mm-30">
-                                                    <div class="reference_area">
-                                                        <h4>Reference 2</h4>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Name </label>
-                                                            <input type="text" value="<?= $reference->ref_name2 ?>" name="ref_name2[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Designation
-                                                            </label>
-                                                            <input type="text" value="<?= $reference->ref_degignation2 ?>" name="ref_degignation2[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Organization
-                                                            </label>
-                                                            <input type="text" value="<?= $reference->ref_organization2 ?>" name="ref_organization2[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Mailing Address
-                                                            </label>
-                                                            <input type="text" value="<?= $reference->mailing_address2 ?>" name="mailing_address2[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">E-mail Address
-                                                            </label>
-                                                            <input type="email" value="<?= $reference->ref_email2 ?>"  name="ref_email2[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Cell Phone </label>
-                                                            <input type="number" value="<?= $reference->ref_phone2 ?>" name="ref_phone2[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Relation</label>
-                                                            <input type="text" value="<?= $reference->ref_relation2 ?>" name="ref_relation2[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
+                                                        <div class="reference_area">
+                                                            <h4>Reference 1</h4>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Name </label>
+                                                                <input type="text" name="ref_name[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Designation
+                                                                </label>
+                                                                <input type="text" name="ref_degignation[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Organization
+                                                                </label>
+                                                                <input type="text" name="ref_organization[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Mailing Address
+                                                                </label>
+                                                                <input type="text" name="mailing_address[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">E-mail Address
+                                                                </label>
+                                                                <input type="email" name="ref_email[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Cell Phone </label>
+                                                                <input type="number" name="ref_phone[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Relation</label>
+                                                                <input type="text" name="ref_relation[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                               <?php } ?>
-                                               <?php } else { ?>
-                                                <div class="col-md-6">
-                                                    <div class="reference_area">
-                                                        <h4>Reference 1</h4>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Name </label>
-                                                            <input type="text" name="ref_name[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Designation
-                                                            </label>
-                                                            <input type="text" name="ref_degignation[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Organization
-                                                            </label>
-                                                            <input type="text" name="ref_organization[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Mailing Address
-                                                            </label>
-                                                            <input type="text" name="mailing_address[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">E-mail Address
-                                                            </label>
-                                                            <input type="email" name="ref_email[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Cell Phone </label>
-                                                            <input type="number" name="ref_phone[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Relation</label>
-                                                            <input type="text" name="ref_relation[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
+                                                    <div class="col-md-6 mm-30">
+                                                        <div class="reference_area">
+                                                            <h4>Reference 2</h4>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Name </label>
+                                                                <input type="text" name="ref_name2[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Designation
+                                                                </label>
+                                                                <input type="text" name="ref_degignation2[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Organization
+                                                                </label>
+                                                                <input type="text" name="ref_organization2[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Mailing Address
+                                                                </label>
+                                                                <input type="text" name="mailing_address2[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">E-mail Address
+                                                                </label>
+                                                                <input type="email" name="ref_email2[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Cell Phone </label>
+                                                                <input type="number" name="ref_phone2[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="ReferenceName">Relation</label>
+                                                                <input type="text" name="ref_relation2[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6 mm-30">
-                                                    <div class="reference_area">
-                                                        <h4>Reference 2</h4>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Name </label>
-                                                            <input type="text" name="ref_name2[]" class="form-control" id="ReferenceName" placeholder="Enter Reference Name" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Designation
-                                                            </label>
-                                                            <input type="text" name="ref_degignation2[]" class="form-control" id="ReferenceName" placeholder="Enter Designation" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Organization
-                                                            </label>
-                                                            <input type="text" name="ref_organization2[]" class="form-control" id="ReferenceName" placeholder="Enter Organization" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Mailing Address
-                                                            </label>
-                                                            <input type="text" name="mailing_address2[]" class="form-control" id="ReferenceName" placeholder="Enter Mailing Address" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">E-mail Address
-                                                            </label>
-                                                            <input type="email" name="ref_email2[]" class="form-control" id="ReferenceName" placeholder="Enter E-mail Address" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Cell Phone </label>
-                                                            <input type="number" name="ref_phone2[]" class="form-control" id="ReferenceName" placeholder="Enter Cell Phone" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="ReferenceName">Relation</label>
-                                                            <input type="text" name="ref_relation2[]" class="form-control" id="ReferenceName" placeholder="Enter Relation" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                               <?php } ?>
-                                                
+                                                <?php } ?>
+
                                             </div>
                                         </div>
                                     </div>
@@ -2069,498 +2070,551 @@
                                         <h3 class="tab_title">Additional Information</h3>
 
                                         <div class="inner_table_area">
-                                            <?php if($additional_info >0 && $additional_info !=null) {
+                                            <?php if ($additional_info > 0 && $additional_info != null) {
                                                 foreach ($additional_info as $key => $additional) { ?>
-                                                <div class="row mt-4">
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="JobLocation">Job Location Preference
-                                                        </label>
-                                                        <?php
-                                                            $location_preferences = array("Yes" => "Yes", "No" => "No");
-                                                    ?>
-                                                        <select class="custom-select" name="job_location_preference" id="JobLocation">
-                                                            <option disabled value="">Choose...</option>
-                                                            <?php foreach ($location_preferences as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>" <?= $key == $additional->job_location_preference ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <!-- Hide/show full div in below if job preference yes or now -->
-                                                <!-- Office Select Start  -->
-                                                <div class="col-lg-4 col-md-6 hide_area" id="JobLocationDepended">
-                                                    <div class="form-group">
-                                                        <label for="SelectOffice">Select Office </label>
-                                                        <?php
-                                                    $location_names = array("Uttara" => "Uttara", "Banani" => "Banani");
-                                                    ?>
-                                                        <select class="custom-select" name="location_name" id="SelectOffice">
-                                                            <option disabled value="">Choose...</option>
-                                                            <?php foreach ($location_names as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>" <?= $key == $additional->location_name ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <!-- Office Select End  -->
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="presentSalary">Your Present Salary (BDT)-Monthly
-                                                        </label>
-                                                        <input type="text" class="form-control" value="<?= $additional->present_salary ?>" name="present_salary" id="presentSalary" placeholder="Enter Present Salary" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="expectedSalary">Your Expected Salary (BDT)-Monthly
-                                                        </label>
-                                                        <input type="text" class="form-control" value="<?= $additional->expected_salary ?>" name="expected_salary" id="expectedSalary" placeholder="Enter Expected Salary" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-5 col-md-7">
-                                                    <div class="form-group">
-                                                        <label for="howKnow">How you come to know about Bitopi Group?
-                                                        </label>
-                                                        <?php
-                                                    $how_knows = array("Website" => "Website", "Job Portal" => "Job Portal", "Social Media" => "Social Media", "Other" => "Other");
-                                                    ?>
-                                                        <select class="custom-select" name="how_know" id="howKnow">
-                                                            <option disabled value="">Choose...</option>
-                                                            <?php foreach ($how_knows as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>" <?= $key == $additional->how_know ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-5 hide_area" id="howKnowDepended">
-                                                    <div class="form-group">
-                                                        <label for="howKnowOthers">Others </label>
-                                                        <input type="text" value="<?= $additional->other_way ?>"  name="other_way" class="form-control" id="howKnowOthers" placeholder="Enter others way" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-7">
-                                                    <div class="form-group">
-                                                        <label for="JobLocation">Do you have any relative/ friend/ family
-                                                            member employing in Bitopi Group?
-                                                        </label>
-                                                        <?php
-                                                    $any_relativies = array("Yes" => "Yes", "No" => "No");
-                                                    ?>
-                                                        <select class="custom-select" name="any_relatives" id="relativeSelect">
-                                                            <option disabled value="">Choose...</option>
-                                                            <?php foreach ($any_relativies as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>" <?= $key == $additional->any_relatives ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                          
-                                            
-                                           
+                                                    <div class="row mt-4">
+                                                        <div class="col-lg-4 col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="JobLocation">Job Location Preference
+                                                                </label>
+                                                                <?php
+                                                                $location_preferences = array("Yes" => "Yes", "No" => "No");
+                                                                ?>
+                                                                <select class="custom-select" name="job_location_preference" id="JobLocation">
+                                                                    <option selected disabled value="">Choose...</option>
+                                                                    <?php foreach ($location_preferences as $key => $value) { ?>
+                                                                        <option value="<?php echo $key; ?>" <?= $key == $additional->job_location_preference ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Hide/show full div in below if job preference yes or now -->
+                                                        <!-- Office Select Start  -->
+                                                        <div class="col-lg-4 col-md-6 hide_area" id="JobLocationDepended">
+                                                            <div class="form-group">
+                                                                <label for="SelectOffice">Select Office </label>
+                                                                <?php
+                                                                $location_names = array("Uttara" => "Uttara", "Banani" => "Banani");
+                                                                ?>
+                                                                <select class="custom-select" name="location_name" id="SelectOffice">
+                                                                    <option selected disabled value="">Choose...</option>
+                                                                    <?php foreach ($location_names as $key => $value) { ?>
+                                                                        <option value="<?php echo $key; ?>" <?= $key == $additional->location_name ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Office Select End  -->
+                                                        <div class="col-lg-4 col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="presentSalary">Your Present Salary (BDT)-Monthly
+                                                                </label>
+                                                                <input type="text" class="form-control" value="<?= $additional->present_salary ?>" name="present_salary" id="presentSalary" placeholder="Enter Present Salary" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="expectedSalary">Your Expected Salary (BDT)-Monthly
+                                                                </label>
+                                                                <input type="text" class="form-control" value="<?= $additional->expected_salary ?>" name="expected_salary" id="expectedSalary" placeholder="Enter Expected Salary" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-5 col-md-7">
+                                                            <div class="form-group">
+                                                                <label for="howKnow">How you come to know about Bitopi Group?
+                                                                </label>
+                                                                <?php
+                                                                $how_knows = array("Website" => "Website", "Job Portal" => "Job Portal", "Social Media" => "Social Media", "Other" => "Other");
+                                                                ?>
+                                                                <select class="custom-select" name="how_know" id="howKnow">
+                                                                    <option selected disabled value="">Choose...</option>
+                                                                    <?php foreach ($how_knows as $key => $value) { ?>
+                                                                        <option value="<?php echo $key; ?>" <?= $key == $additional->how_know ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-5 hide_area" id="howKnowDepended">
+                                                            <div class="form-group">
+                                                                <label for="howKnowOthers">Others </label>
+                                                                <input type="text" value="<?= $additional->other_way ?>" name="other_way" class="form-control" id="howKnowOthers" placeholder="Enter others way" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-7">
+                                                            <div class="form-group">
+                                                                <label for="JobLocation">Do you have any relative/ friend/ family
+                                                                    member employing in Bitopi Group?
+                                                                </label>
+                                                                <?php
+                                                                $any_relativies = array("Yes" => "Yes", "No" => "No");
+                                                                ?>
+                                                                <select class="custom-select" name="any_relatives" id="relativeSelect">
+                                                                    <option selected disabled value="">Choose...</option>
+                                                                    <?php foreach ($any_relativies as $key => $value) { ?>
+                                                                        <option value="<?php echo $key; ?>" <?= $key == $additional->any_relatives ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
 
-                                            <!-- if relative  table  -->
-                                            <div id="relativeDepended" class="hide_area">
-                                                <hr>
-                                                <div class="table-responsive mt-3">
-                                                    <table class="table table-bordered" id="relativeTable">
-                                                        <thead class="thead-light">
-                                                            <tr class="vertical-center">
-                                                                <th scope="col">Name of Relative</th>
-                                                                <th scope="col">Relationship</th>
-                                                                <th scope="col">Designation</th>
-                                                                <th scope="col">Department</th>
-                                                                <th scope="col">Job Location</th>
-                                                                <th scope="col" class="text-center">
-                                                                    Action
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php foreach ($relatives as $key => $rel_info) { ?>
-                                                                <tr class="vertical-center">
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" value="<?= $rel_info->name_relative ?>" name="name_relative[]" class="form-control" placeholder="Name of Relative" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" value="<?= $rel_info->rel_relationship ?>" name="rel_relationship[]" class="form-control" placeholder="Enter Relationship" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" value="<?= $rel_info->rel_designation ?>" name="rel_designation[]" class="form-control" placeholder="Enter Designation" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" value="<?= $rel_info->rel_department ?>" name="rel_department[]" class="form-control" placeholder="Enter Department" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <?php
-                                                                    $relatives_job_locations = array("Dhaka" => "Dhaka", "Noakhali" => "Noakhali");
-                                                                    ?>
-                                                                        <select class="custom-select" name="rel_job_location[]" id="genderSelect">
-                                                                            <option>Choose...</option>
-                                                                            <?php foreach ($relatives_job_locations as $key => $value) { ?>
-                                                                                <option value="<?php echo $key; ?>" <?= $key == $rel_info->rel_job_location ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </td>
-
-                                                                <td>
-                                                                    <button type="button" class="delete_icon" id="relativeRemove">
-                                                                        <i class="fa-regular fa-trash-can"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                            <?php   } ?>
-                                                            
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <button type="button" class="btn btn-primary icon_btn d-flex align-items-center justify-content-center flex-wrap g-smm mt-3" id="relativeAdd">
-                                                    <span class="icon"><i class="fa-solid fa-plus"></i></span>
-                                                    Add
-                                                </button>
-                                            </div>
-                                            <hr>
-                                            <div class="row mt-3">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="JobLocation">Previously Interviewed
-                                                        </label>
-                                                        <?php
-                                                        $previously_interviewed = array("Yes" => "Yes", "No" => "No");
-                                                    ?>
-                                                        <select class="custom-select" name="perviously_interview" id="previousInterview">
-                                                            <option disabled value="">Choose...</option>
-                                                            <?php foreach ($previously_interviewed as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>" <?= $key == $additional->perviously_interview ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <!-- if interviwed  table  -->
-                                            <div id="previousDepended" class="hide_area">
-                                                <div class="table-responsive mt-3">
-                                                    <table class="table table-bordered" id="interviewedTable">
-                                                        <thead class="thead-light">
-                                                            <tr class="vertical-center">
-                                                                <th scope="col">Position/ Designation</th>
-                                                                <th scope="col">Month</th>
-                                                                <th scope="col">Year</th>
-                                                                <th scope="col">Remarks (If any)</th>
-                                                                <th scope="col" class="text-center">
-                                                                    Action
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php foreach ($previously_interview as $key => $data) { ?>
-                                                                <tr class="vertical-center">
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" value="<?= $data->previous_position ?>" name="previous_position[]" class="form-control" placeholder="Position/ Designation" />
-                                                                    </div>
-                                                                </td>
 
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <?php
-                                                                    $interviewed_month = array("January" => "January", "February" => "February", "March" => "March", "April" => "April", "May" => "May", "June" => "June", "July" => "July", "August" => "August", "September" => "September", "October" => "October", "November" => "November", "December" => "December",);
-                                                                      ?>
-                                                                        <select class="custom-select" name="interview_month[]" id="genderSelect">
-                                                                            <option>Choose...</option>
-                                                                            <?php foreach ($interviewed_month as $key => $value) { ?>
-                                                                                <option value="<?php echo $key; ?>" <?= $value == $data->interview_month ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
 
-                                                                        <select class="custom-select" name="interview_year[]" id="genderSelect">
-                                                                            <option>Choose...</option>
-                                                                            <?php foreach ($range as $key => $value) { ?>
-                                                                                <option value="<?php echo $value; ?>" <?= $value == $data->interview_year ? "selected" : '' ?>><?php echo $value; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" value=" <?= $data->interview_remarks ?>" name="interview_remarks[]" class="form-control" placeholder="Remarks (If any)" />
-                                                                    </div>
-                                                                </td>
 
-                                                                <td>
-                                                                    <button type="button" class="delete_icon" id="interviewedRemove">
-                                                                        <i class="fa-regular fa-trash-can"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                            <?php } ?>
-                                                            
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <button type="button" class="btn btn-primary icon_btn d-flex align-items-center justify-content-center flex-wrap g-smm mt-3" id="interviewedAdd">
-                                                    <span class="icon"><i class="fa-solid fa-plus"></i></span>
-                                                    Add
-                                                </button>
-                                                <hr>
-                                            </div>
-                                            <?php } ?>
+
+                                                    <!-- if relative  table  -->
+                                                    <div id="relativeDepended" class="hide_area">
+                                                        <hr>
+                                                        <div class="table-responsive mt-3">
+                                                            <table class="table table-bordered" id="relativeTable">
+                                                                <thead class="thead-light">
+                                                                    <tr class="vertical-center">
+                                                                        <th scope="col">Name of Relative</th>
+                                                                        <th scope="col">Relationship</th>
+                                                                        <th scope="col">Designation</th>
+                                                                        <th scope="col">Department</th>
+                                                                        <th scope="col">Job Location</th>
+                                                                        <th scope="col" class="text-center">
+                                                                            Action
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php foreach ($relatives as $key => $rel_info) { ?>
+                                                                        <tr class="vertical-center">
+                                                                            <td>
+                                                                                <div class="table_input_area">
+                                                                                    <input type="text" value="<?= $rel_info->name_relative ?>" name="name_relative[]" class="form-control" placeholder="Name of Relative" />
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="table_input_area">
+                                                                                    <input type="text" value="<?= $rel_info->rel_relationship ?>" name="rel_relationship[]" class="form-control" placeholder="Enter Relationship" />
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="table_input_area">
+                                                                                    <input type="text" value="<?= $rel_info->rel_designation ?>" name="rel_designation[]" class="form-control" placeholder="Enter Designation" />
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="table_input_area">
+                                                                                    <input type="text" value="<?= $rel_info->rel_department ?>" name="rel_department[]" class="form-control" placeholder="Enter Department" />
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="table_input_area">
+                                                                                    <?php
+                                                                                    $relatives_job_locations = array("Dhaka" => "Dhaka", "Noakhali" => "Noakhali");
+                                                                                    ?>
+                                                                                    <select class="custom-select" name="rel_job_location[]" id="genderSelect">
+                                                                                        <option selected disabled value="">Choose...</option>
+                                                                                        <?php foreach ($relatives_job_locations as $key => $value) { ?>
+                                                                                            <option value="<?php echo $key; ?>" <?= $key == $rel_info->rel_job_location ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                        <?php } ?>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <button type="button" class="delete_icon" id="relativeRemove">
+                                                                                    <i class="fa-regular fa-trash-can"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php   } ?>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary icon_btn d-flex align-items-center justify-content-center flex-wrap g-smm mt-3" id="relativeAdd">
+                                                            <span class="icon"><i class="fa-solid fa-plus"></i></span>
+                                                            Add
+                                                        </button>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="JobLocation">Previously Interviewed gfg
+                                                                </label>
+                                                                <?php
+                                                                $previously_interviewed = array("Yes" => "Yes", "No" => "No");
+                                                                ?>
+                                                                <select class="custom-select" name="perviously_interview" id="previousInterview">
+                                                                    <option selected disabled value="">Choose...</option>
+                                                                    <?php foreach ($previously_interviewed as $key => $value) { ?>
+                                                                        <option value="<?php echo $key; ?>" <?= $key == $additional->perviously_interview ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- if interviwed  table  -->
+                                                    <div id="previousDepended" class="hide_area">
+                                                        <div class="table-responsive mt-3">
+                                                            <table class="table table-bordered" id="interviewedTable">
+                                                                <thead class="thead-light">
+                                                                    <tr class="vertical-center">
+                                                                        <th scope="col">Position/ Designation</th>
+                                                                        <th scope="col">Month</th>
+                                                                        <th scope="col">Year</th>
+                                                                        <th scope="col">Remarks (If any)</th>
+                                                                        <th scope="col" class="text-center">
+                                                                            Action
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php if ($previously_interview > 0 && $previously_interview != null) {
+                                                                        foreach ($previously_interview as $key => $data) { ?>
+                                                                            <tr class="vertical-center">
+                                                                                <td>
+                                                                                    <div class="table_input_area">
+                                                                                        <input type="text" value="<?= $data->previous_position ?>" name="previous_position[]" class="form-control" placeholder="Position/ Designation" />
+                                                                                    </div>
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <div class="table_input_area">
+                                                                                        <?php
+                                                                                        $interviewed_month = array("January" => "January", "February" => "February", "March" => "March", "April" => "April", "May" => "May", "June" => "June", "July" => "July", "August" => "August", "September" => "September", "October" => "October", "November" => "November", "December" => "December",);
+                                                                                        ?>
+                                                                                        <select class="custom-select" name="interview_month[]" id="genderSelect">
+                                                                                            <option selected disabled value="">Choose...</option>
+                                                                                            <?php foreach ($interviewed_month as $key => $value) { ?>
+                                                                                                <option value="<?php echo $key; ?>" <?= $value == $data->interview_month ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                            <?php } ?>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="table_input_area">
+
+                                                                                        <select class="custom-select" name="interview_year[]" id="genderSelect">
+                                                                                            <option selected disabled value="">Choose...</option>
+                                                                                            <?php foreach ($range as $key => $value) {
+                                                                                                if ($value != 'continue') : ?>
+                                                                                                    <option value="<?php echo $value; ?>" <?= $value == $data->interview_year ? "selected" : '' ?>><?php echo $value; ?></option>
+                                                                                            <?php endif;
+                                                                                            } ?>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="table_input_area">
+                                                                                        <input type="text" value=" <?= $data->interview_remarks ?>" name="interview_remarks[]" class="form-control" placeholder="Remarks (If any)" />
+                                                                                    </div>
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <button type="button" class="delete_icon" id="interviewedRemove">
+                                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        <?php } ?>
+                                                                    <?php } else { ?>
+                                                                        <tr class="vertical-center">
+                                                                            <td>
+                                                                                <div class="table_input_area">
+                                                                                    <input type="text" name="previous_position[]" class="form-control" placeholder="Position/ Designation" />
+                                                                                </div>
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <div class="table_input_area">
+                                                                                    <?php
+                                                                                    $interviewed_month = array("January" => "January", "February" => "February", "March" => "March", "April" => "April", "May" => "May", "June" => "June", "July" => "July", "August" => "August", "September" => "September", "October" => "October", "November" => "November", "December" => "December",);
+                                                                                    ?>
+                                                                                    <select class="custom-select" name="interview_month[]" id="genderSelect">
+                                                                                        <option selected disabled value="">Choose...</option>
+                                                                                        <?php foreach ($interviewed_month as $key => $value) { ?>
+                                                                                            <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                                        <?php } ?>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="table_input_area">
+
+                                                                                    <select class="custom-select" name="interview_year[]" id="genderSelect">
+                                                                                        <option selected disabled value="">Choose...</option>
+                                                                                        <?php foreach ($range as $key => $value) {
+                                                                                            if ($value != 'continue') : ?>
+                                                                                                <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+                                                                                        <?php endif;
+                                                                                        } ?>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="table_input_area">
+                                                                                    <input type="text" name="interview_remarks[]" class="form-control" placeholder="Remarks (If any)" />
+                                                                                </div>
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <button type="button" class="delete_icon" id="interviewedRemove">
+                                                                                    <i class="fa-regular fa-trash-can"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php } ?>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary icon_btn d-flex align-items-center justify-content-center flex-wrap g-smm mt-3" id="interviewedAdd">
+                                                            <span class="icon"><i class="fa-solid fa-plus"></i></span>
+                                                            Add
+                                                        </button>
+                                                        <hr>
+                                                    </div>
+                                                <?php } ?>
                                             <?php } else { ?>
                                                 <div class="row mt-4">
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="JobLocation">Job Location Preference
-                                                        </label>
-                                                        <?php
-                                                        $location_preferences = array("Yes" => "Yes", "No" => "No");
-                                                ?>
-                                                        <select class="custom-select" name="job_location_preference" id="JobLocation">
-                                                            <option  disabled value="">Choose...</option>
-                                                            <?php foreach ($location_preferences as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="JobLocation">Job Location Preference
+                                                            </label>
+                                                            <?php
+                                                            $location_preferences = array("Yes" => "Yes", "No" => "No");
+                                                            ?>
+                                                            <select class="custom-select" name="job_location_preference" id="JobLocation">
+                                                                <option selected disabled value="">Choose...</option>
+                                                                <?php foreach ($location_preferences as $key => $value) { ?>
+                                                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Hide/show full div in below if job preference yes or now -->
+                                                    <!-- Office Select Start  -->
+                                                    <div class="col-lg-4 col-md-6 hide_area" id="JobLocationDepended">
+                                                        <div class="form-group">
+                                                            <label for="SelectOffice">Select Office </label>
+                                                            <?php
+                                                            $location_names = array("Uttara" => "Uttara", "Banani" => "Banani");
+                                                            ?>
+                                                            <select class="custom-select" name="location_name" id="SelectOffice">
+                                                                <option selected disabled value="">Choose...</option>
+                                                                <?php foreach ($location_names as $key => $value) { ?>
+                                                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Office Select End  -->
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="presentSalary">Your Present Salary (BDT)-Monthly
+                                                            </label>
+                                                            <input type="text" class="form-control" name="present_salary" id="presentSalary" placeholder="Enter Present Salary" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="expectedSalary">Your Expected Salary (BDT)-Monthly
+                                                            </label>
+                                                            <input type="text" class="form-control" name="expected_salary" id="expectedSalary" placeholder="Enter Expected Salary" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-7">
+                                                        <div class="form-group">
+                                                            <label for="howKnow">How you come to know about Bitopi Group?
+                                                            </label>
+                                                            <?php
+                                                            $how_knows = array("Website" => "Website", "Job Portal" => "Job Portal", "Social Media" => "Social Media", "Other" => "Other");
+                                                            ?>
+                                                            <select class="custom-select" name="location_name" id="howKnow">
+                                                                <option selected disabled value="">Choose...</option>
+                                                                <?php foreach ($how_knows as $key => $value) { ?>
+                                                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-5 hide_area" id="howKnowDepended">
+                                                        <div class="form-group">
+                                                            <label for="howKnowOthers">Others </label>
+                                                            <input type="text" name="other_way" class="form-control" id="howKnowOthers" placeholder="Enter others way" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-7">
+                                                        <div class="form-group">
+                                                            <label for="JobLocation">Do you have any relative/ friend/ family
+                                                                member employing in Bitopi Group?
+                                                            </label>
+                                                            <?php
+                                                            $any_relativies = array("Yes" => "Yes", "No" => "No");
+                                                            ?>
+                                                            <select class="custom-select" name="any_relatives" id="relativeSelect">
+                                                                <option selected disabled value="">Choose...</option>
+                                                                <?php foreach ($any_relativies as $key => $value) { ?>
+                                                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <!-- Hide/show full div in below if job preference yes or now -->
-                                                <!-- Office Select Start  -->
-                                                <div class="col-lg-4 col-md-6 hide_area" id="JobLocationDepended">
-                                                    <div class="form-group">
-                                                        <label for="SelectOffice">Select Office </label>
-                                                        <?php
-                                                $location_names = array("Uttara" => "Uttara", "Banani" => "Banani");
-                                                ?>
-                                                        <select class="custom-select" name="location_name" id="SelectOffice">
-                                                            <option disabled value="">Choose...</option>
-                                                            <?php foreach ($location_names as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>" ><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <!-- Office Select End  -->
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="presentSalary">Your Present Salary (BDT)-Monthly
-                                                        </label>
-                                                        <input type="text" class="form-control" name="present_salary" id="presentSalary" placeholder="Enter Present Salary" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="expectedSalary">Your Expected Salary (BDT)-Monthly
-                                                        </label>
-                                                        <input type="text" class="form-control" name="expected_salary" id="expectedSalary" placeholder="Enter Expected Salary" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-5 col-md-7">
-                                                    <div class="form-group">
-                                                        <label for="howKnow">How you come to know about Bitopi Group?
-                                                        </label>
-                                                        <?php
-                                                $how_knows = array("Website" => "Website", "Job Portal" => "Job Portal", "Social Media" => "Social Media", "Other" => "Other");
-                                                ?>
-                                                        <select class="custom-select" name="location_name" id="howKnow">
-                                                            <option  disabled value="">Choose...</option>
-                                                            <?php foreach ($how_knows as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>" ><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-5 hide_area" id="howKnowDepended">
-                                                    <div class="form-group">
-                                                        <label for="howKnowOthers">Others </label>
-                                                        <input type="text" name="other_way" class="form-control" id="howKnowOthers" placeholder="Enter others way" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-7">
-                                                    <div class="form-group">
-                                                        <label for="JobLocation">Do you have any relative/ friend/ family
-                                                            member employing in Bitopi Group?
-                                                        </label>
-                                                        <?php
-                                                $any_relativies = array("Yes" => "Yes", "No" => "No");
-                                                ?>
-                                                        <select class="custom-select" name="any_relatives" id="relativeSelect">
-                                                            <option selected disabled value="">Choose...</option>
-                                                            <?php foreach ($any_relativies as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <!-- if relative  table  -->
-                                            <div id="relativeDepended" class="hide_area">
+                                                <!-- if relative  table  -->
+                                                <div id="relativeDepended" class="hide_area">
+                                                    <hr>
+                                                    <div class="table-responsive mt-3">
+                                                        <table class="table table-bordered" id="relativeTable">
+                                                            <thead class="thead-light">
+                                                                <tr class="vertical-center">
+                                                                    <th scope="col">Name of Relative</th>
+                                                                    <th scope="col">Relationship</th>
+                                                                    <th scope="col">Designation</th>
+                                                                    <th scope="col">Department</th>
+                                                                    <th scope="col">Job Location</th>
+                                                                    <th scope="col" class="text-center">
+                                                                        Action
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="name_relative[]" class="form-control" placeholder="Name of Relative" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="rel_relationship[]" class="form-control" placeholder="Enter Relationship" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="rel_designation[]" class="form-control" placeholder="Enter Designation" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="rel_department[]" class="form-control" placeholder="Enter Department" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $relatives_job_locations = array("Dhaka" => "Dhaka", "Noakhali" => "Noakhali");
+                                                                            ?>
+                                                                            <select class="custom-select" name="rel_job_location[]" id="rel_job_location">
+                                                                                <option selected disabled value="">Choose...</option>
+                                                                                <?php foreach ($relatives_job_locations as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="relativeRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary icon_btn d-flex align-items-center justify-content-center flex-wrap g-smm mt-3" id="relativeAdd">
+                                                        <span class="icon"><i class="fa-solid fa-plus"></i></span>
+                                                        Add
+                                                    </button>
+                                                </div>
                                                 <hr>
-                                                <div class="table-responsive mt-3">
-                                                    <table class="table table-bordered" id="relativeTable">
-                                                        <thead class="thead-light">
-                                                            <tr class="vertical-center">
-                                                                <th scope="col">Name of Relative</th>
-                                                                <th scope="col">Relationship</th>
-                                                                <th scope="col">Designation</th>
-                                                                <th scope="col">Department</th>
-                                                                <th scope="col">Job Location</th>
-                                                                <th scope="col" class="text-center">
-                                                                    Action
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="vertical-center">
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" name="name_relative[]" class="form-control" placeholder="Name of Relative" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" name="rel_relationship[]" class="form-control" placeholder="Enter Relationship" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" name="rel_designation[]" class="form-control" placeholder="Enter Designation" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" name="rel_department[]" class="form-control" placeholder="Enter Department" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <?php
-                                                                        $relatives_job_locations = array("Dhaka" => "Dhaka", "Noakhali" => "Noakhali");
-                                                                        ?>
-                                                                        <select class="custom-select" name="rel_job_location[]" id="genderSelect">
-                                                                            <option>Choose...</option>
-                                                                            <?php foreach ($relatives_job_locations as $key => $value) { ?>
-                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </td>
-
-                                                                <td>
-                                                                    <button type="button" class="delete_icon" id="relativeRemove">
-                                                                        <i class="fa-regular fa-trash-can"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <button type="button" class="btn btn-primary icon_btn d-flex align-items-center justify-content-center flex-wrap g-smm mt-3" id="relativeAdd">
-                                                    <span class="icon"><i class="fa-solid fa-plus"></i></span>
-                                                    Add
-                                                </button>
-                                            </div>
-                                            <hr>
-                                            <div class="row mt-3">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="JobLocation">Previously Interviewed
-                                                        </label>
-                                                        <?php
-                                                        $previously_interviewed = array("Yes" => "Yes", "No" => "No");
-                                                        ?>
-                                                        <select class="custom-select" name="perviously_interview" id="previousInterview">
-                                                            <option  disabled value="">Choose...</option>
-                                                            <?php foreach ($previously_interviewed as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                <div class="row mt-3">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="JobLocation">Previously Interviewed
+                                                            </label>
+                                                            <?php
+                                                            $previously_interviewed = array("Yes" => "Yes", "No" => "No");
+                                                            ?>
+                                                            <select class="custom-select" name="perviously_interview" id="previousInterview">
+                                                                <option selected disabled value="">Choose...</option>
+                                                                <?php foreach ($previously_interviewed as $key => $value) { ?>
+                                                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- if interviwed  table  -->
-                                            <div id="previousDepended" class="hide_area">
-                                                <div class="table-responsive mt-3">
-                                                    <table class="table table-bordered" id="interviewedTable">
-                                                        <thead class="thead-light">
-                                                            <tr class="vertical-center">
-                                                                <th scope="col">Position/ Designation</th>
-                                                                <th scope="col">Month</th>
-                                                                <th scope="col">Year</th>
-                                                                <th scope="col">Remarks (If any)</th>
-                                                                <th scope="col" class="text-center">
-                                                                    Action
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="vertical-center">
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" name="previous_position[]" class="form-control" placeholder="Position/ Designation" />
-                                                                    </div>
-                                                                </td>
+                                                <!-- if interviwed  table  -->
+                                                <div id="previousDepended" class="hide_area">
+                                                    <div class="table-responsive mt-3">
+                                                        <table class="table table-bordered" id="interviewedTable">
+                                                            <thead class="thead-light">
+                                                                <tr class="vertical-center">
+                                                                    <th scope="col">Position/ Designation</th>
+                                                                    <th scope="col">Month</th>
+                                                                    <th scope="col">Year</th>
+                                                                    <th scope="col">Remarks (If any)</th>
+                                                                    <th scope="col" class="text-center">
+                                                                        Action
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="vertical-center">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="previous_position[]" class="form-control" placeholder="Position/ Designation" />
+                                                                        </div>
+                                                                    </td>
 
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <?php
-                                                                        $interviewed_month = array("January" => "January", "February" => "February", "March" => "March", "April" => "April", "May" => "May", "June" => "June", "July" => "July", "August" => "August", "September" => "September", "October" => "October", "November" => "November", "December" => "December",);
-                                                                        ?>
-                                                                        <select class="custom-select" name="interview_month[]" id="genderSelect">
-                                                                            <option>Choose...</option>
-                                                                            <?php foreach ($interviewed_month as $key => $value) { ?>
-                                                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <?php
+                                                                            $interviewed_month = array("January" => "January", "February" => "February", "March" => "March", "April" => "April", "May" => "May", "June" => "June", "July" => "July", "August" => "August", "September" => "September", "October" => "October", "November" => "November", "December" => "December",);
+                                                                            ?>
+                                                                            <select class="custom-select" name="interview_month[]" id="interview_month">
+                                                                                <option selected disabled value="">Choose...</option>
+                                                                                <?php foreach ($interviewed_month as $key => $value) { ?>
+                                                                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
 
-                                                                        <select class="custom-select" name="interview_year[]" id="genderSelect">
-                                                                            <option>Choose...</option>
-                                                                            <?php foreach ($range as $key => $value) { ?>
-                                                                                <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table_input_area">
-                                                                        <input type="text" name="interview_remarks[]" class="form-control" placeholder="Remarks (If any)" />
-                                                                    </div>
-                                                                </td>
+                                                                            <select class="custom-select" name="interview_year[]" id="interview_year">
+                                                                                <option selected disabled value="">Choose...</option>
+                                                                                <?php foreach ($range as $key => $value) {
+                                                                                    if ($value != 'continue') : ?>
+                                                                                        <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+                                                                                <?php endif;
+                                                                                } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="table_input_area">
+                                                                            <input type="text" name="interview_remarks[]" class="form-control" placeholder="Remarks (If any)" />
+                                                                        </div>
+                                                                    </td>
 
-                                                                <td>
-                                                                    <button type="button" class="delete_icon" id="interviewedRemove">
-                                                                        <i class="fa-regular fa-trash-can"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                    <td>
+                                                                        <button type="button" class="delete_icon" id="interviewedRemove">
+                                                                            <i class="fa-regular fa-trash-can"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary icon_btn d-flex align-items-center justify-content-center flex-wrap g-smm mt-3" id="interviewedAdd">
+                                                        <span class="icon"><i class="fa-solid fa-plus"></i></span>
+                                                        Add
+                                                    </button>
+                                                    <hr>
                                                 </div>
-                                                <button type="button" class="btn btn-primary icon_btn d-flex align-items-center justify-content-center flex-wrap g-smm mt-3" id="interviewedAdd">
-                                                    <span class="icon"><i class="fa-solid fa-plus"></i></span>
-                                                    Add
-                                                </button>
-                                                <hr>
-                                            </div>
-                                        <?php } ?>
+                                            <?php } ?>
                                             <!-- Upload files  -->
                                             <div class="row mt-4">
                                                 <div class="col-lg-4 col-md-6">
@@ -2642,7 +2696,8 @@
     </main>
     <script>
         // $(document).ready(function () {
-        var year_range = "<?= json_encode($range) ?>"
+
+
         // })
     </script>
     <!-- JS Here -->
@@ -2652,7 +2707,22 @@
     <script src="<?= $frontend_assets; ?>plugins/js/select2.min.js"></script>
     <script src="https://kit.fontawesome.com/46f35fbc02.js" crossorigin="anonymous"></script>
 
+    <script>
+        var year_range = '<?php echo json_encode($range) ?>';
+        // alert("fdfdfdf")
+        // console.table(year_range);
+    </script>
+
     <script src="<?= $frontend_assets; ?>js/main.js"></script>
+    <?php
+    if ($additional->any_relatives == "Yes") { ?>
+        <script>
+            $('#relativeSelect').click();
+        </script>
+    <?php
+    }
+    ?>
+
 </body>
 
 </html>
