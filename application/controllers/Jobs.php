@@ -143,6 +143,7 @@ class Jobs extends MY_Controller
                     $to = $getInfo->email;
                     $from = $this->Settings->default_email;
                     $data['positions'] = $jobs->positions;
+                    $data['user_name'] = $this->session->userdata('username');
                     $this->data['mailData'] = $data;
                     $message = $this->load->view($this->frontend_theme . 'email_templates/applyforjobs-applicant', $this->data, TRUE);
                     $this->tec->send_email($to, $subject, $message, $from, $from_name,  $email, NULL);
@@ -154,7 +155,10 @@ class Jobs extends MY_Controller
                     $from2 = $getInfo->email;
                     $to2 = $this->Settings->default_email;
                     $data['positions'] = $jobs->positions;
+                    $data['user_name'] = $from_name2;
+                   
                     $this->data['mailData'] = $data;
+
                     $message2 = $this->load->view($this->frontend_theme . 'email_templates/applyforjobs-admin', $this->data, TRUE);
                     $this->tec->send_email($to2, $subject2, $message2, $from2, $from_name2, $email, NULL);
                     $this->session->set_flashdata('message', 'Congratulation! You have successfully applied for this job, A confirmation email with details has been sent to your email');

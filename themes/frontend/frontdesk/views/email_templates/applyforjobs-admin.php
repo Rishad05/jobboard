@@ -41,7 +41,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  ">
-                              <?php echo $mailData['name']; ?>
+                              <?php echo $mailData['user_name']; ?>
                            </td>
                         </tr>
                         <tr>
@@ -53,7 +53,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Phone Number:
+                              <!-- Phone Number: -->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -62,7 +62,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['phone']; ?>
+                              <!-- <?php echo $mailData['phone']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -116,7 +116,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Date of Birth:
+                              <!-- Date of Birth: -->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -125,7 +125,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['dob']; ?>
+                              <!-- <?php echo $mailData['dob']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -137,7 +137,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Current Organization:
+                              <!-- Current Organization: -->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -146,7 +146,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['current_organizations']; ?>
+                              <!-- <?php echo $mailData['current_organizations']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -158,7 +158,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Experience:
+                              <!-- Experience: -->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -167,7 +167,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['experience']; ?>
+                              <!-- <?php echo $mailData['experience']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -179,7 +179,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Current Salary:
+                              <!-- Current Salary: -->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -188,7 +188,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['current_salary']; ?>
+                              <!-- <?php echo $mailData['current_salary']; ?> -->
                            </td>
                         </tr>
                         <tr>
@@ -200,7 +200,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Expectation:
+                              <!-- Expectation: -->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -209,7 +209,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['expectation']; ?>
+                              <!-- <?php echo $mailData['expectation']; ?> -->
                            </td>
                         </tr>
 
@@ -222,7 +222,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Profile Code:
+                              <!-- Profile Code: -->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -231,7 +231,7 @@
                                  line-height: 1.5em;
                                  margin-top: 0;
                                  text-align: left;">
-                              <?php echo $mailData['profile_code']; ?>
+                              <!-- <?php echo $mailData['profile_code']; ?> -->
                            </td>
                         </tr>
 
@@ -245,7 +245,7 @@
                                     margin-top: 0;
                                     text-align: left;">
                                  Regards,<br>
-                                 <?php echo $mailData['name']; ?>
+                                 <?php echo $mailData['user_name']; ?>
                               </p>
                            </td>
                         </tr>
@@ -259,8 +259,7 @@
                <td colspan="3">
                   <p style="background:#f0f0f0; color:#fff;text-align:center;padding:20px;font-weight:bold;font-size:14px;margin:0;font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
-                                 color: #4a7bb9;">©
-                     2023, All rights reserved.<span></span>
+                                 color: #4a7bb9;">Copyright © 2023 | BITOPI GROUP | All Rights Reserved.<span></span>
                   </p>
                </td>
             </tr>

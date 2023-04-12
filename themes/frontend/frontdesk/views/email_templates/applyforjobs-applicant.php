@@ -3,7 +3,7 @@
 
 <head>
    <meta charset="utf-8">
-   <title>Golden Infotech | Email Template</title>
+   <title>BITOPI GROUP | Email Template</title>
 </head>
 
 <body style="margin:0">
@@ -13,7 +13,7 @@
          <tbody border="0">
             <!-- HEADER STARTS -->
             <tr>
-               <td colspan="3" style="background:#f0f0f0;text-align:center; padding:20px;"><a href="#" title="FDB" rel="home" target="_blank"> <img src="<?= base_url('uploads/' . $this->Settings->logo); ?>" style="width: 175px;" alt="logo"> </a></td>
+               <td colspan="3" style="background:#f0f0f0;text-align:center; padding:20px;"><a href="#" title="BITOPI GROUP" rel="home" target="_blank"> <img src="<?= base_url('uploads/' . $this->Settings->logo); ?>" style="width: 175px;" alt="logo"> </a></td>
             </tr>
             <!-- HEADER ENDS -->
             <!-- MAIL BODY CONTENT STARTS -->
@@ -30,7 +30,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Details:
+                              <!--Details:-->
                            </td>
                         </tr>
                         <tr>
@@ -52,8 +52,8 @@
                                  margin-top: 0;
                                  text-align: left;
                                  ">
-                                 <p>Hello
-                              <?php echo $mailData['username']; ?>, Thank you for applying! We will contact you soon.</p>
+                              <p>Hello
+                                 <?php echo $mailData['user_name']; ?>, Thank you for applying! We will contact you soon.</p>
                               </p>
                            </td>
                         </tr>
@@ -66,7 +66,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Phone Number:
+                              <!--Phone Number:-->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -129,7 +129,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Date of Birth:
+                              <!--Date of Birth:-->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -150,7 +150,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Current Organization:
+                              <!--Current Organization:-->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -171,7 +171,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Experience:
+                              <!--Experience:-->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -192,7 +192,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Current Salary:
+                              <!--Current Salary:-->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -213,7 +213,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Expectation:
+                              <!--Expectation:-->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -235,7 +235,7 @@
                                  margin-top: 0;
                                  text-align: left;
                                  font-weight: bold;">
-                              Profile Code:
+                              <!--Profile Code:-->
                            </td>
                            <td style="padding-right: 35px; font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
@@ -272,8 +272,7 @@
                <td colspan="3">
                   <p style="background:#f0f0f0; color:#fff;text-align:center;padding:20px;font-weight:bold;font-size:14px;margin:0;font-family: Avenir,Helvetica,sans-serif;
                                  box-sizing: border-box;
-                                 color: #4a7bb9;">©
-                     2023, All rights reserved.<span></span>
+                                 color: #4a7bb9;">Copyright © 2023 | BITOPI GROUP | All Rights Reserved.<span></span>
                   </p>
                </td>
             </tr>

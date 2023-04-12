@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Faretrim | Email Template</title>
+    <title>BITOPI GROUP | Email Template</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
 
@@ -14,8 +14,8 @@
 
                 <!-- HEADER STARTS -->
                 <tr>
-                    <td colspan="3" style="background:#059348;text-align:center; padding:20px;">
-                        <a style="" href="<?php echo $parse_data['site_link']; ?>" title="FareTrim" rel="home" target="_blank"> <img width="270" height="auto" src="" alt="BITOPI"> </a>
+                    <td colspan="3" style="background:white;text-align:center; padding:20px;">
+                        <a style="" href="<?php echo $parse_data['site_link']; ?>" title="BITOPI GROUP" rel="home" target="_blank"> <img src="<?= base_url('uploads/' . $this->Settings->logo); ?>" style="width: 175px;" alt="logo"> </a>
                     </td>
 
 
@@ -26,7 +26,7 @@
                 <tr style="background:#f5f5f5">
                     <td colspan="3" style="padding:50px 35px;">
                         <h3 style="text-transform: capitalize;color:#059348">Hi <?php echo $parse_data['user_name']; ?></h3>
-                        <p style="font-size: 18px;color: #333;"> You recently requested to reset your password for your applicant account. Click the button below to reset it. if you did not request a password reset, please ignore this email.</p>
+                        <p style="font-size: 18px;color: #333;"> You recently requested to reset your password for your Applicant account. Click the button below to reset it. if you did not request a password reset, please ignore this email.</p>
 
 
                         <a href="<?php echo $parse_data['reset_password_link']; ?>" style="width: 150px;display: block;background: green;color: #fff;text-decoration: none;padding: 15px 25px;text-align: center;">Password Reset</a>
