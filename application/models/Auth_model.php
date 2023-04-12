@@ -1445,8 +1445,6 @@ class Auth_model extends CI_Model
     public function forgotten_password_complete($code, $salt = false)
     {
         $this->trigger_events('pre_forgotten_password_complete');
-
-
         if (empty($code)) {
             $this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
             return false;

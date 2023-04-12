@@ -1105,7 +1105,7 @@ class Auth extends MY_Controller
 	public function applicant_register()
 	{
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('username', 'Name', 'required|min_length[5]|is_unique[users.username]');
+		$this->form_validation->set_rules('username', 'Name', 'required|min_length[5]');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
 		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
@@ -1135,9 +1135,28 @@ class Auth extends MY_Controller
 			$applicant_id = 'BITOPI-' . date('Ymd') . $register_data;
 			if ($register_data) {
 				$update_status = $this->db->where('id', $register_data)->update('users', ['active' => 1, 'applicant_id' => $applicant_id]);
+
+				$email = $this->input->post('email');
+				$getInfo = $this->db->select('email')->from('users')->where('id', $register_data)->get()->row();
+
+				$email = $getInfo->email;
+				$subject = 'You have successfully register in BITOPI JOBBOARD ';
+				$from_name = 'BITOPI GROUP';
+				$to = $email;
+				$from = $this->Settings->default_email;
+				$data['user_name'] = $username;
+				$data['applicant_id'] = $applicant_id;
+				$data['email'] = $email;
+				$this->data['mailData'] = $data;
+				// echo "<pre>";
+				// print_r($this->data['mailData']);
+				// die;
+				$message = $this->load->view($this->frontend_theme . 'email_templates/applyforjobs-applicant', $this->data, TRUE);
+				$this->tec->send_email($to, $subject, $message, $from, $from_name,  $email, NULL);
+				$this->session->set_flashdata('message', 'Mail Send Successfully');
 				// Log in the user
 				$this->ion_auth->login($email, $password, TRUE);
-				$this->session->set_flashdata('message', lang('Thank you! You are successfully register'));
+				$this->session->set_flashdata('message', lang('Thank you! You are successfully registered, please check your email for your applicant id'));
 				redirect('career');
 			}
 		}
