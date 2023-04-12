@@ -693,7 +693,7 @@
             </div>
             <div class="text-center mt-4 mb-2">
                 <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
-                <!-- <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button> -->
+                <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button>
             </div>
 
 
