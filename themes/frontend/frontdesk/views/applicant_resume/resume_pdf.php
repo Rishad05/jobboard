@@ -342,7 +342,11 @@ function convertToBase64($path)
                                 <ul class="contact_list" style="   margin-top: 30px; margin-bottom: 40px;">
                                     <li style="  display: grid; grid-template-columns: minmax(0, 26px) repeat(1, minmax(0, 1fr));align-items: start; gap: 10px;margin-top: 12px;">
                                         <div class="icon" style="  display: flex; align-items: center; justify-content: center; width: 100%;height: 26px;background-color: #1fa898; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%;">
-
+                                            <?php
+                                            $path = $frontend_assets . 'images/svg/phone-solid.svg';
+                                            $base64 = convertToBase64($path);
+                                            ?>
+                                            <img src="<?= $base64 ?>" alt="" width="20" height="20">
 
                                             <!-- <i class="fa-solid fa-phone" style=" color: white;font-size: 12px;"></i> -->
                                         </div>
