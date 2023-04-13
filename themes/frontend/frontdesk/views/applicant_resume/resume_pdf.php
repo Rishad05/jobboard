@@ -18,6 +18,15 @@
       }
     </style>
   </head>
+  <?php
+function convertToBase64($path)
+{
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    return $base64;
+}
+?>
   <body>
     <div
       style="
@@ -26,68 +35,7 @@
         margin: 10px auto;
       "
     >
-      <table style="width: 100%; border-collapse: collapse">
-        <tr>
-          <td>
-            <table
-              style="max-width: 400px; width: 100%; border-collapse: collapse;display: inline-block;"
-            >
-              <tr>
-                <td style="font-size: 0">
-                  <table style="width: 100%; border-collapse: collapse;display: inline-block;">
-                    <tr>
-                      <td>
-                        <h4
-                          style="font-size: 18px; font-weight: 400; margin: 0"
-                        >
-                          Job Title:
-                          <b style="color: #a112a3">Full Stack Developer</b>
-                        </h4>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td>
-            <table
-              style="max-width: 400px; width: 100%; border-collapse: collapse"
-            >
-              <tr>
-                <td style="font-size: 0">
-                  <table style="width: 100%; border-collapse: collapse">
-                    <tr>
-                      <td>
-                        <h6
-                          style="
-                            font-size: 12px;
-                            font-weight: 400;
-                            margin: 0;
-                            text-align: right;
-                          "
-                        >
-                          Source:bdjobs online cv maker
-                        </h6>
-                        <h6
-                          style="
-                            font-size: 12px;
-                            font-weight: 400;
-                            margin: 0;
-                            text-align: right;
-                          "
-                        >
-                          Last Update: <b>05 Dec 2023</b>
-                        </h6>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+      
       <table style="width: 100%; border-collapse: collapse">
         <tr>
           <td>
@@ -100,7 +48,7 @@
                       max-width: 320px;
                       width: 100%;
                       border-collapse: collapse;
-                      display: inline-block;
+                      float:left;
                       height: 100%;
                       padding: 10px 20px 40px 20px;
                       background-color: whitesmoke;
@@ -119,11 +67,14 @@
                                   height: 180px;
                                 "
                               >
-                                <img
-                                  src="assets/images/learning_img2.png"
-                                  alt=""
-                                  style="height: 100%; max-width: 100%"
-                                />
+                              <?php
+                                $path = base_url('uploads/') . $personal_info->applicant_photo;
+                                $base64 = convertToBase64($path);
+                                ?>
+                                <?php if ($personal_info->applicant_photo ?? '') { ?>
+                                        <img src="<?= $base64 ?>"  style="height: 100%; max-width: 100%" alt="">
+                                    <?php } ?>
+                                
                               </div>
                             </td>
                           </tr>
@@ -144,7 +95,7 @@
                                   margin-top: 20px;
                                 "
                               >
-                                Md. Kajal Mia
+                              <?= $personal_info->full_name ?? 'Name' ?>
                               </h4>
                             </td>
                           </tr>
@@ -189,8 +140,13 @@
                                               margin-right: 5px;
                                             "
                                           >
+                                          <?php
+                                $path = $frontend_assets ."icon/call.png";
+                                $base64 = convertToBase64($path);
+                                ?>
+                                
                                             <img
-                                              src="assets/icon/call.png"
+                                              src="<?=$base64; ?>"
                                               alt="call icon"
                                               style="width: 13px"
                                             />
@@ -219,10 +175,10 @@
                                                 overflow: hidden;
                                                 text-overflow: ellipsis;
                                                 white-space: nowrap;
-                                                display: block;
+                                                
                                                 word-break: break-all;
                                               "
-                                              >01764961626</a
+                                              ><?= $personal_info->cell_phone_1 ?? 'Phone' ?></a
                                             >
                                           </div>
                                         </td>
@@ -265,7 +221,7 @@
                                             "
                                           >
                                             <img
-                                              src="assets/icon/mail.png"
+                                              src="<?=$frontend_assets; ?>icon/mail.png"
                                               alt="mail icon"
                                               style="width: 13px"
                                             />
@@ -294,7 +250,7 @@
                                                 overflow: hidden;
                                                 text-overflow: ellipsis;
                                                 white-space: nowrap;
-                                                display: block;
+                                                
                                                 word-break: break-all;
                                               "
                                               >example@gmail.com</a
@@ -340,7 +296,7 @@
                                             "
                                           >
                                             <img
-                                              src="assets/icon/location.png"
+                                              src="<?=$frontend_assets; ?>icon/location.png"
                                               alt="mail icon"
                                               style="width: 13px"
                                             />
@@ -365,7 +321,7 @@
                                                 font-weight: 500;
                                                 color: black;
                                                 width: 250px;
-                                                display: block;
+                                                
                                                 word-break: break-all;
                                               "
                                               >Dhaka,Bangladesh</a
@@ -423,7 +379,7 @@
                                             "
                                           >
                                             <img
-                                              src="assets/icon/user.png"
+                                              src="<?=$frontend_assets; ?>icon/user.png"
                                               alt="mail icon"
                                               style="width: 16px"
                                             />
@@ -449,7 +405,7 @@
                                                 color: black;
                                                 width: 250px;
                                                 margin: 0;
-                                                display: block;
+                                                
                                                 word-break: break-all;
                                               "
                                             >
@@ -736,7 +692,7 @@
                       max-width: 565px;
                       width: 100%;
                       border-collapse: collapse;
-                      display: inline-block;
+                      
                       vertical-align: top;
                       padding-left: 20px;
                     "
@@ -815,7 +771,7 @@
                                             "
                                           >
                                             <img
-                                              src="assets/icon/user.png"
+                                              src="<?=$frontend_assets; ?>icon/user.png"
                                               alt="mail icon"
                                               style="width: 16px"
                                             />
@@ -841,7 +797,7 @@
                                                 color: black;
                                                 width: 250px;
                                                 margin: 0;
-                                                display: block;
+                                                
                                                 word-break: break-all;
                                               "
                                             >
@@ -1030,7 +986,7 @@
                                             "
                                           >
                                             <img
-                                              src="assets/icon/skill.png"
+                                              src="<?=$frontend_assets; ?>icon/skill.png"
                                               alt="mail icon"
                                               style="width: 16px"
                                             />
@@ -1056,7 +1012,7 @@
                                                 color: black;
                                                 width: 250px;
                                                 margin: 0;
-                                                display: block;
+                                                
                                                 word-break: break-all;
                                               "
                                             >
@@ -1181,7 +1137,7 @@
                                             "
                                           >
                                             <img
-                                              src="assets/icon/education.png"
+                                              src="<?=$frontend_assets; ?>icon/education.png"
                                               alt="mail icon"
                                               style="width: 16px"
                                             />
@@ -1207,7 +1163,7 @@
                                                 color: black;
                                                 width: 250px;
                                                 margin: 0;
-                                                display: block;
+                                                
                                                 word-break: break-all;
                                               "
                                             >
@@ -1423,7 +1379,7 @@
           </table> -->
       </table>
       <div style="margin-top: 20px; text-align: center;margin-bottom: 20px;">
-        <button type="button"  style="    display: inline-block;
+        <button type="button"  style="
         font-weight: 400;
         color: #212529;
         text-align: center;
