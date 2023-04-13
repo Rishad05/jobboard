@@ -65,7 +65,7 @@ class Jobboard extends MY_Controller
 		$this->datatables->add_column("Actions", "<div class='text-center'><div class='btn-group'>
         " . $this->fild . "
         </div></div>", "id , applicant_apply_list"); //, applicant_apply_list");
-		$this->datatables->unset_column('applicant_apply_list');
+		// $this->datatables->unset_column('applicant_apply_list');
 		echo $this->datatables->generate();
 		// $this->db->last_query();
 	}
@@ -264,6 +264,8 @@ class Jobboard extends MY_Controller
 	}
 	function get_applyjob($jobId = NULL)
 	{
+
+		$full_name = $this->input->get('full_name') ? $this->input->get('full_name') : NULL;
 		$this->load->library('datatables');
 		$this->datatables->select($this->db->dbprefix('apply_job') . ".id as id ," .
 			$this->db->dbprefix('apply_job') . ".user_id as user_id," .
@@ -280,6 +282,10 @@ class Jobboard extends MY_Controller
 		$this->datatables->join('users', 'users.id=apply_job.user_id', 'left');
 		$this->datatables->join('resume_uploads', 'resume_uploads.user_id=apply_job.user_id', 'left');
 		$this->datatables->join('job_board', 'job_board.id=apply_job.job_board_id', 'left');
+		$this->datatables->group_by('apply_job.user_id');
+		if ($full_name) {
+            $this->datatables->where('personal_info.full_name', $full_name);
+        }
 		$this->fild = '';
 		if ($this->UserType == 'admin') {
 			$popUp = '"' . site_url('admin/jobboard/apply_details/$1') . '"';

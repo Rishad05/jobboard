@@ -55,7 +55,7 @@
 
             },				 	
 
-            "aoColumns": [  null, null, null,null, null, null, {"mRender":home}, {"mRender":hrld}, {"bSortable":false, "bSearchable": false},]				
+            "aoColumns": [  null,null, null, null,null, null, null, {"mRender":home}, {"mRender":hrld}, {"bSortable":false, "bSearchable": false},]				
 
         });
 
@@ -130,7 +130,10 @@
 
                                 <th>vacancy</th>  
 
-                                <th>phone</th>
+                                
+                                <th>Phone</th>
+                                <th>Total Applicant</th>
+
 
                                 <th>Home</th>   
 

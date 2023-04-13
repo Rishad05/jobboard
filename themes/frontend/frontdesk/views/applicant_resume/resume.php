@@ -490,19 +490,19 @@
                                     <h3 style=" font-size: 22px;
                   font-weight: 500;">Education </h2>
                                 </div>
-                                <?php foreach ($acadamic_info as $key => $value) { ?>
-                                    <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px;">
-                                        <h4 style="  font-size: 18px;font-weight: 500;"><?= $value->degree ?? '' ?></h4>
+                                <div class="category_item" style=" margin-top: 40px;    padding-bottom: 10px;">
+                                    <?php foreach ($acadamic_info as $key => $value) { ?>
+                                        <h4 style="  font-size: 18px;font-weight: 500; "><?= $value->degree ?? '' ?></h4>
                                         <ul style="   margin-top: 15px;">
                                             <li style="font-size: 16px;font-weight: 400; margin-top: 5px;">Institute: <b><?= $value->name_of_institution ?? '' ?></b>
                                             </li>
                                             <li style="font-size: 16px;font-weight: 400;margin-top: 5px;">Pass Year: <b> <?= $value->passing_year ?? '' ?> </b> </li>
                                             <li style="font-size: 16px; font-weight: 400;margin-top: 5px;">Concentration/Major: <b> <?= $value->major ?? '' ?></b> </li>
-                                            <li style="font-size: 16px; font-weight: 400;margin-top: 5px;">Result: <b><?= $value->result ?? '' ?> (Out of <?= $value->result_out_of ?? '' ?>) </b> </li>
+                                            <li style="font-size: 16px; font-weight: 400;margin-top: 5px; margin-bottom:40px">Result: <b><?= $value->result ?? '' ?> (Out of <?= $value->result_out_of ?? '' ?>) </b> </li>
 
                                         </ul>
-                                    </div>
-                                <?php } ?>
+                                    <?php } ?>
+                                </div>
 
                             </div>
                             <div class="right_item" style=" margin-bottom: 20px;">
@@ -545,7 +545,7 @@
                                             </li>
                                             <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Duration: <b><?= $value->duration ?? '' ?></b>
                                             </li>
-                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Training Period: <b><?= $value->start_date ?? '' ?> - <?= $value->end_date ?? '' ?> </b> </li>
+                                            <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;">Training Period: <b><?= $value->start_date ?? '' ?> to <?= $value->end_date ?? '' ?> </b> </li>
                                             <li style="font-size: 16px; font-weight: 400; margin-top: 5px;list-style-type: disc;"> Skills: <b> <?= $value->skills ?? '' ?></b> </li>
 
                                         </ul>
@@ -693,7 +693,7 @@
             </div>
             <div class="text-center mt-4 mb-2">
                 <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
-                <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button>
+                <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('MPdf') ?>">Download</a> </button>
             </div>
 
 

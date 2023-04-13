@@ -1,3 +1,16 @@
+<?php
+
+$v = "?v=1";
+
+
+
+if ($this->input->post('full_name')) {
+
+    $v .= "&full_name=" . $this->input->post('full_name');
+    echo $v;
+    die;
+}
+?>
  <script>
      $(document).ready(function() {
 
@@ -46,7 +59,7 @@
              'bProcessing': true,
              'bServerSide': true,
 
-             'sAjaxSource': '<?= site_url('admin/jobboard/get_applyjob/' . $job_board_id) ?>',
+             'sAjaxSource': '<?= site_url('admin/jobboard/get_applyjob/' . $job_board_id. $v) ?>',
 
              'fnServerData': function(sSource, aoData, fnCallback) {
 
@@ -115,7 +128,39 @@
  </script>
 
  <section class="content">
-     <a class='top-add-butto' href='<?php echo base_url('admin/jobboard/add'); ?>' title='Add'><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+
+     <div class="box-body">
+
+         <div id="form" class="panel panel-warning">
+
+             <div class="panel-body">
+                 <?= form_open('admin/jobboard/get_applyjob/' . $job_board_id); ?>
+                 <div class="col-md-6">
+                     <div class="form-group">
+
+                         <?= lang("full_name", "full_name"); ?>
+
+                         <?= form_input('full_name', (isset($_POST['full_name']) ? $_POST['full_name'] : ""), 'class="form-control tip" id="full_name"'); ?>
+
+
+
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <label for="gender" class="form-label">Gender</label>
+                     <input type="text" class="form-control" id="gender" placeholder="enter name">
+                 </div>
+                 <div class="col-sm-12">
+
+                     <button type="submit" class="btn btn-primary"><?= lang("submit"); ?></button>
+
+                 </div>
+
+                 <?= form_close(); ?>
+             </div>
+         </div>
+     </div>
+     <a class='top-add-butto mt-5' href='<?php echo base_url('admin/jobboard/add'); ?>' title='Add'><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
      <a href="javascript:history.go(-1)" class="top-back-butto" title="Back"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> </a>
      <div class="row">
 
