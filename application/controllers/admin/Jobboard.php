@@ -224,9 +224,14 @@ class Jobboard extends MY_Controller
 		if (!$id) {
 			redirect('admin/jobboard/');
 		}
+		$allskills = $this->db->from('key_skills')->get()->result();
+		// echo "<pre>";
+		// print_r($allskills);
+		// die;
 		$this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 		$this->data['page_title'] = 'List of applicants';
 		$this->data['job_board_id'] = $id;
+		$this->data['allkeyskills'] = $allskills;
 		$bc = array(array('link' => '#', 'page' => 'List'));
 		$meta = array('page_title' => 'List of applicants', 'bc' => $bc);
 		$this->page_construct('jobboard/applyjob', $this->data, $meta);
@@ -264,12 +269,26 @@ class Jobboard extends MY_Controller
 	}
 	function get_applyjob($jobId = NULL)
 	{
-
+		
 		$full_name = $this->input->get('full_name') ? $this->input->get('full_name') : NULL;
+		$email = $this->input->get('email') ? $this->input->get('email') : NULL;
+		$cell_phone_1 = $this->input->get('cell_phone_1') ? $this->input->get('cell_phone_1') : NULL;
+		$gender = $this->input->get('gender') ? $this->input->get('gender') : NULL;
+		$blood_group = $this->input->get('blood_group') ? $this->input->get('blood_group') : NULL;
+		$marital_status = $this->input->get('marital_status') ? $this->input->get('marital_status') : NULL;
+		$education_lavel = $this->input->get('education') ? $this->input->get('education') : NULL;
+		$key_skill = $this->input->get('key_skill1') ? $this->input->get('key_skill1') : NULL;
+
+		// print_r($key_skill);
+		// die;
+		
+		
 		$this->load->library('datatables');
 		$this->datatables->select($this->db->dbprefix('apply_job') . ".id as id ," .
 			$this->db->dbprefix('apply_job') . ".user_id as user_id," .
 			$this->db->dbprefix('personal_info') . ".full_name," .
+			$this->db->dbprefix('personal_info') . ".gender," .
+			$this->db->dbprefix('personal_info') . ".blood_group," .
 			$this->db->dbprefix('apply_job') . ".email," .
 			$this->db->dbprefix('personal_info') . ".cell_phone_1," .
 			$this->db->dbprefix('job_board') . ".positions," .
@@ -279,13 +298,13 @@ class Jobboard extends MY_Controller
 		$this->datatables->from('apply_job');
 		//$this->datatables->join('users', 'users.id=apply_job.client_id');
 		$this->datatables->join('personal_info', 'personal_info.user_id=apply_job.user_id', 'left');
+		$this->datatables->join('acadamic_info', 'acadamic_info.user_id=apply_job.user_id', 'left');
+		$this->datatables->join('key_skills', 'key_skills.user_id=apply_job.user_id', 'left');
 		$this->datatables->join('users', 'users.id=apply_job.user_id', 'left');
 		$this->datatables->join('resume_uploads', 'resume_uploads.user_id=apply_job.user_id', 'left');
 		$this->datatables->join('job_board', 'job_board.id=apply_job.job_board_id', 'left');
 		$this->datatables->group_by('apply_job.user_id');
-		if ($full_name) {
-            $this->datatables->where('personal_info.full_name', $full_name);
-        }
+		
 		$this->fild = '';
 		if ($this->UserType == 'admin') {
 			$popUp = '"' . site_url('admin/jobboard/apply_details/$1') . '"';
@@ -295,9 +314,6 @@ class Jobboard extends MY_Controller
 			/* $this->fild .= "<a class='tip btn btn-primary btn-xs' onclick='applicant_data(" . $applicant_info . ")' href='javascript:;' title='View UserInfo'><i class='fa fa-list'></i></a> "; */
 
 			$this->fild .= "<a class='tip btn btn-primary btn-xs' onclick='popUp(" . $popUp . ")' href='javascript:;' title='View Details'><i class='fa fa-list'></i></a> ";
-
-
-
 			$this->fild .= "<a href='" . site_url('admin/jobboard/delete_applicant/$1') . "' onClick=\"return confirm('You are going to delete this request, please click ok')\" title='Delete' class='tip btn btn-danger btn-xs'><i class='fa fa-trash-o'></i></a>";
 		}
 		$this->datatables->add_column("Actions", "<div class='text-center'><div class='btn-group'>
@@ -306,8 +322,35 @@ class Jobboard extends MY_Controller
 		$this->datatables->where('job_board_id', $jobId);
 		$this->datatables->unset_column('user_id');
 		//$this->datatables->unset_column('id');
+		if ($full_name) {
+            $this->datatables->where('personal_info.full_name', $full_name);
+        }
+		if ($email) {
+            $this->datatables->where('personal_info.email', $email);
+        }
+		if ($cell_phone_1) {
+            $this->datatables->where('personal_info.cell_phone_1', $cell_phone_1);
+        }
+		if ($gender) {
+            $this->datatables->where('personal_info.gender', $gender);
+        }
+		if ($blood_group) {
+            $this->datatables->where('personal_info.blood_group', urlencode($this->input->get('blood_group')));
+        }
+		if ($marital_status) {
+            $this->datatables->where('personal_info.marital_status', $marital_status);
+        }
+		if ($education_lavel) {
+            $this->datatables->where('acadamic_info.education_lavel', $education_lavel);
+        }
+		if ($key_skill) {
+			$keySkillArr = explode(",",$key_skill);
+
+            $this->datatables->where_in('key_skills.key_skill1',$keySkillArr );
+        }
 		echo $this->datatables->generate();
-		$this->db->last_query();
+
+		// echo $this->db->last_query();
 	}
 	function apply_details($id)
 	{

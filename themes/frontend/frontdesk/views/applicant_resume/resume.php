@@ -691,16 +691,16 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-4 mb-2">
-                <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
-                <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('MPdf') ?>">Download</a> </button>
-            </div>
-
-
             <!-- <div class="text-center mt-4 mb-2">
                 <button type="button" id="downloadPdf" class="download_btn btn btn-info">Download</button>
-                <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button>
+                <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('MPdf') ?>">Download</a> </button>
             </div> -->
+
+
+            <div class="text-center mt-4 mb-2">
+                <button type="button" id="downloadPdf2" class="download_btn btn btn-info">Download</button>
+                <button type="button" class="download_btn btn btn-info"><a target="_blank" href="<?= site_url('personal_information/pdf/') . $user_id ?>">Download</a> </button>
+            </div>
         </section>
     </main>
 
@@ -714,23 +714,26 @@
 
     <script src="<?= $frontend_assets; ?>js/main.js"></script>
     <script>
-        let downloadPdf = document.querySelector('#downloadPdf');
+        let downloadPdf = document.querySelector('#downloadPdf2');
         let pdfContentArea = document.querySelector('#pdfContentArea');
-        var option = {
-            margin: [2, 1],
-            filename: '<?= $personal_info->full_name . '.pdf' ?>',
-            // image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: {
-                scale: 1,
-                scrollY: 0
-            }
-            // jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
+
+        window.jsPDF = window.jspdf.jsPDF;
+        var docPDF = new jsPDF("a4");
         if (downloadPdf) {
             downloadPdf.addEventListener('click', () => {
-                html2pdf().set(option)
-                    .from(pdfContentArea)
-                    .save();
+                var elementHTML = document.querySelector("#pdfContentArea");
+                docPDF.html(elementHTML, {
+                    callback: function(docPDF) {
+                        docPDF.save('Resume.pdf');
+                    },
+                    margin: 5,
+                    autoPaging: "text",
+                    // fontFaces:['Poppins, sans-serif'],
+                    x: 0,
+                    y: 0,
+                    width: 200,
+                    windowWidth: 650
+                });
 
             })
         }
@@ -742,6 +745,8 @@
     <script src="https://kit.fontawesome.com/46f35fbc02.js" crossorigin="anonymous"></script>
 
     <script src="<?= $frontend_assets; ?>js/main.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 
 </html>

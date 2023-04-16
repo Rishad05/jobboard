@@ -2,8 +2,6 @@
 
 $v = "?v=1";
 
-
-
 if ($this->input->post('payment_ref')) {
 
     $v .= "&payment_ref=" . $this->input->post('payment_ref');
